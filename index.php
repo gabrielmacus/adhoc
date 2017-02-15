@@ -2,7 +2,8 @@
 require("/includes/autoload.php");
 
 
-$employee = new Employee("Macus","Gabriel");
 
-$employeeDao =new EmployeeDAO($db);
-echo $employeeDao->upsert($employee);
+$equipo = new \DAO\EquipoDAO($db,"equipos");
+
+echo json_encode($equipo->read());
+$db->commit();

@@ -20,7 +20,9 @@ include("includes/framework/db/conector.php");
 
 include("includes/framework/classes/Data.php");
 
-include("includes/datasite/classes/schema/DAO/EmployeeDa");
+include("includes/datasite/schema/DAO/CoreDAO.php");
+include("includes/datasite/schema/DAO/JugadorDAO.php");
+include("includes/datasite/schema/DAO/EquipoDAO.php");
 
 include("includes/framework/Mustache/Autoloader.php");
 
