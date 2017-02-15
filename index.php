@@ -1,18 +1,8 @@
 <?php
-
 require("/includes/autoload.php");
 
-$schema =array(
 
-   array(
-       "join"=>"telefonos_empleados",
-       "foreign"=>"telefonos",
-       "type"=>3
-   )
+$employee = new Employee("Macus","Gabriel");
 
-);
-$data = new Data("empleados",$schema,$db);
-
-var_dump($data->select());
-
-
+$employeeDao =new EmployeeDAO($db);
+echo $employeeDao->upsert($employee);

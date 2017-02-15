@@ -14,13 +14,14 @@ include ("includes/framework/helpers/error-handler.php");
 
 include("includes/framework/db/conector.php");
 
+
 /** Clases **/
 
 
 include("includes/framework/classes/Data.php");
-/*
-include("includes/datasite/classes/Cliente.php");
-*/
+
+include("includes/datasite/classes/schema/DAO/EmployeeDa");
+
 include("includes/framework/Mustache/Autoloader.php");
 
 Mustache_Autoloader::register();
