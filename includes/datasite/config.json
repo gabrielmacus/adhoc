@@ -1,0 +1,18 @@
+{
+  "db":{
+    "name":"adhoc",
+    "host":"localhost",
+    "user":"root",
+    "password":""
+  },
+  "ftp":
+  {
+    "pass":"sercan02",
+    "user":"sub697_26",
+    "server":"184.154.92.174",
+    "dns":"http://localhost/"
+  }
+  ,
+  "name":"??",
+  "version":0.1
+}
