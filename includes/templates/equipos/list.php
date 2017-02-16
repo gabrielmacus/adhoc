@@ -19,7 +19,7 @@
             if(isset($_GET["modal"]))
             {
                 ?>
-                <a onclick='seleccionarEquipo(this,"<?php echo json_encode($item);?>")' class="seleccionar-equipo">Select</a>
+                <a onclick='seleccionarEquipo(this,<?php echo json_encode($item);?>)' class="seleccionar-equipo">Select</a>
 
                 <?php
             }
