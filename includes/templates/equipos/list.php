@@ -38,8 +38,6 @@
                 }?>
 
 
-            <?php
-            var_dump($item)?>
 
         </li>
 
