@@ -36,7 +36,7 @@
 <link rel="stylesheet" href="css/jquery.fancybox.css" type="text/css" media="screen" />
 <script type="text/javascript">
     $(document).ready(function() {
-        $(".fancybox").fancybox(
+       var fbox= $(".fancybox").fancybox(
             {
                 helpers : {
                     overlay : {

@@ -5,7 +5,7 @@
             var id =$(target).closest(".equipo").data("id");
 
             parent.postMessage(data,"<?php echo $config["address"]?>");
-
+            javascript:parent.$.fancybox.close();
         }
 
     </script>

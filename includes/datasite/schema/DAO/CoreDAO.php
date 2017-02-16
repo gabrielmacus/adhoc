@@ -40,6 +40,8 @@ class CoreDAO
             $sql = rtrim($sql,"AND");
         }
 
+ ;
+
         if($res=  $this->db->query($sql))
         {
 
