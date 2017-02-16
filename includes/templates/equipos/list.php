@@ -1,10 +1,30 @@
 <ul>
+
+    <script>
+        function seleccionarEquipo(target,data) {
+            var id =$(target).closest(".equipo").data("id");
+
+            parent.postMessage(data,"<?php echo $config["address"]?>");
+
+        }
+
+    </script>
     <?php
     foreach ($dataToSkin as $item) {
 
         ?>
 
-        <li>
+        <li class="equipo" data-id="<?php echo $item["equipo_id"];?>">
+            <?php
+            if(isset($_GET["modal"]))
+            {
+                ?>
+                <a onclick='seleccionarEquipo(this,"<?php echo json_encode($item);?>")' class="seleccionar-equipo">Select</a>
+
+                <?php
+            }
+            ?>
+
            <h2><?php echo $item["equipo_nombre"];?></h2>
 
                 <?php
@@ -39,7 +59,9 @@
                 }?>
             </ul>
 
+            <script>
 
+            </script>
 
         </li>
 

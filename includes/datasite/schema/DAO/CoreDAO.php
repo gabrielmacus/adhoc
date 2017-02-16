@@ -23,6 +23,36 @@ class CoreDAO
         $this->table=$table;
     }
 
+    function read($object=array())
+    {
+
+        
+        $sql="SELECT * FROM {$this->table}";
+
+        if(count($object)>0)
+        {
+            $sql.=" WHERE ";
+
+            foreach ($object as $k=>$v)
+            {
+                $sql.=" {$k}={$v} AND";
+            }
+            $sql = rtrim($sql,"AND");
+        }
+
+        if($res=  $this->db->query($sql))
+        {
+
+            $result= $res->fetch_all(1);
+        }
+        else
+        {
+            $result=false;
+        }
+
+
+        return $result;
+    }
     
     function upsert($object)
     {

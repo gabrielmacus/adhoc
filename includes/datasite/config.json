@@ -11,8 +11,8 @@
     "user":"sub697_26",
     "server":"184.154.92.174",
     "dns":"http://localhost/"
-  }
-  ,
+  },
+  "address":"http://localhost",
   "name":"??",
   "version":0.1
 }

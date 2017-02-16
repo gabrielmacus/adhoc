@@ -32,3 +32,23 @@
 <script src="js/lity.min.js"></script>
 <script src="js/helpers.js"></script>
 
+<script type="text/javascript" src="js/jquery.fancybox.pack.js"></script>
+<link rel="stylesheet" href="css/jquery.fancybox.css" type="text/css" media="screen" />
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".fancybox").fancybox(
+            {
+                helpers : {
+                    overlay : {
+                        css : {
+                            'background' : 'rgba(58, 42, 45, 0.95)'
+                        }
+                    }
+                },
+                openEffect:"fade"
+            }
+        );
+
+
+    });
+</script>
