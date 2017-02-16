@@ -1,13 +1,10 @@
 <?php
 require("/includes/autoload.php");
 
+$site="home";
+$action ="index";
 
 
-$equipo = new \DAO\EquipoDAO($db,"equipos");
 
-echo json_encode($equipo->read(
-    array(
-        "equipo_id"=>1
-    )
-));
-$db->commit();
+
+require ("/includes/templates/estructura.php");

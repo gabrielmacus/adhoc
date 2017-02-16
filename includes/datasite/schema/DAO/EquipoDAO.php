@@ -104,7 +104,7 @@ class EquipoDAO extends CoreDAO
             $result=false;
         }
 
-        echo $sql;
+        
         return $result;
 
     }
