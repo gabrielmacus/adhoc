@@ -32,8 +32,26 @@ class EquipoDAO extends CoreDAO
 
         $result=array();
 
-        if($res=  $this->db->query("SELECT * FROM equipos_view"))
+        $sql="SELECT * FROM equipos_view";
+
+        if(count($object)>0)
         {
+            $sql.=" WHERE ";
+
+            foreach ($object as $k=>$v)
+            {
+                $sql.=" {$k}={$v} AND";
+            }
+            $sql = rtrim($sql,"AND");
+        }
+
+        if($res=  $this->db->query($sql))
+        {
+
+
+
+
+
            $res= $res->fetch_all(1);
 
 
@@ -86,6 +104,7 @@ class EquipoDAO extends CoreDAO
             $result=false;
         }
 
+        echo $sql;
         return $result;
 
     }
