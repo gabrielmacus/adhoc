@@ -59,7 +59,7 @@
                             HTML+=" <span class='jugador-posicion'>"+posiciones[valor["jugador_posicion"]]+"</span>";
                             HTML+=" <span class='jugador-nombre'>"+valor["jugador_nombre"]+"</span>";
                             HTML+=" <span class='jugador-apellido'>"+valor["jugador_apellido"]+"</span>";
-                            HTML+=" <span class='jugador-delete' onclick='deleteFromPlantel("+valor+")'>X</span>";
+                            HTML+=" <span class='jugador-delete' onclick='deleteFromPlantel("+JSON.stringify(valor)+")'>X</span>";
 
 
                             HTML+="</li>";
@@ -78,6 +78,8 @@
         });
 
         function deleteFromPlantel(jugador) {
+
+            console.log(jugador);
 
             jugador["jugador_equipo"]="";
             $.ajax(
