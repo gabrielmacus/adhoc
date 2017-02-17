@@ -79,9 +79,10 @@
 
         function deleteFromPlantel(jugador) {
 
-            console.log(jugador);
 
-            jugador["jugador_equipo"]="";
+
+            jugador["jugador_equipo"]=null;
+            console.log(jugador);
             $.ajax(
                 {
 

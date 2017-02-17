@@ -69,7 +69,18 @@ class CoreDAO
         foreach ($object as $k=>$v)
         {
             $query.="'{$v}',";
-            $updateQuery.="{$k}='{$v}',";
+
+            if($v=='')
+            {
+                $v="NULL";
+
+            }
+            else
+            {
+                $v="'{$v}'";
+            }
+
+            $updateQuery.="{$k}={$v},";
         }
 
 
@@ -86,7 +97,7 @@ class CoreDAO
             $res =$this->db->insert_id;
         }
 
-        return $res;
+        return $sql;
 
 
 
