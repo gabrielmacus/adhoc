@@ -44,7 +44,9 @@
             <ul>
                 <?php
 
+                $item["jugadores"]=array_sort($item["jugadores"],"jugador_posicion");
                 var_dump($item["jugadores"]);
+
                 foreach ($item["jugadores"] as $jugador)
                 {
                     ?>

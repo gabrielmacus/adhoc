@@ -39,8 +39,7 @@ class CoreDAO
             }
             $sql = rtrim($sql,"AND");
         }
-
- ;
+        
 
         if($res=  $this->db->query($sql))
         {
@@ -59,17 +58,21 @@ class CoreDAO
     function upsert($object)
     {
 
-        $sql ="REPLACE INTO {$this->table} SET ";
+        $keys= implode(",",array_keys($object));
 
+        $sql ="INSERT INTO {$this->table}  ({$keys}) values ";
+
+        $query="";
 
         foreach ($object as $k=>$v)
         {
-            $sql.="{$k}='{$v}',";
+            $query.="'{$v}',";
         }
 
 
-        $sql= rtrim($sql,",");
+        $query= rtrim($query,",");
 
+        $sql.="({$query}) ON DUPLICATE KEY UPDATE ({$keys}) values ({$query})";
 
         $res=$this->db->query($sql);
 
@@ -78,9 +81,9 @@ class CoreDAO
             $res =$this->db->insert_id;
         }
 
-        echo $this->db->error;
+        return $sql;
 
-        return $res;
+
 
 
     }
@@ -91,6 +94,7 @@ class CoreDAO
 
         foreach ($object as $k=>$v)
         {
+
             $sql.=" {$k}='{$v}' AND";
         }
         $sql= rtrim($sql,"AND");

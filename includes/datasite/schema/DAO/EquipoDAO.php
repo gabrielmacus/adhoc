@@ -32,7 +32,7 @@ class EquipoDAO extends CoreDAO
 
         $result=array();
 
-        $sql="SELECT * FROM equipos_view";
+        $sql="SELECT * FROM equipos_view ";
 
         if(count($object)>0)
         {
@@ -55,6 +55,7 @@ class EquipoDAO extends CoreDAO
            $res= $res->fetch_all(1);
 
 
+
             foreach ($res as $item)
             {
 
@@ -62,7 +63,6 @@ class EquipoDAO extends CoreDAO
                 $result[$item["equipo_id"]]["equipo_id"]=$item["equipo_id"];
                 $result[$item["equipo_id"]]["equipo_nombre"]=$item["equipo_nombre"];
                 $result[$item["equipo_id"]]["equipo_bandera"]=$item["equipo_bandera"];
-
 
                 foreach ($item as $clave =>$valor)
                 {
@@ -98,13 +98,14 @@ class EquipoDAO extends CoreDAO
 
 
             }
+
         }
         else
         {
             $result=false;
         }
 
-        
+
         return $result;
 
     }

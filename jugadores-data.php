@@ -1,21 +1,21 @@
 <?php
 require("/includes/autoload.php");
-$equipos = new \DAO\EquipoDAO($db,"equipos");
+$jugadores = new \DAO\JugadorDAO($db,"jugadores");
 
 $id = $_GET["id"];
 if(is_numeric($id))
 {
-    $equipo=  json_encode($equipos->read(
-        array(
-            "equipo_id"=>$id
-        )
+    $jugador=  json_encode($jugadores->read(
+    array(
+        "jugador_id"=>$id
+    )
     )[0]);
 }
 
 if(!isset($_GET["act"]))
 {
     $action="add";
-    $site="equipos";
+    $site="jugadores";
 
 
     require ("/includes/templates/estructura.php");
@@ -27,9 +27,10 @@ else
     {
         case 'add':
 
-            echo $equipos->upsert($_POST);
-            $db->commit();
+           echo  json_encode($jugadores->upsert($_POST));
+           $db->commit();
 
             break;
+   
     }
 }

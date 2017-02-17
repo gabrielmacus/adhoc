@@ -1,8 +1,11 @@
 
 <form>
 
-
+    <?php if($jugador)
+    {
+    ?>
     <input hidden name="jugador_id">
+    <?php }?>
     <div>
         <label>Nombre</label>
         <input name="jugador_nombre">
@@ -97,7 +100,7 @@
             var data = $(this).serialize();
             $.ajax(
                 {
-                    "url":"jugadores-add.php?act=add",
+                    "url":"jugadores-data.php?act=add",
                     "method":"post",
                     "data":data,
                     "dataType":"json",
@@ -121,7 +124,7 @@
                 var equipo=e.data;
 
                 $("[name='jugador_equipo']").val(equipo["equipo_id"]);
-                $("[name='equipo_nombre']").html(equipo["equipo_nombre"]);
+                $("[name='equipo_nombre']").val(equipo["equipo_nombre"]);
 
 
             }

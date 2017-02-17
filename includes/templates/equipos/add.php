@@ -1,24 +1,39 @@
 
 <form>
 
-
-    <input hidden name="equipo_id">
     <div>
         <label>Nombre</label>
         <input name="equipo_nombre">
     </div>
 
-    <div class="jugadores">
-        <a class="fancybox" href="jugadores.php?modal=true" data-fancybox-type="iframe" >Armar plantel</a>
+
+    <?php if($equipo) {
+        var_dump($equipo);
+        ?>
+        <input hidden name="equipo_id">
+
+        <div class="jugadores">
+            <a class="fancybox" href="jugadores.php?modal=true" data-fancybox-type="iframe" >Armar plantel</a>
+
+            <ul>
+
+            </ul>
+
+        </div>
+
+        <?php
+    }
+    ?>
 
 
-    </div>
 
     <button type="submit">Aceptar</button>
 
     <script>
 
+        var posiciones  = <?php echo json_encode($lang["posiciones"])?>;
         $(document).ready(function () {
+
             <?php if($equipo)
             {
             ?>
@@ -33,6 +48,25 @@
                     default:
                         $("[name='"+k+"']").val(v);
                         break;
+                    case 'jugadores':
+
+
+
+                        $.each(v,function (clave,valor) {
+
+                            var HTML="<li >";
+                            HTML+=" <span class='jugador-numero'>"+valor["jugador_numero"]+"</span>";
+                            HTML+=" <span class='jugador-posicion'>"+posiciones[valor["jugador_posicion"]]+"</span>";
+                            HTML+=" <span class='jugador-nombre'>"+valor["jugador_nombre"]+"</span>";
+                            HTML+=" <span class='jugador-apellido'>"+valor["jugador_apellido"]+"</span>";
+
+
+                            HTML+="</li>";
+                            $(".jugadores ul").append(HTML);
+                        });
+
+
+                        break;
                 }
 
             });
@@ -46,7 +80,7 @@
             var data = $(this).serialize();
             $.ajax(
                 {
-                    "url":"equipos-add.php?act=add",
+                    "url":"equipos-data.php?act=add",
                     "method":"post",
                     "data":data,
                     "dataType":"json",
@@ -55,7 +89,7 @@
                     },
                     "error":function (err) {
 
-                        throw err;
+                    console.log(err);
                     }
                 }
             );
@@ -67,10 +101,46 @@
 
             if(e.origin=="<?php echo $config["address"]?>")
             {
-                var equipo=e.data;
+                var jugador=e.data;
 
-                $("[name='jugador_equipo']").val(equipo["equipo_id"]);
-                $("[name='equipo_nombre']").html(equipo["equipo_nombre"]);
+                if($.isNumeric(jugador))
+                {
+
+                }
+                else
+                {
+
+                    delete jugador.equipo_id;
+                    delete jugador.equipo_nombre;
+                    delete jugador.equipo_bandera;
+
+                    jugador.jugador_equipo=<?php  echo $equipo?>["equipo_id"];
+
+                    console.log(jugador);
+
+                    $.ajax(
+                        {
+                            "method":"post",
+                            "url":"jugadores-add.php?act=add",
+                            "dataType":"json",
+                            "data":jugador,
+                            "success":function (res) {
+
+                              if(res)
+                              {
+                                  window.location.reload();
+                              }
+                            }
+                            ,"error":function (err) {
+                            console.log(err);
+                                 }
+                        }
+                    );
+
+
+
+
+                }
 
 
             }
