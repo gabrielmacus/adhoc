@@ -68,8 +68,6 @@ class CoreDAO
 
         foreach ($object as $k=>$v)
         {
-            $query.="'{$v}',";
-
             if($v=='')
             {
                 $v="NULL";
@@ -79,7 +77,7 @@ class CoreDAO
             {
                 $v="'{$v}'";
             }
-
+            $query.="{$v},";
             $updateQuery.="{$k}={$v},";
         }
 
