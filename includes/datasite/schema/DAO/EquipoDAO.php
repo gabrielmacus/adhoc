@@ -69,28 +69,38 @@ class EquipoDAO extends CoreDAO
                     switch ($clave)
                     {
                         case 'jugador_id':
-                            $jugador["jugador_nombre"]=$item["jugador_nombre"];
-                            $jugador["jugador_apellido"]=$item["jugador_apellido"];
-                            $jugador["jugador_altura"]=$item["jugador_altura"];
-                            $jugador["jugador_peso"]=$item["jugador_peso"];
-                            $jugador["jugador_pierna"]=$item["jugador_pierna"];
-                            $jugador["jugador_notas"]=$item["jugador_notas"];
-                            $jugador["jugador_equipo"]=$item["jugador_equipo"];
-                            $jugador["jugador_posicion"]=$item["jugador_posicion"];
-                            $jugador["jugador_numero"]=$item["jugador_numero"];
-                            $jugador["jugador_id"]=$item["jugador_id"];
 
-                            $result[$item["equipo_id"]]["jugadores"][$item["jugador_id"]]=$jugador;
+
+                            if($item["jugador_id"])
+                            {
+                                $jugador["jugador_nombre"]=$item["jugador_nombre"];
+                                $jugador["jugador_apellido"]=$item["jugador_apellido"];
+                                $jugador["jugador_altura"]=$item["jugador_altura"];
+                                $jugador["jugador_peso"]=$item["jugador_peso"];
+                                $jugador["jugador_pierna"]=$item["jugador_pierna"];
+                                $jugador["jugador_notas"]=$item["jugador_notas"];
+                                $jugador["jugador_equipo"]=$item["jugador_equipo"];
+                                $jugador["jugador_posicion"]=$item["jugador_posicion"];
+                                $jugador["jugador_numero"]=$item["jugador_numero"];
+                                $jugador["jugador_id"]=$item["jugador_id"];
+
+                                $result[$item["equipo_id"]]["jugadores"][$item["jugador_id"]]=$jugador;
+                            }
+
                             break;
 
                         case 'archivo_id':
-                            $archivo["archivo_id"]=$item["archivo_id"];
-                            $archivo["archivo_data"]=$item["archivo_data"];
-                            $archivo["archivo_repositorio"]=$item["archivo_repositorio"];
 
-                            $result[$item["equipo_id"]]["archivos"][$item["archivo_id"]]=$archivo;
+                            if($item["archivo_id"]) {
+
+                                $archivo["archivo_id"]=$item["archivo_id"];
+                                $archivo["archivo_data"]=$item["archivo_data"];
+                                $archivo["archivo_repositorio"]=$item["archivo_repositorio"];
+
+                                $result[$item["equipo_id"]]["archivos"][$item["archivo_id"]]=$archivo;
 
 
+                            }
 
                             break;
                     }

@@ -3,12 +3,12 @@
 
     <div>
         <label>Nombre</label>
-        <input name="equipo_nombre">
+        <input onkeydown="upperCaseF(this)" name="equipo_nombre">
     </div>
 
 
     <?php if($equipo) {
-        var_dump($equipo);
+
         ?>
         <input hidden name="equipo_id">
 
@@ -50,21 +50,30 @@
                         break;
                     case 'jugadores':
 
+                        console.log(v);
+
+                        if(v)
+                        {
+                            $.each(v,function (clave,valor) {
+
+                                if(valor["jugador_id"])
+                                {
+                                    var HTML="<li >";
+                                    HTML+=" <span class='jugador-numero'>"+valor["jugador_numero"]+"</span>";
+                                    HTML+=" <span class='jugador-posicion'>"+posiciones[valor["jugador_posicion"]]+"</span>";
+                                    HTML+=" <span class='jugador-nombre'>"+valor["jugador_nombre"]+"</span>";
+                                    HTML+=" <span class='jugador-apellido'>"+valor["jugador_apellido"]+"</span>";
+                                    HTML+=" <span class='jugador-delete' onclick='deleteFromPlantel("+JSON.stringify(valor)+")'>X</span>";
 
 
-                        $.each(v,function (clave,valor) {
+                                    HTML+="</li>";
+                                    $(".jugadores ul").append(HTML);
+                                }
 
-                            var HTML="<li >";
-                            HTML+=" <span class='jugador-numero'>"+valor["jugador_numero"]+"</span>";
-                            HTML+=" <span class='jugador-posicion'>"+posiciones[valor["jugador_posicion"]]+"</span>";
-                            HTML+=" <span class='jugador-nombre'>"+valor["jugador_nombre"]+"</span>";
-                            HTML+=" <span class='jugador-apellido'>"+valor["jugador_apellido"]+"</span>";
-                            HTML+=" <span class='jugador-delete' onclick='deleteFromPlantel("+JSON.stringify(valor)+")'>X</span>";
+                            });
+                        }
 
 
-                            HTML+="</li>";
-                            $(".jugadores ul").append(HTML);
-                        });
 
 
                         break;
@@ -91,7 +100,10 @@
                     "data":jugador,
                     "dataType":"json",
                     "success":function (res) {
-                        console.log(res);
+                       if(res)
+                       {
+                           window.location.reload();
+                       }
                     },
                     "error":function (err) {
 
@@ -147,13 +159,14 @@
                     $.ajax(
                         {
                             "method":"post",
-                            "url":"jugadores-add.php?act=add",
+                            "url":"jugadores-data.php?act=add",
                             "dataType":"json",
                             "data":jugador,
                             "success":function (res) {
 
                               if(res)
                               {
+
                                   window.location.reload();
                               }
                             }

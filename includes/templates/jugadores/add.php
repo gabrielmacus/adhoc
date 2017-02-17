@@ -106,6 +106,10 @@
                     "dataType":"json",
                     "success":function (res) {
                         console.log(res);
+                      if(res!=false)
+                      {
+                          window.location.reload();
+                      }
                     },
                     "error":function (err) {
 

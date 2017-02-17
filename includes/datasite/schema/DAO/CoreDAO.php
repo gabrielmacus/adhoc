@@ -95,7 +95,7 @@ class CoreDAO
             $res =$this->db->insert_id;
         }
 
-        return $sql;
+        return $res;
 
 
 

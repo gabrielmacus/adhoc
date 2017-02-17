@@ -45,20 +45,37 @@
                 <?php
 
                 $item["jugadores"]=array_sort($item["jugadores"],"jugador_posicion");
-                var_dump($item["jugadores"]);
+
 
                 foreach ($item["jugadores"] as $jugador)
                 {
                     ?>
+                    
+                    <li>
+                        <div>
+                            <span><?php echo $jugador["jugador_nombre"];?></span>
+                            <span><?php echo $jugador["jugador_apellido"];?></span>
+                            <span><?php echo $jugador["jugador_peso"];?></span>
+                        </div>
+                    </li>
 
-                    <div>
-                        <span><?php echo $jugador["jugador_nombre"];?></span>
-                        <span><?php echo $jugador["jugador_apellido"];?></span>
-                        <span><?php echo $jugador["jugador_peso"];?></span>
-                    </div>
+                      
+
 
                     <?php
-                }?>
+                }
+                
+                if(count($item["jugadores"])==0)
+                {
+                    ?>
+                    
+                    <h4><?php echo $lang["teamnoplayers"];?></h4>
+                    
+                    <?php
+                }
+                ?>
+                
+
             </ul>
 
             <script>

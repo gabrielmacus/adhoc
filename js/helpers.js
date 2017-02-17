@@ -43,3 +43,8 @@ function arrayFromUl(ul)
     return data;
 
 }
+function upperCaseF(a){
+    setTimeout(function(){
+        a.value = a.value.toUpperCase();
+    }, 1);
+}
