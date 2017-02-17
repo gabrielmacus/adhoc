@@ -64,15 +64,20 @@ class CoreDAO
 
         $query="";
 
+        $updateQuery="";
+
         foreach ($object as $k=>$v)
         {
             $query.="'{$v}',";
+            $updateQuery.="{$k}='{$v}',";
         }
 
 
+        $updateQuery = rtrim($updateQuery,",");
+
         $query= rtrim($query,",");
 
-        $sql.="({$query}) ON DUPLICATE KEY UPDATE ({$keys}) values ({$query})";
+        $sql.="({$query}) ON DUPLICATE KEY UPDATE $updateQuery";
 
         $res=$this->db->query($sql);
 
@@ -81,7 +86,7 @@ class CoreDAO
             $res =$this->db->insert_id;
         }
 
-        return $sql;
+        return $res;
 
 
 

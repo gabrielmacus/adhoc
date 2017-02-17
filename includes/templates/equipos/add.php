@@ -59,6 +59,7 @@
                             HTML+=" <span class='jugador-posicion'>"+posiciones[valor["jugador_posicion"]]+"</span>";
                             HTML+=" <span class='jugador-nombre'>"+valor["jugador_nombre"]+"</span>";
                             HTML+=" <span class='jugador-apellido'>"+valor["jugador_apellido"]+"</span>";
+                            HTML+=" <span class='jugador-delete' onclick='deleteFromPlantel("+valor+")'>X</span>";
 
 
                             HTML+="</li>";
@@ -75,6 +76,28 @@
             }?>
 
         });
+
+        function deleteFromPlantel(jugador) {
+
+            jugador["jugador_equipo"]="";
+            $.ajax(
+                {
+
+                    "url":"jugadores-data.php?act=add",
+                    "method":"post",
+                    "data":jugador,
+                    "dataType":"json",
+                    "success":function (res) {
+                        console.log(res);
+                    },
+                    "error":function (err) {
+
+                        console.log(err);
+                    }
+                }
+            );
+
+        }
         $(document).on("submit","form",function (e) {
 
             var data = $(this).serialize();
