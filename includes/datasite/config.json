@@ -5,17 +5,21 @@
     "user":"root",
     "password":""
   },
-  "imagenes":
+  "repositorios":
   {
-    "pass":"sercan02",
-    "user":"sub697_26",
-    "server":"184.154.92.174",
-    "dns":"http://electrostyleinformatica.com",
-    "dir":"/imagenes",
-    "dateformat":"/d/m/Y",
-    "repositorio":1
-  },
-  "address":"http://localhost",
+    "1":
+    {
+      "pass":"sercan02",
+      "user":"sub697_26",
+      "server":"184.154.92.174",
+      "dns":"http://electrostyleinformatica.com",
+      "dir":"/imagenes",
+      "dateformat":"/d/m/Y",
+      "repositorio":1
+    }
+  }
+  ,
+  "address":"http://localhost/ad-hoc",
   "name":"??",
   "version":0.1
 

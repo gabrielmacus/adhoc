@@ -1,9 +1,20 @@
 <?php
 require("/includes/autoload.php");
 
-$archivos = new \DAO\ArchivoDAO($db,"archivos",$config[$_GET["rep"]]);
+
+$repositorio=$config["repositorios"][$_GET["rep"]];
+if(!$repositorio)
+{
+    return false;
+}
+
+$archivos = new \DAO\ArchivoDAO($db,"archivos",$repositorio);
 
 $id = $_GET["id"];
+
+
+
+
 
 if(is_numeric($id))
 {
@@ -32,7 +43,10 @@ else
     switch ($_GET["act"])
     {
         case 'add':
-            echo json_encode($archivos->upload($_FILES,$config["imagenes"],$config["imagenes"]["repositorio"]));
+
+
+
+            echo json_encode($archivos->upload($_FILES));
 
 
             break;

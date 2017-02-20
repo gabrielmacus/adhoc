@@ -61,7 +61,7 @@
             });
 
             $.ajax({
-                url: "archivos-data.php?act=add",
+                url: "archivos-data.php?act=add&rep=<?php echo $_GET["rep"]?>",
                 type: "post",
                 dataType: "html",
                 data: data,

@@ -43,6 +43,36 @@ function bytesToSize($bytes, $precision = 2)
         return $bytes . ' B';
     }
 }
+
+function deleteFile($file,$config)
+{
+
+
+// establecer una conexión b�sica
+    $conn_id = ftp_connect($config["server"]);
+
+// iniciar sesi�n con nombre de usuario y contrase�a
+    $login_result = ftp_login($conn_id, $config["user"], $config["pass"]);
+
+    ftp_pasv($conn_id,true);
+
+
+    if($login_result)
+    {
+
+
+        return ftp_delete($conn_id,$file);
+
+
+
+    } else
+{
+   return false;
+}
+
+}
+
+
 function uploadFiles($files,$dir,$config,$rootDir="/httpdocs")
 {
 
@@ -52,6 +82,9 @@ function uploadFiles($files,$dir,$config,$rootDir="/httpdocs")
     $conn_id = ftp_connect($config["server"]);
 
 // iniciar sesi�n con nombre de usuario y contrase�a
+
+
+
     $login_result = ftp_login($conn_id, $config["user"], $config["pass"]);
 
     ftp_pasv($conn_id,true);
@@ -77,18 +110,21 @@ function uploadFiles($files,$dir,$config,$rootDir="/httpdocs")
             foreach($files as $file)
             {
 
-
                 $tmpFile =$file["tmp_name"];
 
 
                 $name =time()."_".$file["name"];
 
-                $completeName= $dir."/".$name;
+                @ftp_mkdir($conn_id,$dir."/".$name);
+
+
+                $completeName= $dir."/".$name."/o_".$name;//Se indica el prefijo o para los archivos originales
 
                 // cargar un archivo
                 if (ftp_put($conn_id,$completeName, $tmpFile, FTP_BINARY)) {
 
-                    $file["o"]["completeUrl"]=$config["dns"]. str_replace($rootDir,"",$completeName);
+
+                    $file["o"]["completeUrl"]=$config["dns"].str_replace($rootDir,"",$completeName);
 
                     $file["name"]=$name;
 
