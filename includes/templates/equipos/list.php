@@ -10,6 +10,8 @@
 
     </script>
     <?php
+
+
     foreach ($dataToSkin as $item) {
 
         ?>
@@ -27,6 +29,7 @@
 
            <h2><?php echo $item["equipo_nombre"];?></h2>
 
+
                 <?php
                 if(!empty($item["equipo_bandera"]))
                 {
@@ -38,6 +41,27 @@
 
              <?php
                 }?>
+
+            <ul>
+                <?php
+                foreach($item["archivos"] as $file)
+                {
+
+                //    $file = json_decode($file["archivo_data"],1);
+
+                    var_dump($file);
+                    ?>
+
+
+                    <?php
+
+                }?>
+
+            </ul>
+
+            <div>
+
+            </div>
 
             <h3>Equipacion</h3>
 

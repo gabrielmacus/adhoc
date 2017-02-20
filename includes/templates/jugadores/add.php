@@ -6,6 +6,11 @@
     ?>
     <input hidden name="jugador_id">
     <?php }?>
+
+    <div>
+        <label>Foto</label>
+        <input id="jugador_foto" type="file">
+    </div>
     <div>
         <label>Nombre</label>
         <input name="jugador_nombre">
@@ -97,26 +102,39 @@
        });
         $(document).on("submit","form",function (e) {
 
-            var data = $(this).serialize();
-            $.ajax(
-                {
-                    "url":"jugadores-data.php?act=add",
-                    "method":"post",
-                    "data":data,
-                    "dataType":"json",
-                    "success":function (res) {
-                        console.log(res);
-                      if(res!=false)
-                      {
-                          window.location.reload();
-                      }
-                    },
-                    "error":function (err) {
+            var files = $(this).find("#jugador_foto")[0].files;
 
-                        throw err;
-                    }
+            var data = new FormData();
+            $.each(files, function(key, value)
+            {
+                data.append(key, value);
+            });
+            var extraData = $(this).serializeArray();
+
+            $.each(extraData,function(k,v){
+
+                    data.append(v["name"],v["value"]);
                 }
             );
+
+            $.ajax({
+                url: "jugadores-data.php?act=add",
+                type: "post",
+                dataType: "html",
+                data: data,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success:function(res)
+                {
+
+                    console.log(res);
+                    res = JSON.parse(res);
+
+                    console.log(res);
+                }
+            });
+
             e.preventDefault();
         });
         

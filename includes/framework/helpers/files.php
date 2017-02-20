@@ -44,10 +44,7 @@ function uploadFiles($files,$dir,$config)
 
             $tmpFile =$file["tmp_name"];
 
-            $imagen = new Imagick($tmpFile);
 
-            $imagen->thumbnailImage(100,0);
-            
             $name =time()."_".$file["name"];
 
             $completeName= $dir."/".$name;
@@ -55,7 +52,7 @@ function uploadFiles($files,$dir,$config)
             // cargar un archivo
             if (ftp_put($conn_id,$completeName, $tmpFile, FTP_ASCII)) {
 
-                $file["completeUrl"]=$config["dns"].$completeName;
+                $file["o"]["completeUrl"]=$config["dns"].$completeName;
 
 
 

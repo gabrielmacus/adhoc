@@ -1,25 +1,26 @@
 <?php
 require("/includes/autoload.php");
-$equipos = new \DAO\EquipoDAO($db,"equipos");
+$archivos = new \DAO\ArchivoDAO($db,"archivos");
 
 $id = $_GET["id"];
+
 if(is_numeric($id))
 {
 
-    $equipo=$equipos->read(
+    $archivo=$archivos->read(
         array(
-            "equipo_id"=>$id
+            "archivo_id"=>$id
         )
     )[$id];
 
-    $equipo=  json_encode($equipo);
+    $archivo=  json_encode($archivo);
 }
 
 
 if(!isset($_GET["act"]))
 {
     $action="add";
-    $site="equipos";
+    $site="archivos";
 
 
     require ("/includes/templates/estructura.php");
@@ -30,10 +31,7 @@ else
     switch ($_GET["act"])
     {
         case 'add':
-
-            $archivoDAO=new \DAO\ArchivoDAO($db,"archivos",$config["imagenes"],2);
-
-            echo json_encode($equipos->upsert($_POST,$archivoDAO));
+            echo json_encode($archivos->upload($_FILES,$config["imagenes"],$config["imagenes"]["repositorio"]));
             $db->commit();
 
             break;

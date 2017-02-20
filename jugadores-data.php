@@ -27,8 +27,15 @@ else
     {
         case 'add':
 
-           echo  json_encode($jugadores->upsert($_POST));
+
+
+
+            $archivoDAO=new \DAO\ArchivoDAO($db,"archivos",$config["imagenes"],1);
+
+
+           echo  json_encode($jugadores->upsert($_POST,$archivoDAO));
            $db->commit();
+
 
             break;
 

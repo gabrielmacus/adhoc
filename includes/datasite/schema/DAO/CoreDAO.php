@@ -23,7 +23,7 @@ class CoreDAO
         $this->table=$table;
     }
 
-    function read($object=array())
+    function read($object=array(),$sqlExtra="")
     {
 
         
@@ -39,6 +39,7 @@ class CoreDAO
             }
             $sql = rtrim($sql,"AND");
         }
+        $sql.=" {$sqlExtra}";
         
 
         if($res=  $this->db->query($sql))
@@ -55,8 +56,10 @@ class CoreDAO
         return $result;
     }
     
-    function upsert($object)
+    function upsert($object ,ArchivoDAO $archivoData=null)
     {
+
+        $files = $_FILES;
 
         $keys= implode(",",array_keys($object));
 
@@ -88,17 +91,47 @@ class CoreDAO
 
         $sql.="({$query}) ON DUPLICATE KEY UPDATE $updateQuery";
 
+
         $res=$this->db->query($sql);
 
         if($res)
         {
             $res =$this->db->insert_id;
         }
+        else{
+            $res=false;
+        }
 
-        return $res;
+
+        if(count($files)>0)
+        {
+
+            if($archivoData)
+            {
+                $uploadedFiles=  $archivoData->upload($files);
+               $filesSql="INSERT INTO repositorio (archivo,tabla,objeto) VALUES ";
+                $values="";
+                foreach($uploadedFiles as $file)
+                {
+                    $values.="({$file},'{$this->table}',{$res}),";
+
+
+                }
+                $values = rtrim($values,",");
+
+                $filesSql.=$values;
+                if(!$this->db->query($filesSql))
+                {
+                    $res=false;
+                }
+
+            }
 
 
 
+        }
+
+            return $res;
 
     }
 

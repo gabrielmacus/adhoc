@@ -2,6 +2,11 @@
 <form>
 
     <div>
+        <label>Escudo</label>
+        <input id="equipo_escudo" type="file">
+    </div>
+
+    <div>
         <label>Nombre</label>
         <input onkeydown="upperCaseF(this)" name="equipo_nombre">
     </div>
@@ -115,6 +120,42 @@
         }
         $(document).on("submit","form",function (e) {
 
+
+            var files = $(this).find("#equipo_escudo")[0].files;
+
+            var data = new FormData();
+            $.each(files, function(key, value)
+            {
+                data.append(key, value);
+            });
+            var extraData = $(this).serializeArray();
+
+            $.each(extraData,function(k,v){
+
+                    data.append(v["name"],v["value"]);
+                }
+            );
+
+            $.ajax({
+                url: "equipos-data.php?act=add",
+                type: "post",
+                dataType: "html",
+                data: data,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success:function(res)
+                {
+
+                    console.log(res);
+                    res = JSON.parse(res);
+
+                    console.log(res);
+                }
+            });
+
+
+            /*
             var data = $(this).serialize();
             $.ajax(
                 {
@@ -130,7 +171,7 @@
                     console.log(err);
                     }
                 }
-            );
+            );*/
             e.preventDefault();
         });
 

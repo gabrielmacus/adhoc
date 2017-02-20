@@ -5,12 +5,13 @@
     "user":"root",
     "password":""
   },
-  "ftp":
+  "imagenes":
   {
     "pass":"sercan02",
     "user":"sub697_26",
     "server":"184.154.92.174",
-    "dns":"http://localhost/"
+    "dns":"https://subaquatic-bows.000webhostapp.com",
+    "repositorio":1
   },
   "address":"http://localhost",
   "name":"??",

@@ -16,9 +16,10 @@ class JugadorDAO extends CoreDAO
         parent::__construct($db, $table);
     }
 
-    function upsert($object)
+
+    function upsert($object,ArchivoDAO $archivoData=null)
     {
-        return parent::upsert($object);
+        return parent::upsert($object,$archivoData);
     }
 
     function delete($object)
@@ -26,7 +27,7 @@ class JugadorDAO extends CoreDAO
         return parent::delete($object);
     }
 
-    function read($object = array())
+    function read($object = array(),$sqlExtra="")
     {
 
         $sql="SELECT * FROM {$this->table} LEFT JOIN equipos on jugador_equipo=equipo_id";

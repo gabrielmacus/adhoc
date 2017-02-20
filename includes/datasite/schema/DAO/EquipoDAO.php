@@ -17,9 +17,9 @@ class EquipoDAO extends CoreDAO
     parent::__construct($db, $table);
 }
 
-    function upsert($object)
+    function upsert($object,ArchivoDAO $archivoData=null)
     {
-        return parent::upsert($object);
+        return parent::upsert($object,$archivoData);
     }
 
     function delete($object)
@@ -27,7 +27,7 @@ class EquipoDAO extends CoreDAO
         return parent::delete($object);
     }
 
-    function read($object =array())
+    function read($object =array(),$sqlExtra="")
     {
 
         $result=array();
