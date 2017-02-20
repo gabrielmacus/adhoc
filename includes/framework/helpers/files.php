@@ -44,6 +44,41 @@ function bytesToSize($bytes, $precision = 2)
     }
 }
 
+function deleteDir($dir,$config)
+{
+
+// establecer una conexión b�sica
+    $conn_id = ftp_connect($config["server"]);
+
+// iniciar sesi�n con nombre de usuario y contrase�a
+    $login_result = ftp_login($conn_id, $config["user"], $config["pass"]);
+
+    ftp_pasv($conn_id,true);
+
+
+    if($login_result)
+    {
+        ftp_chdir($conn_id, $dir);
+        $files = ftp_nlist($conn_id, ".");
+        $success=true;
+        foreach ($files as $file)
+        {
+            
+           if(!ftp_delete($conn_id, $file))
+           {
+               $success=false;
+           }
+         
+        }
+        
+        return $success;
+
+
+    } else
+    {
+        return false;
+    }
+}
 function deleteFile($file,$config)
 {
 
@@ -73,7 +108,7 @@ function deleteFile($file,$config)
 }
 
 
-function uploadFiles($files,$dir,$config,$rootDir="/httpdocs")
+function uploadFiles($files,$dir,$config)
 {
 
     $ret["success"]=false;
@@ -96,7 +131,7 @@ function uploadFiles($files,$dir,$config,$rootDir="/httpdocs")
 
         if(count($files)>0)
         {
-            $dir=$rootDir.$dir;
+            $dir=$config["root_dir"].$dir;
             $dirs=explode("/",$dir);
             $dirToMake="";
             for($i=0;$i<count($dirs);$i++)
@@ -118,14 +153,17 @@ function uploadFiles($files,$dir,$config,$rootDir="/httpdocs")
                 @ftp_mkdir($conn_id,$dir."/".$name);
 
 
-                $completeName= $dir."/".$name."/o_".$name;//Se indica el prefijo o para los archivos originales
+                $folder=$dir."/".$name;
+
+                $completeName= $folder."/o_".$name;//Se indica el prefijo o para los archivos originales
 
                 // cargar un archivo
                 if (ftp_put($conn_id,$completeName, $tmpFile, FTP_BINARY)) {
 
 
-                    $file["o"]["completeUrl"]=$config["dns"].str_replace($rootDir,"",$completeName);
+                    $file["o"]["completeUrl"]=$config["dns"].str_replace($config["root_dir"],"",$completeName);
 
+                    $file["folder"]=$folder;
                     $file["name"]=$name;
 
 

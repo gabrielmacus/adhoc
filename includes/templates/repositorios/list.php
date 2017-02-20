@@ -12,12 +12,12 @@ foreach ($dataToSkin as $k=>$v)
 ?>
 <h2><?php echo $lang["repositorios"][$k];?></h2>
     <script>
-        function deleteArchivo(id) {
+        function deleteArchivo(data) {
             $.ajax(
                 {
                     method:"post",
                     url:"archivos-data.php?act=delete",
-                    data:{archivo_id:id},
+                    data:data,
                     dataType:"json",
                     success:function (res) {
 
@@ -41,7 +41,7 @@ foreach ($dataToSkin as $k=>$v)
 
         <li style="position: relative" data-id="<?php echo $item["archivo_id"]; ?>">
 
-            <a onclick="deleteArchivo(<?php echo $item["archivo_id"];  ?>)" class="delete" style="position: absolute;top: 10px;right: 10px;">X</a>
+            <a onclick='deleteArchivo({archivo_id:<?php echo $item["archivo_id"];  ?>,dir:"<?php echo $file["folder"];  ?>"})' class="delete" style="position: absolute;top: 10px;right: 10px;">X</a>
 
         <h3><?php echo $file["name"] ?></h3>
             <figure>

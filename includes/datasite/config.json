@@ -15,6 +15,7 @@
       "dns":"http://electrostyleinformatica.com",
       "dir":"/imagenes",
       "dateformat":"/d/m/Y",
+      "root_dir":"/httpdocs",
       "repositorio":1
     }
   }

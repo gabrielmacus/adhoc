@@ -61,7 +61,15 @@ class ArchivoDAO extends CoreDAO
 
     function delete($object)
     {
-        return parent::delete($object);
+
+        if(deleteDir($object["dir"],$this->config))
+        {
+            unset($object["dir"]);
+            return parent::delete($object);
+        }
+        return false;
+        
+      
         /*
         deleteFile($this->config);
 
