@@ -160,7 +160,11 @@ class CoreDAO
 
         $res=$this->db->query($sql);
 
-        return $res;
+        if($res)
+        {
+            $res=true;
+        }
+        return $sql;
 
 
     }

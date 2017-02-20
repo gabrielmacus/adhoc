@@ -33,7 +33,7 @@ else
     {
         case 'add':
 
-            $archivoDAO=new \DAO\ArchivoDAO($db,"archivos",$config["imagenes"],2);
+            $archivoDAO=new \DAO\ArchivoDAO($db,"archivos",$config["imagenes"]);
 
             echo json_encode($equipos->upsert($_POST,$archivoDAO));
             $db->commit();

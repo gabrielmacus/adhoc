@@ -155,23 +155,6 @@
             });
 
 
-            /*
-            var data = $(this).serialize();
-            $.ajax(
-                {
-                    "url":"equipos-data.php?act=add",
-                    "method":"post",
-                    "data":data,
-                    "dataType":"json",
-                    "success":function (res) {
-                        console.log(res);
-                    },
-                    "error":function (err) {
-
-                    console.log(err);
-                    }
-                }
-            );*/
             e.preventDefault();
         });
 

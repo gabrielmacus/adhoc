@@ -1,6 +1,7 @@
 <?php
 require("/includes/autoload.php");
-$archivos = new \DAO\ArchivoDAO($db,"archivos");
+
+$archivos = new \DAO\ArchivoDAO($db,"archivos",$config[$_GET["rep"]]);
 
 $id = $_GET["id"];
 
@@ -32,8 +33,18 @@ else
     {
         case 'add':
             echo json_encode($archivos->upload($_FILES,$config["imagenes"],$config["imagenes"]["repositorio"]));
-            $db->commit();
+
+
+            break;
+        case 'delete':
+
+            echo  json_encode($archivos->delete(
+             $_POST
+            ));
+
 
             break;
     }
+
+    $db->commit();
 }

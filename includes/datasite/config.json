@@ -8,12 +8,15 @@
   "imagenes":
   {
     "pass":"sercan02",
-    "user":"subaquatic-bows",
-    "server":"files.000webhost.com",
-    "dns":"https://subaquatic-bows.000webhostapp.com",
+    "user":"sub697_26",
+    "server":"184.154.92.174",
+    "dns":"http://electrostyleinformatica.com",
+    "dir":"/imagenes",
+    "dateformat":"/d/m/Y",
     "repositorio":1
   },
   "address":"http://localhost",
   "name":"??",
   "version":0.1
-}
+
+  }

@@ -18,5 +18,11 @@
     "0":"Izquierda",
     "1":"Derecha"
   },
-  "teamnoplayers":"Este equipo no tiene jugadores"
+  "teamnoplayers":"Este equipo no tiene jugadores",
+  "repositorios":
+  {
+    "1":"Imagenes",
+    "2":"Videos",
+    "3":"Archivos"
+  }
 }
