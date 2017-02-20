@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 15, 2017 at 09:54 PM
+-- Generation Time: Feb 20, 2017 at 01:25 AM
 -- Server version: 10.1.6-MariaDB
 -- PHP Version: 5.6.12
 
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `archivos` (
 --
 
 INSERT INTO `archivos` (`archivo_id`, `archivo_data`, `archivo_repositorio`) VALUES
-(1, 'data', 1);
+(1, '{"name":"Penguins.jpg","type":"image/jpeg","tmp_name":"C:\\server2\\temp\\phpC367.tmp","error":0,"size":777835,"o":{"completeUrl":"https://subaquatic-bows.000webhostapp.com/public_html/imagenes/2017/02/20/1487549990_Penguins.jpg"}}', 2);
 
 -- --------------------------------------------------------
 
@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `equipos` (
 --
 
 INSERT INTO `equipos` (`equipo_id`, `equipo_nombre`, `equipo_bandera`) VALUES
-(1, 'PARANA FC', NULL);
+(1, 'PENGUINS FC', NULL);
 
 -- --------------------------------------------------------
 
@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS `equipos_view` (
 ,`jugador_pierna` tinyint(1)
 ,`jugador_notas` text
 ,`jugador_equipo` int(11)
-,`jugador_posicion` set('PO','DFC','LAT','LIB','MD','MC','MI','MP','DC','SD','EXT')
+,`jugador_posicion` set('1','2','3','4','5','6','7','8','9','10','11')
 ,`jugador_numero` int(3)
 ,`repositorio_id` int(11)
 ,`archivo` int(11)
@@ -100,18 +100,11 @@ CREATE TABLE IF NOT EXISTS `jugadores` (
   `jugador_peso` int(5) NOT NULL,
   `jugador_pierna` tinyint(1) NOT NULL COMMENT '1=derecha 0=izquierda',
   `jugador_notas` text,
-  `jugador_equipo` int(11) NOT NULL,
-  `jugador_posicion` set('PO','DFC','LAT','LIB','MD','MC','MI','MP','DC','SD','EXT') NOT NULL COMMENT '''PO'',''DFC'',''LAT'',''LIB'',''MD'',''MC'',''MI'',''MP'',''DC'',''SD'',''EXT''',
-  `jugador_numero` int(3) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `jugadores`
---
-
-INSERT INTO `jugadores` (`jugador_id`, `jugador_nombre`, `jugador_apellido`, `jugador_altura`, `jugador_peso`, `jugador_pierna`, `jugador_notas`, `jugador_equipo`, `jugador_posicion`, `jugador_numero`) VALUES
-(1, 'Gabriel', 'Macus', 170, 61, 1, NULL, 1, 'DFC', 11),
-(2, 'Gabriel', 'Macus', 170, 61, 1, NULL, 1, 'DFC', 12);
+  `jugador_equipo` int(11) DEFAULT NULL,
+  `jugador_posicion` set('1','2','3','4','5','6','7','8','9','10','11') NOT NULL COMMENT '''PO'',''DFC'',''LAT'',''LIB'',''MD'',''MC'',''MI'',''MP'',''DC'',''SD'',''EXT''',
+  `jugador_numero` int(3) NOT NULL,
+  `jugador_foto` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -164,7 +157,8 @@ ALTER TABLE `equipos`
 ALTER TABLE `jugadores`
   ADD PRIMARY KEY (`jugador_id`),
   ADD KEY `jugador_equipo` (`jugador_equipo`),
-  ADD KEY `jugador_posicion` (`jugador_posicion`);
+  ADD KEY `jugador_posicion` (`jugador_posicion`),
+  ADD KEY `jugador_foto` (`jugador_foto`);
 
 --
 -- Indexes for table `repositorio`
@@ -191,7 +185,7 @@ ALTER TABLE `equipos`
 -- AUTO_INCREMENT for table `jugadores`
 --
 ALTER TABLE `jugadores`
-  MODIFY `jugador_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `jugador_id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `repositorio`
 --
@@ -205,7 +199,8 @@ ALTER TABLE `repositorio`
 -- Constraints for table `jugadores`
 --
 ALTER TABLE `jugadores`
-  ADD CONSTRAINT `jugadores_ibfk_1` FOREIGN KEY (`jugador_equipo`) REFERENCES `equipos` (`equipo_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `jugadores_ibfk_1` FOREIGN KEY (`jugador_equipo`) REFERENCES `equipos` (`equipo_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `jugadores_ibfk_2` FOREIGN KEY (`jugador_foto`) REFERENCES `archivos` (`archivo_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `repositorio`
