@@ -97,6 +97,14 @@ class CoreDAO
         if($res)
         {
             $res =$this->db->insert_id;
+
+            if($res==0)
+            {
+                $res=$this->db->query("SHOW KEYS FROM {$this->table} WHERE Key_name = 'PRIMARY'");
+
+
+               $res= $object[ $res->fetch_all(1)[0]["Column_name"]] ;
+            }
         }
         else{
             $res=false;
@@ -130,6 +138,10 @@ class CoreDAO
 
 
         }
+        /*if($archivoData)
+        {
+            return $filesSql;
+        }*/
 
             return $res;
 

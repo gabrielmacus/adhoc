@@ -2,6 +2,8 @@
 require("/includes/autoload.php");
 $equipos = new \DAO\EquipoDAO($db,"equipos");
 
+
+
 $id = $_GET["id"];
 if(is_numeric($id))
 {

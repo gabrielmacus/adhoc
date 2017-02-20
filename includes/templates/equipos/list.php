@@ -46,12 +46,11 @@
                 <?php
                 foreach($item["archivos"] as $file)
                 {
-
-                //    $file = json_decode($file["archivo_data"],1);
-
-                    var_dump($file);
+                    $json=stripslashes($file["archivo_data"]);
+                   $file = json_decode($json,true);
                     ?>
 
+                    <img style="width: 100%" src="<?php echo $file["o"]["completeUrl"]; ?>">
 
                     <?php
 
