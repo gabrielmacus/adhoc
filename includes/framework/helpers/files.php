@@ -63,14 +63,14 @@ function deleteDir($dir,$config)
         $success=true;
         foreach ($files as $file)
         {
-            
+
            if(!ftp_delete($conn_id, $file))
            {
                $success=false;
            }
-         
+
         }
-        
+
         return $success;
 
 
@@ -165,6 +165,7 @@ function uploadFiles($files,$dir,$config)
 
                     $file["folder"]=$folder;
                     $file["name"]=$name;
+                    $file["date"]=time();
 
 
                     unset($file["tmp_name"]);

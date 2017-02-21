@@ -23,6 +23,10 @@ class ArchivoDAO extends CoreDAO
 
     }
 
+    function setConfig($config)
+    {
+        $this->config =$config;
+    }
     function upload($object)
     {
 
@@ -69,16 +73,8 @@ class ArchivoDAO extends CoreDAO
         }
         return false;
         
-      
-        /*
-        deleteFile($this->config);
 
-        if($res)
-        {
-            return parent::delete($object);
-        }
 
-       return false;*/
     }
 
     function read($object =array(),$sqlExtra="")

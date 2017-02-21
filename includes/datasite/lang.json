@@ -13,6 +13,12 @@
     "10":"SD",
     "11":"EXT"
     },
+  "file":"Archivo",
+  "description":"Descripcion",
+  "download":"Descargar",
+  "nofiles":"Lo siento, no hay archivos disponibles..",
+  "dateFormat":"d/m/Y",
+  "nodescription":"No hay descripci&oacute;n disponible",
   "piernas":
   {
     "0":"Izquierda",

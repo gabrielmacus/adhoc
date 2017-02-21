@@ -3,8 +3,11 @@
 
 
     <div>
-        <label>Archivo</label>
+        <label><?php echo $lang["file"]; ?></label>
         <input type="file" name="archivo">
+        <label><?php echo $lang["description"]; ?></label>
+        <textarea name="archivo_descripcion"></textarea>
+
     </div>
 
     <?php if($archivo) {
@@ -28,11 +31,13 @@
 
             <?php if($archivo)
             {
+
             ?>
 
 
             var archivo=<?php echo $archivo;?>;
 
+            console.log(archivo);
             $.each(archivo,function (k,v) {
 
                 switch (k)
@@ -60,6 +65,11 @@
                 data.append(key, value);
             });
 
+            var serializedForm =$(this).serializeArray();
+            $.each(serializedForm,function(key,value)
+            {
+                data.append(key, value);
+            });
             $.ajax({
                 url: "archivos-data.php?act=add&rep=<?php echo $_GET["rep"]?>",
                 type: "post",

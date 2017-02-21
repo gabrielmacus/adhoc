@@ -7,7 +7,7 @@
   
 </style>
 <body data-ng-app="app" data-ng-controller="ctrl">
-   <div class="main-container">
+   <div class="container">
 
        <?php
 

@@ -164,7 +164,7 @@ class CoreDAO
         {
             $res=true;
         }
-        return $sql;
+        return $res;
 
 
     }

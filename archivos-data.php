@@ -2,17 +2,22 @@
 require("/includes/autoload.php");
 
 
-$repositorio=$config["repositorios"][$_GET["rep"]];
-if(!$repositorio)
-{
-    return false;
-}
-
-$archivos = new \DAO\ArchivoDAO($db,"archivos",$repositorio);
 
 $id = $_GET["id"];
 
-
+if($id)
+{
+    $archivos = new \DAO\ArchivoDAO($db,"archivos");
+}
+else
+{
+    $repositorio=$config["repositorios"][$_GET["rep"]];
+    $archivos =new \DAO\ArchivoDAO($db,"archivos",$repositorio);
+    if(!$repositorio)
+    {
+        return false;
+    }
+}
 
 
 
@@ -23,9 +28,19 @@ if(is_numeric($id))
         array(
             "archivo_id"=>$id
         )
-    )[$id];
+    );
 
-    $archivo=  json_encode($archivo);
+    foreach($archivo as $k=>$v)
+    {
+        $archivos->setConfig($config["repositorios"][$k]);
+        $archivo=  json_encode($archivo[$k][$id]);
+
+    }
+
+
+
+
+
 }
 
 

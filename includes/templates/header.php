@@ -13,8 +13,9 @@
 
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-<link rel="stylesheet" href="css/w3.css">
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+<link rel="stylesheet" href="css/estilo.css">
 
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,900" rel="stylesheet">
 
@@ -52,3 +53,6 @@
 
     });
 </script>
+<link rel="stylesheet" href="css/materialize.min.css">
+<script src="js/materialize.min.js"></script>
+<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
