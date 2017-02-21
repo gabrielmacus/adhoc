@@ -27,7 +27,7 @@ class ArchivoDAO extends CoreDAO
     {
         $this->config =$config;
     }
-    function upload($object)
+    function upload($files,$object)
     {
 
 
@@ -36,7 +36,7 @@ class ArchivoDAO extends CoreDAO
         {
             $dir.=date($this->config["dateformat"]);
         }
-        $files =uploadFiles($object,$dir,$this->config);
+        $files =uploadFiles($files,$dir,$this->config);
 
         $uploadedFiles=array();
 
@@ -50,6 +50,12 @@ class ArchivoDAO extends CoreDAO
                     "archivo_repositorio"=>$this->config["repositorio"],
                     "archivo_data"=>$file
                 );
+
+                foreach ($object as $k=>$v)
+                {
+                    $archivo[$k]=$v;
+                }
+
 
                 $uploadedFiles[]= $this->upsert($archivo);//parent::upsert($archivo);
             }
@@ -106,7 +112,8 @@ class ArchivoDAO extends CoreDAO
 
                 $result[$item["archivo_repositorio"]][$item["archivo_id"]]["archivo_id"]=$item["archivo_id"];
                 $result[$item["archivo_repositorio"]][$item["archivo_id"]]["archivo_data"]=$item["archivo_data"];
-                $result[$item["archivo_repositorio"]][$item["archivo_id"]]["archivo_repositorio"]=[$item["archivo_repositorio"]];
+                $result[$item["archivo_repositorio"]][$item["archivo_id"]]["archivo_repositorio"]=$item["archivo_repositorio"];
+                $result[$item["archivo_repositorio"]][$item["archivo_id"]]["archivo_descripcion"]=$item["archivo_descripcion"];
 
 
             }

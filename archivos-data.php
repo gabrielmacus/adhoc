@@ -61,7 +61,7 @@ else
 
 
 
-            echo json_encode($archivos->upload($_FILES));
+            echo json_encode($archivos->upload($_FILES,$_POST));
 
 
             break;

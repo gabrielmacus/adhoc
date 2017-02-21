@@ -66,10 +66,13 @@
             });
 
             var serializedForm =$(this).serializeArray();
+
             $.each(serializedForm,function(key,value)
             {
-                data.append(key, value);
+                data.append(value["name"], value["value"]);
             });
+
+
             $.ajax({
                 url: "archivos-data.php?act=add&rep=<?php echo $_GET["rep"]?>",
                 type: "post",

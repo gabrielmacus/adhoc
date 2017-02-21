@@ -49,14 +49,20 @@ foreach ($dataToSkin as $k=>$v)
 
 <?php
     foreach ($v as $item) {
+      
         $file = json_decode(stripslashes($item["archivo_data"]), true);
 
         ?>
 
          <li class="col s12  m6"  data-id="<?php echo $item["archivo_id"]; ?>">
 
-             <div class="card">
-                 <div class="card-image waves-effect waves-block waves-light" style="position: relative">
+
+
+
+
+
+                 <div class="card hoverable">
+                 <div class="card-image  " style="position: relative">
 
                      <?php
 
@@ -85,12 +91,16 @@ foreach ($dataToSkin as $k=>$v)
                      }
 
                      ?>
-                     <i onclick='deleteArchivo({archivo_id:<?php echo $item["archivo_id"];  ?>,dir:"<?php echo $file["folder"];  ?>"},<?php echo $item["archivo_repositorio"][0]; ?>)' class="delete fa fa-times "  style="position: absolute;top: 10px;right: 10px;font-size: 30px"></i>
 
-                     <span class="card-title activator flow-text"><?php echo $file["name"] ?><i class="material-icons right">more_vert</i></span>
+                     <span style=" background-color: rgba(0,0,0,0.6);
+    margin-left: 10px;
+    margin-bottom: 10px;font-size: 20px" class="card-title activator flow-text"><?php echo $file["name"] ?><i class="material-icons right">more_vert</i></span>
+
+                     <a  onclick='deleteArchivo({archivo_id:<?php echo $item["archivo_id"];  ?>,dir:"<?php echo $file["folder"];  ?>"},<?php echo $item["archivo_repositorio"][0]; ?>)' class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">delete</i></a>
+
                  </div>
-                 <div class="card-reveal valign-wrapper">
-                     <span class="card-title grey-text text-darken-4" style="margin-bottom: 25px"><?php echo $file["name"] ?><i class="material-icons right blue">close</i></span>
+                 <div class="card-reveal valign-wrapper grey lighten-4 ">
+                     <span class="card-title grey-text text-darken-4" style="margin-bottom: 25px"><?php echo $file["name"] ?></span>
                       <?php
                      if( !$item["archivo_descripcion"] )
                      {
@@ -101,7 +111,8 @@ foreach ($dataToSkin as $k=>$v)
                      <h4 class="blue-text"><?php echo bytesToSize( $file["size"]);?></h4>
 
                  </div>
-                 <div class="card-action">
+                 <div class="card-action" style="    padding-top: 30px;">
+
                      <a class="blue-text" download href="<?php echo $file["o"]["completeUrl"] ?>"><?php echo $lang["download"]; ?></a>
                      <a class="grey-text right nomargin" download href="<?php echo $file["o"]["completeUrl"] ?>"><?php echo date($lang["dateFormat"],$file["date"]); ?></a>
 
