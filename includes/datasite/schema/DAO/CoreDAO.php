@@ -140,7 +140,7 @@ class CoreDAO
             if($archivoData)
             {
                 $uploadedFiles=  $archivoData->upload($files);
-               $filesSql="INSERT INTO repositorio (archivo,tabla,objeto) VALUES ";
+               $filesSql="INSERT INTO archivos_objetos (archivo,tabla,objeto) VALUES ";
                 $values="";
                 foreach($uploadedFiles as $file)
                 {

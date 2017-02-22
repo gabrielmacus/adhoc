@@ -14,6 +14,7 @@
 <style>
     .body {
         padding-left: 300px;
+        width: 90%;
     }
   
 

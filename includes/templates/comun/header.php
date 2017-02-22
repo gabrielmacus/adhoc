@@ -37,7 +37,13 @@
 <link rel="stylesheet" href="css/jquery.fancybox.css" type="text/css" media="screen" />
 <script type="text/javascript">
     $(document).ready(function() {
-       var fbox= $(".fancybox").fancybox(
+
+
+            $('select').material_select();
+       
+
+
+        var fbox= $(".fancybox").fancybox(
             {
                 helpers : {
                     overlay : {
@@ -56,3 +62,4 @@
 <link rel="stylesheet" href="css/materialize.min.css">
 <script src="js/materialize.min.js"></script>
 <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script src="js/fileReader.js"></script>

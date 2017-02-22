@@ -1,14 +1,14 @@
 <!doctype html>
 <html lang="es">
 <head>
- <?php include("includes/templates/header.php"); ?>
+ <?php include("includes/templates/comun/header.php"); ?>
 </head>
 <style>
   
 </style>
 <body data-ng-app="app" data-ng-controller="ctrl">
 
-   <div class="navbar blue z-depth-1">
+   <div class="navbar">
        <?php include ("includes/templates/navbars/sidenav-fixed.php")?>
    </div>
 
