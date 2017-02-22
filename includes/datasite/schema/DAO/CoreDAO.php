@@ -14,13 +14,18 @@ class CoreDAO
 
     protected  $db;
     protected $table;
-
+    protected $idField;
 
 
     function __construct($db,$table)
     {
         $this->db=$db;
         $this->table=$table;
+        $res=$db->query("SHOW KEYS FROM {$this->table} WHERE Key_name = 'PRIMARY'");
+
+ 
+        $this->idField=$res->fetch_all(true)[0]["Column_name"];
+
     }
 
     function read($object=array(),$sqlExtra="")
@@ -55,19 +60,34 @@ class CoreDAO
 
         return $result;
     }
-    
-    function upsert($object ,ArchivoDAO $archivoData=null)
+
+   protected function update($object)
     {
+        $sql = "UPDATE {$this->table} SET ";
 
-        $files = $_FILES;
+        foreach ($object as $k=>$v)
+        {
+            $sql.="{$k}='{$v}',";
+        }
+        $sql = rtrim($sql,",");
+        $sql.=" WHERE {$this->idField}={$object[$this->idField]}";
 
+        if($this->db->query($sql))
+        {
+            return $object[$this->idField];
+        }
+            return false;
+    }
+
+    function insert($object)
+    {
         $keys= implode(",",array_keys($object));
 
         $sql ="INSERT INTO {$this->table}  ({$keys}) values ";
 
         $query="";
 
-        $updateQuery="";
+
 
         foreach ($object as $k=>$v)
         {
@@ -81,34 +101,37 @@ class CoreDAO
                 $v="'{$v}'";
             }
             $query.="{$v},";
-            $updateQuery.="{$k}={$v},";
         }
 
-
-        $updateQuery = rtrim($updateQuery,",");
 
         $query= rtrim($query,",");
+        $sql.="({$query})";
 
-        $sql.="({$query}) ON DUPLICATE KEY UPDATE $updateQuery";
-
-
-        $res=$this->db->query($sql);
-
-        if($res)
+       if( $this->db->query($sql))
         {
-            $res =$this->db->insert_id;
 
-            if($res==0)
-            {
-                $res=$this->db->query("SHOW KEYS FROM {$this->table} WHERE Key_name = 'PRIMARY'");
-
-
-               $res= $object[ $res->fetch_all(1)[0]["Column_name"]] ;
-            }
+            return $this->db->insert_id;
         }
-        else{
-            $res=false;
+
+        return false;
+
+    }
+
+    function upsert($object ,ArchivoDAO $archivoData=null)
+    {
+
+        $files = $_FILES;
+
+        if($object[$this->idField])
+        {
+           $res= $this->update($object);
         }
+        else
+        {
+            $res=  $this->insert($object);
+        }
+
+
 
 
         if(count($files)>0)

@@ -5,11 +5,8 @@ require("/includes/autoload.php");
 
 $id = $_GET["id"];
 
-if($id)
-{
-    $archivos = new \DAO\ArchivoDAO($db,"archivos");
-}
-else
+if(!$id)
+
 {
     $repositorio=$config["repositorios"][$_GET["rep"]];
     $archivos =new \DAO\ArchivoDAO($db,"archivos",$repositorio);
@@ -23,6 +20,7 @@ else
 
 if(is_numeric($id))
 {
+    $archivos = new \DAO\ArchivoDAO($db,"archivos");
 
     $archivo=$archivos->read(
         array(
@@ -30,10 +28,18 @@ if(is_numeric($id))
         )
     );
 
+
+
     foreach($archivo as $k=>$v)
     {
         $archivos->setConfig($config["repositorios"][$k]);
-        $archivo=  json_encode($archivo[$k][$id]);
+        $archivo=$archivo[$k][$id];
+
+       
+
+        $archivo=json_encode($archivo);
+
+
 
     }
 
@@ -63,6 +69,10 @@ else
 
             echo json_encode($archivos->upload($_FILES,$_POST));
 
+
+            break;
+        case 'edit':
+            echo json_encode($archivos->upsert($_POST));
 
             break;
         case 'delete':

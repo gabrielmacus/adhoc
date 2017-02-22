@@ -31,6 +31,7 @@
 
             <?php if($archivo)
             {
+            $urlSave="archivos-data.php?act=edit&id={$_GET["id"]}";
 
             ?>
 
@@ -51,6 +52,10 @@
             });
 
             <?php
+            }
+            else
+            {
+                $urlSave="archivos-data.php?act=add&rep={$_GET['rep']}";
             }?>
 
         });
@@ -74,7 +79,7 @@
 
 
             $.ajax({
-                url: "archivos-data.php?act=add&rep=<?php echo $_GET["rep"]?>",
+                url: "<?php echo $urlSave;?>",
                 type: "post",
                 dataType: "html",
                 data: data,
@@ -86,11 +91,9 @@
 
                     res = JSON.parse(res);
 
-
-
                     if(res)
                     {
-                        window.location="repositorios.php";
+                      window.location="repositorios.php";
                     }
                 }
             })

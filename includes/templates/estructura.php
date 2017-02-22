@@ -7,7 +7,13 @@
   
 </style>
 <body data-ng-app="app" data-ng-controller="ctrl">
-   <div class="container">
+
+   <div class="navbar blue z-depth-1">
+       <?php include ("includes/templates/navbars/sidenav-fixed.php")?>
+   </div>
+
+
+   <div class="body container">
 
        <?php
 
