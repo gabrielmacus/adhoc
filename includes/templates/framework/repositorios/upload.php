@@ -37,7 +37,7 @@
                     if(res)
                     {
 
-                        window.location="files.php";
+                        window.location="files.php?rep="+$("[name='archivo_repositorio']").val();
                     }
                 }
                 catch(e)

@@ -29,10 +29,17 @@
   {
     "1":"Imagenes",
     "2":"Videos",
-    "3":"Archivos"
+    "3":"Archivos",
+    "4":"Audios"
   },
   "menu":[
-    {"texto":"Inicio","href":"files.php"},{"texto":"Subir archivos","href":"files-add.php"}
+    {"texto":"Repositorios","items":[
+
+      {"texto":"Imagenes","href":"files.php?rep=1"},{"texto":"Videos","href":"files.php?rep=2"},{"texto":"Archivos","href":"files.php?rep=3"}
+      ,{"texto":"Audios","href":"files.php?rep=4"}
+
+    ]},{"texto":"Subir archivos","href":"files-add.php"}
+
   ],
   "yes":"SI",
   "no":"NO",

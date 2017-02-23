@@ -56,7 +56,13 @@
             }
         );
 
+        $('audio,video').mediaelementplayer({
+            success: function(player, node) {
+                
 
+                // More code
+            }
+        });
     });
 </script>
 <link rel="stylesheet" href="css/materialize.min.css">
@@ -136,3 +142,5 @@
         }
     );
 </script>
+<script src="https://cdn.jsdelivr.net/mediaelement/latest/mediaelement-and-player.min.js"></script>
+<link href="https://cdn.jsdelivr.net/mediaelement/latest/mediaelementplayer.css" rel="stylesheet">

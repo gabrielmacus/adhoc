@@ -9,9 +9,40 @@
 <ul id="slide-out" class="side-nav fixed grey lighten-4">
     <?php foreach($lang["menu"] as $item)
     {
+
+        if(!$item["items"])
+        {
+            ?>
+
+            <li><a href="<?php echo $item["href"]; ?>"><?php echo $item["texto"]; ?></a></li>
+
+            <?php
+        }
+        else
+        {
+            ?>
+            <li><a class="dropdown-button" href="#!" data-activates="<?php echo $item["texto"]; ?>"><?php echo $item["texto"]; ?><i class="material-icons right">arrow_drop_down</i></a></li>
+            <ul id='<?php echo $item["texto"]; ?>' class='dropdown-content'>
+
+                <?php
+             
+                foreach ($item["items"] as $dropdownItem)
+                {
+                    ?>
+
+                    <li><a href="<?php echo $dropdownItem["href"]; ?>"><?php echo $dropdownItem["texto"]; ?></a></li>
+
+
+                    <?php
+                }
+                ?>
+            </ul>
+
+            <?php
+        }
         ?>
 
-        <li><a href="<?php echo $item["href"]; ?>"><?php echo $item["texto"]; ?></a></li>
+
         <?php
     }?>
 

@@ -41,13 +41,32 @@
 
     }
 </script>
+
+
+<?php if(count($dataToSkin)==0)
+{
+    ?>
+
+    <div class="row center">
+
+        <div class="col s12 m12 l12">
+            <h2><?php echo $lang["nofiles"];?></h2>
+        </div>
+
+
+    </div>
+
+
+    <?php
+}?>
+
 <?php foreach($dataToSkin as $k=>$v)
 {
 
 ?>
 
 
-<div class="row">
+<div  class="row">
 
     <h2><?php echo $lang["repositorios"][$k]; ?></h2>
 
@@ -57,6 +76,9 @@
 
         $type= explode("/",$valor["archivo_data"]["type"])[0];
 
+        $ext  =explode(".", $valor["archivo_data"]["name"]);
+        $ext  =$ext[count($ext)-1];
+
 
         ?>
         <div class="col s12 m12 l6">
@@ -65,15 +87,115 @@
 
                     <?php
 
+
                     switch($type)
                     {
                         case 'image':
                             ?>
                             <a href="<?php echo  $valor["archivo_data"]["o"]["completeUrl"];?>" data-fancybox="images">
-                                <img style="object-fit: cover;height: 300px" src="<?php echo  $valor["archivo_data"]["o"]["completeUrl"];?>">
+                                <img  rel="<?php  echo  $lang["repositorios"][$k]; ?>" style="object-fit: cover;height: 300px" src="<?php echo  $valor["archivo_data"]["o"]["completeUrl"];?>">
                             </a>
 
                             <?php
+                            break;
+                        case "application":
+                              switch ($ext)
+                              {
+                                  case "odt":
+                                  case "doc":
+                                  case "docx":
+
+
+
+                                      ?>
+
+                                      <a   rel="<?php  echo  $lang["repositorios"][$k]; ?>"   data-fancybox="iframe"  href="http://docs.google.com/gview?url=<?php echo  $valor["archivo_data"]["o"]["completeUrl"];?>&embedded=true"
+                                                style="width: 100%;height: 300px" class="valign-wrapper center grey lighten-3">
+                                          <!--
+                                          <iframe style="width: 100%;height: 100%" class="valign "  src="http://docs.google.com/gview?url=<?php echo  $valor["archivo_data"]["o"]["completeUrl"];?>&embedded=true" aria-hidden="true"></iframe>
+                                          -->
+                                          <i style="font-size: 250px;width: 100%" class="valign fa fa fa-file-word-o blue-text darken-1" aria-hidden="true"></i>
+
+                                      </a>
+
+
+                                      <?php
+                                      break;
+                                  case "xls":
+                                  case "xlsx":
+                                      ?>
+                                      <a  rel="<?php  echo  $lang["repositorios"][$k]; ?>"    data-fancybox="iframe"  href="https://view.officeapps.live.com/op/embed.aspx?src=<?php echo  $valor["archivo_data"]["o"]["completeUrl"];?>&embedded=true"
+                                              style="width: 100%;height: 300px" class="valign-wrapper center grey lighten-3">
+                                          <!--
+                                          <iframe style="width: 100%;height: 100%" class="valign "  src="http://docs.google.com/gview?url=<?php echo  $valor["archivo_data"]["o"]["completeUrl"];?>&embedded=true" aria-hidden="true"></iframe>
+                                          -->
+                                          <i style="font-size: 250px;width: 100%" class="valign fa fa fa-file-excel-o green-text" aria-hidden="true"></i>
+
+                                      </a>
+
+
+                                      <?php
+                                      break;
+                                  case "pptx":
+
+                                      ?>
+                                      <a  rel="<?php  echo  $lang["repositorios"][$k]; ?>"    data-fancybox="iframe"  href="https://view.officeapps.live.com/op/embed.aspx?src=<?php echo  $valor["archivo_data"]["o"]["completeUrl"];?>&embedded=true"
+                                          style="width: 100%;height: 300px" class="valign-wrapper center grey lighten-3">
+                                          <!--
+                                          <iframe style="width: 100%;height: 100%" class="valign "  src="http://docs.google.com/gview?url=<?php echo  $valor["archivo_data"]["o"]["completeUrl"];?>&embedded=true" aria-hidden="true"></iframe>
+                                          -->
+                                          <i style="font-size: 250px;width: 100%" class="valign fa fa fa-file-powerpoint-o purple-text" aria-hidden="true"></i>
+
+                                      </a>
+
+
+                                      <?php
+                                      break;
+                                  case "odp":
+                                      ?>
+
+
+                                      <div style="width: 100%;height: 300px" class="valign-wrapper center grey lighten-3">
+                                          <i style="font-size: 250px;width: 100%" class="valign fa fa fa-file-powerpoint-o purple-text" aria-hidden="true"></i>
+
+                                      </div>
+
+
+
+                                      <?php
+                                      break;
+
+                              }
+
+                            break;
+                        case "video":
+
+                           ?>
+
+                            <div style="width: 100%;height: 300px" class="valign-wrapper center grey lighten-3">
+                                <video controls style="width: 100%;height: 300px" class="mejs-player">
+                                    <source src="<?php echo  $valor["archivo_data"]["o"]["completeUrl"];?>" />
+                                </video>
+                            </div>
+
+
+
+                            <?php
+
+                            break;
+                        case "audio":
+
+                            ?>
+
+                            <div style="width: 100%;height: 300px" class="valign-wrapper center grey lighten-3">
+                                <audio controls style="width: 100%;height: 300px" class="mejs-player">
+                                    <source src="<?php echo  $valor["archivo_data"]["o"]["completeUrl"];?>" />
+                                </audio>
+                            </div>
+
+
+                            <?php
+
                             break;
                         default:
                             ?>
@@ -96,11 +218,17 @@
                         <a class="white-text green" style="display: inline-block;padding: 5px">
                             <i  class=" material-icons">mode_edit</i>
                         </a>-->
-                        <a onclick="showDeleteDialog(<?php echo $valor["archivo_id"]; ?>,<?php echo $valor["archivo_repositorio"]; ?>)" class="white-text red" style="display: inline-block;padding: 5px"><i  class=" material-icons">delete</i>
+                        <a onclick="showDeleteDialog(<?php echo $valor["archivo_id"]; ?>,<?php echo $valor["archivo_repositorio"]; ?>)" class="white-text red btn " style="display: inline-block;padding: 5px!important;height: auto;line-height: inherit;"><i  style="font-size: 25px" class=" material-icons">delete</i>
                         </a>
                     </div>
-                    <span class="card-title " style="background-color: rgba(0,0,0,0.7); font-size: 20px;width: 100%"><?php echo $valor["archivo_data"]["name"]; ?></span>
-                </div>
+                    <div style="position: absolute;left: 10px;top: 10px;max-width: 50%">
+
+                        <span  class="white-text truncate tooltipped btn" data-position="bottom" data-delay="50" data-tooltip="<?php echo $valor["archivo_data"]["name"]; ?>" style="background-color: rgba(0,0,0,0.7); font-size: 20px;width: 100%"><?php echo $valor["archivo_data"]["name"]; ?></span>
+
+
+                    </div>
+
+                  </div>
                 <!--  <div class="card-content">
                     <p>I am a very simple card. I am good at containing small bits of information.
                          I am convenient because I require little markup to use effectively.</p>

@@ -7,6 +7,13 @@ $action="list";
 
 $archivos = new \DAO\ArchivoDAO($db,"archivos");
 
-$dataToSkin = $archivos->read();
+$filter=array();
+
+if($_GET["rep"])
+{
+    $filter["archivo_repositorio"]=$_GET["rep"];;
+}
+
+$dataToSkin = $archivos->read($filter);
 
 require ("includes/templates/comun/estructura.php");
