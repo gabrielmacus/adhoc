@@ -7,8 +7,15 @@
     });
 </script>
 <ul id="slide-out" class="side-nav fixed grey lighten-4">
-    <li><a href="#!">First Sidebar Link</a></li>
-    <li><a href="#!">Second Sidebar Link</a></li>
+    <?php foreach($lang["menu"] as $item)
+    {
+        ?>
+
+        <li><a href="<?php echo $item["href"]; ?>"><?php echo $item["texto"]; ?></a></li>
+        <?php
+    }?>
+
+
 </ul>
 <a href="#" data-activates="slide-out" class="button-collapse large" ><i class="material-icons white-text" style="font-size: 50px">menu</i></a>
 <style>

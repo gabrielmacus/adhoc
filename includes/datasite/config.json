@@ -28,6 +28,17 @@
       "dateformat":"/d/m/Y",
       "root_dir":"/httpdocs",
       "repositorio":2
+    },
+    "3":
+    {
+      "pass":"sercan02",
+      "user":"sub697_26",
+      "server":"184.154.92.174",
+      "dns":"http://electrostyleinformatica.com",
+      "dir":"/archivos",
+      "dateformat":"/d/m/Y",
+      "root_dir":"/httpdocs",
+      "repositorio":2
     }
   }
   ,

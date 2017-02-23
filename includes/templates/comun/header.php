@@ -40,8 +40,8 @@
 
 
             $('select').material_select();
-       
 
+        $('.modal').modal();
 
         var fbox= $(".fancybox").fancybox(
             {
@@ -63,3 +63,76 @@
 <script src="js/materialize.min.js"></script>
 <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <script src="js/fileReader.js"></script>
+
+<style>
+    /* Center the loader */
+    #loader {
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        z-index: 1;
+        width: 150px;
+        height: 150px;
+        margin: -75px 0 0 -75px;
+        border: 16px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 16px solid #3498db;
+        width: 120px;
+        height: 120px;
+        -webkit-animation: spin 2s linear infinite;
+        animation: spin 2s linear infinite;
+    }
+
+    @-webkit-keyframes spin {
+        0% { -webkit-transform: rotate(0deg); }
+        100% { -webkit-transform: rotate(360deg); }
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    /* Add animation to "page content" */
+    .animate-bottom {
+        position: relative;
+        -webkit-animation-name: animatebottom;
+        -webkit-animation-duration: 1s;
+        animation-name: animatebottom;
+        animation-duration: 1s
+    }
+
+    @-webkit-keyframes animatebottom {
+        from { bottom:-100px; opacity:0 }
+        to { bottom:0px; opacity:1 }
+    }
+
+    @keyframes animatebottom {
+        from{ bottom:-100px; opacity:0 }
+        to{ bottom:0; opacity:1 }
+    }
+
+    #myDiv {
+        display: none;
+        text-align: center;
+    }
+</style>
+<div   class="loader" style=" display:none;position: fixed;top: 0px;left: 0px;z-index: 10000;background-color: rgba(0,0,0,0.7);height: 100%;width: 100%">
+
+    <div id="loader"></div>
+
+
+
+</div>
+
+<script>
+    $( document ).ajaxSend(function() {
+       $(".loader").fadeIn();
+    });
+    $( document ).ajaxStop(
+        function()
+        {
+            $(".loader").fadeOut();
+        }
+    );
+</script>

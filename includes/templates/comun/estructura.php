@@ -8,7 +8,7 @@
 </style>
 <body data-ng-app="app" data-ng-controller="ctrl">
 
-   <div class="navbar">
+   <div class="navbar teal lighten-1">
        <?php include ("includes/templates/navbars/sidenav-fixed.php")?>
    </div>
 

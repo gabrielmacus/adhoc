@@ -5,5 +5,4 @@ $site="framework/repositorios";
 $action="upload";
 //Content
 
-
 require ("/includes/templates/comun/estructura.php");

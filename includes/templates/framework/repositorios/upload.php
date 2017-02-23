@@ -28,14 +28,23 @@
             success:function(res)
             {
 
-                res = JSON.parse(res);
-
                 console.log(res);
-                if(res)
+
+                try{
+                    res = JSON.parse(res);
+
+
+                    if(res)
+                    {
+
+                        window.location="files.php";
+                    }
+                }
+                catch(e)
                 {
 
-                    //window.location="repositorios.php";
                 }
+
             }
         })
 
@@ -50,7 +59,7 @@
 
 <form class="row">
 
-    <div class="col m12 ">
+    <div class="col s12 m12 l12">
         <h2>Subir archivos</h2>
 
         <div class="file-field input-field">
