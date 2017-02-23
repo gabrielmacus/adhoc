@@ -12,6 +12,27 @@
        <?php include ("includes/templates/navbars/sidenav-fixed.php")?>
    </div>
 
+   <div style="display: none" id="error-modal">
+       <div class="card-content black-text">
+           <h5 class="card-title"><?php echo $lang["errors"]["genericError"]["text"];?></h5>
+
+       </div>
+       <script>
+           function error(err) {
+               $.fancybox.open({
+                   src  : '#error-modal',
+                   type : 'inline'
+               });
+           }
+       </script>
+
+       <div class="card-action center">
+           <button onclick="parent.jQuery.fancybox.getInstance().close();" class="waves-effect waves-teal btn white teal-text">OK</button>
+       </div>
+
+   </div>
+
+
 
    <div class="body container">
 

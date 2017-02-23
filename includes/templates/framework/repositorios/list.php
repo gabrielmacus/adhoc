@@ -1,5 +1,18 @@
 <script>
-    function deleteFile(id,rep)
+
+
+    var id ;
+    var rep;
+    function showDeleteDialog(_id,_rep) {
+
+        id=_id;
+        rep=_rep;
+        $.fancybox.open({
+            src  : '#file-delete',
+            type : 'inline'
+        });
+    }
+    function deleteFile()
     {
 
         $.ajax(
@@ -10,17 +23,20 @@
                 data:{archivo_id:id},
                 success:function(res)
                 {
+
                     if(res)
                     {
                         window.location.reload();
                     }
+                    else
+                    {
+                        error();
+                    }
                 },
-                error:function(err)
-                {
-                    console.log(err);
-                }
+                error:error
             }
         );
+        parent.jQuery.fancybox.getInstance().close();
 
 
     }
@@ -53,7 +69,10 @@
                     {
                         case 'image':
                             ?>
-                            <img style="object-fit: cover;height: 300px" src="<?php echo  $valor["archivo_data"]["o"]["completeUrl"];?>">
+                            <a href="<?php echo  $valor["archivo_data"]["o"]["completeUrl"];?>" data-fancybox="images">
+                                <img style="object-fit: cover;height: 300px" src="<?php echo  $valor["archivo_data"]["o"]["completeUrl"];?>">
+                            </a>
+
                             <?php
                             break;
                         default:
@@ -77,7 +96,7 @@
                         <a class="white-text green" style="display: inline-block;padding: 5px">
                             <i  class=" material-icons">mode_edit</i>
                         </a>-->
-                        <a onclick="deleteFile(<?php echo $valor["archivo_id"]; ?>,<?php echo $valor["archivo_repositorio"]; ?>)" class="white-text red" style="display: inline-block;padding: 5px"><i  class=" material-icons">delete</i>
+                        <a onclick="showDeleteDialog(<?php echo $valor["archivo_id"]; ?>,<?php echo $valor["archivo_repositorio"]; ?>)" class="white-text red" style="display: inline-block;padding: 5px"><i  class=" material-icons">delete</i>
                         </a>
                     </div>
                     <span class="card-title " style="background-color: rgba(0,0,0,0.7); font-size: 20px;width: 100%"><?php echo $valor["archivo_data"]["name"]; ?></span>
@@ -101,6 +120,24 @@
 
     <?php
 }?>
+<style>
+    .fancybox-close-small
+    {
+        background-color: white!important;
 
+    }
+</style>
+
+<div style="display: none;" class="card" id="file-delete">
+    <div class="card-content black-text center">
+        <span class="card-title"></span>
+        <p><?php echo $lang["fileDelete"];?></p>
+    </div>
+    <div class="card-action">
+        <button onclick="parent.jQuery.fancybox.getInstance().close();" class="waves-effect waves-teal btn white teal-text"><?php echo $lang["no"];?></button>
+        <button onclick="deleteFile()" class="waves-effect waves-teal btn white teal-text"><?php echo $lang["yes"];?></button>
+    </div>
+
+</div>
 
 
