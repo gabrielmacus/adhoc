@@ -14,15 +14,22 @@
 
    <div style="display: none" id="error-modal">
        <div class="card-content black-text">
-           <h5 class="card-title"><?php echo $lang["errors"]["genericError"]["text"];?></h5>
+           <h5 id="error-text" class="card-title"><?php echo $lang["errors"]["genericError"]["text"];?></h5>
 
        </div>
        <script>
-           function error(err) {
+           function error(err,msg) {
+               if(msg)
+               {
+                   $("#error-text").html(msg);
+               }
                $.fancybox.open({
                    src  : '#error-modal',
                    type : 'inline'
                });
+
+
+
            }
        </script>
 

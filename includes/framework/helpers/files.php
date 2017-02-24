@@ -145,39 +145,56 @@ function uploadFiles($files,$dir,$config)
             foreach($files as $file)
             {
 
-                $tmpFile =$file["tmp_name"];
 
 
-                $name =time()."_".$file["name"];
-
-                @ftp_mkdir($conn_id,$dir."/".$name);
-
-
-                $folder=$dir."/".$name;
-
-                $completeName= $folder."/o_".$name;//Se indica el prefijo o para los archivos originales
-
-                // cargar un archivo
-                if (ftp_put($conn_id,$completeName, $tmpFile, FTP_BINARY)) {
+                $type = explode("/",$file["type"]);
+                $type = $type[1];
+                if(   in_array($type, $config["formats"]))
+                {
+                    $tmpFile =$file["tmp_name"];
 
 
-                    $file["o"]["completeUrl"]=$config["dns"].str_replace($config["root_dir"],"",$completeName);
+                    $name =time()."_".$file["name"];
 
-                    $file["folder"]=$folder;
-                    $file["name"]=$name;
-                    $file["date"]=time();
-
-
-                    unset($file["tmp_name"]);
-
-                    $ret["success"][]=$file;
+                    $originalName=$file["name"];
+                    @ftp_mkdir($conn_id,$dir."/".$name);
 
 
+                    $folder=$dir."/".$name;
+
+                    $completeName= $folder."/o_".$name;//Se indica el prefijo o para los archivos originales
+
+                    // cargar un archivo
+                    if (ftp_put($conn_id,$completeName, $tmpFile, FTP_BINARY)) {
 
 
-                } else {
-                    $ret["error"][]=$file["name"];
+                        $file["o"]["completeUrl"]=$config["dns"].str_replace($config["root_dir"],"",$completeName);
+
+                        $file["folder"]=$folder;
+                        $file["name"]=$name;
+                        $file["originalName"]=$originalName;
+                        $file["date"]=time();
+
+
+                        unset($file["tmp_name"]);
+
+                        $ret["success"][]=$file;
+
+
+
+
+                    } else {
+                        $ret["error"][]=$file["name"];
+                    }
                 }
+                else
+                { $ret["error"][]=$file["name"];
+
+                }
+
+
+
+
 
             }
         }

@@ -1,3 +1,10 @@
+<style>
+    .fancybox-close-small
+    {
+        background-color: white!important;
+
+    }
+</style>
 <script>
     $(document).on("submit","form",function (e) {
 
@@ -34,15 +41,22 @@
                     res = JSON.parse(res);
 
 
-                    if(res)
+                    if(!res.error)
                     {
 
                         window.location="files.php?rep="+$("[name='archivo_repositorio']").val();
                     }
+                    else
+                    {
+
+
+                        error(null,"<?php echo $lang["errors"]["filesError"]["text"]; ?>"+res.error.join());
+                    }
+
                 }
                 catch(e)
                 {
-
+                    error();
                 }
 
             }
@@ -75,11 +89,11 @@
         <div class="input-field ">
             <select name="archivo_repositorio">
                 <option value="" disabled selected>Elegi una opcion</option>
-                <?php foreach ($lang["repositorios"] as $k=>$v)
+                <?php foreach ($repositorios as $item)
 
                 {
                     ?>
-                    <option value="<?php echo $k?>"><?php echo $v;?></option>
+                    <option value="<?php echo $item["repositorio"]?>"><?php echo $item["nombre"];?></option>
                     <?php
                 }?>
 

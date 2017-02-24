@@ -1,6 +1,9 @@
 <?php
 require("includes/autoload.php");
 
+
+
+
 $site="framework/repositorios";
 $action="list";
 //Content
@@ -14,6 +17,6 @@ if($_GET["rep"])
     $filter["archivo_repositorio"]=$_GET["rep"];;
 }
 
-$dataToSkin = $archivos->read($filter);
+$dataToSkin = $archivos->read($filter," ORDER BY archivo_id DESC");
 
 require ("includes/templates/comun/estructura.php");

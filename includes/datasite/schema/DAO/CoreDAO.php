@@ -161,6 +161,8 @@ class CoreDAO
 
 
         }
+
+
         /*if($archivoData)
         {
             return $filesSql;

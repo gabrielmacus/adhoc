@@ -187,8 +187,10 @@
 
                             ?>
 
-                            <div style="width: 100%;height: 300px" class="valign-wrapper center grey lighten-3">
-                                <audio controls style="width: 100%;height: 300px" class="mejs-player">
+                            <div style="width: 100%;padding:10px;height: 300px" class="valign-wrapper center grey lighten-3 ">
+
+
+                                <audio controls style="width: 100%;position: absolute;bottom: 0px" class="mejs-player ">
                                     <source src="<?php echo  $valor["archivo_data"]["o"]["completeUrl"];?>" />
                                 </audio>
                             </div>

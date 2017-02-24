@@ -83,8 +83,6 @@ CREATE TABLE IF NOT EXISTS `equipos` (
 --
 -- Stand-in structure for view `equipos_view`
 --
-CREATE TABLE IF NOT EXISTS `equipos_view` (
-);
 
 -- --------------------------------------------------------
 
@@ -111,10 +109,13 @@ CREATE TABLE IF NOT EXISTS `jugadores` (
 --
 -- Structure for view `equipos_view`
 --
+
+
+/*
 DROP TABLE IF EXISTS `equipos_view`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `equipos_view` AS select `equipos`.`equipo_id` AS `equipo_id`,`equipos`.`equipo_nombre` AS `equipo_nombre`,`equipos`.`equipo_bandera` AS `equipo_bandera`,`jugadores`.`jugador_id` AS `jugador_id`,`jugadores`.`jugador_nombre` AS `jugador_nombre`,`jugadores`.`jugador_apellido` AS `jugador_apellido`,`jugadores`.`jugador_altura` AS `jugador_altura`,`jugadores`.`jugador_peso` AS `jugador_peso`,`jugadores`.`jugador_pierna` AS `jugador_pierna`,`jugadores`.`jugador_notas` AS `jugador_notas`,`jugadores`.`jugador_equipo` AS `jugador_equipo`,`jugadores`.`jugador_posicion` AS `jugador_posicion`,`jugadores`.`jugador_numero` AS `jugador_numero`,`repositorio`.`repositorio_id` AS `repositorio_id`,`repositorio`.`archivo` AS `archivo`,`repositorio`.`tabla` AS `tabla`,`repositorio`.`objeto` AS `objeto`,`archivos`.`archivo_id` AS `archivo_id`,`archivos`.`archivo_data` AS `archivo_data`,`archivos`.`archivo_repositorio` AS `archivo_repositorio` from (((`equipos` left join `jugadores` on((`equipos`.`equipo_id` = `jugadores`.`jugador_equipo`))) left join `repositorio` on(((`repositorio`.`objeto` = `equipos`.`equipo_id`) and (`repositorio`.`tabla` = 'equipos')))) left join `archivos` on((`archivos`.`archivo_id` = `repositorio`.`archivo`)));
-
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `equipos_view` AS select `equipos`.`equipo_id` AS `equipo_id`,`equipos`.`equipo_nombre` AS `equipo_nombre`,`equipos`.`equipo_bandera` AS `equipo_bandera`,`jugadores`.`jugador_id` AS `jugador_id`,`jugadores`.`jugador_nombre` AS `jugador_nombre`,`jugadores`.`jugador_apellido` AS `jugador_apellido`,`jugadores`.`jugador_altura` AS `jugador_altura`,`jugadores`.`jugador_peso` AS `jugador_peso`,`jugadores`.`jugador_pierna` AS `jugador_pierna`,`jugadores`.`jugador_notas` AS `jugador_notas`,`jugadores`.`jugador_equipo` AS `jugador_equipo`,`jugadores`.`jugador_posicion` AS `jugador_posicion`,`jugadores`.`jugador_numero` AS `jugador_numero`,`repositorio`.`repositorio_id` AS `repositorio_id`,`repositorio`.`archivo` AS `archivo`,`repositorio`.`tabla` AS `tabla`,`repositorio`.`objeto` AS `objeto`,`archivos`.`archivo_id` AS `archivo_id`,`archivos`.`archivo_data` AS `archivo_data`,`archivos`.`archivos_objetos` AS `archivo_repositorio` from (((`equipos` left join `jugadores` on((`equipos`.`equipo_id` = `jugadores`.`jugador_equipo`))) left join `repositorio` on(((`repositorio`.`objeto` = `equipos`.`equipo_id`) and (`repositorio`.`tabla` = 'equipos')))) left join `archivos` on((`archivos`.`archivo_id` = `repositorio`.`archivo`)));
+*/
 --
 -- Indexes for dumped tables
 --

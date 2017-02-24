@@ -4,53 +4,6 @@
     "host":"localhost",
     "user":"root",
     "password":""
-  },
-  "repositorios":
-  {
-    "1":
-    {
-      "pass":"sercan02",
-      "user":"sub697_26",
-      "server":"184.154.92.174",
-      "dns":"http://electrostyleinformatica.com",
-      "dir":"/imagenes",
-      "dateformat":"/d/m/Y",
-      "root_dir":"/httpdocs",
-      "repositorio":1
-    },
-    "2":
-    {
-      "pass":"sercan02",
-      "user":"sub697_26",
-      "server":"184.154.92.174",
-      "dns":"http://electrostyleinformatica.com",
-      "dir":"/videos",
-      "dateformat":"/d/m/Y",
-      "root_dir":"/httpdocs",
-      "repositorio":2
-    },
-    "3":
-    {
-      "pass":"sercan02",
-      "user":"sub697_26",
-      "server":"184.154.92.174",
-      "dns":"http://electrostyleinformatica.com",
-      "dir":"/archivos",
-      "dateformat":"/d/m/Y",
-      "root_dir":"/httpdocs",
-      "repositorio":2
-    },
-    "4":
-    {
-      "pass":"sercan02",
-      "user":"sub697_26",
-      "server":"184.154.92.174",
-      "dns":"http://electrostyleinformatica.com",
-      "dir":"/audios",
-      "dateformat":"/d/m/Y",
-      "root_dir":"/httpdocs",
-      "repositorio":2
-    }
   }
   ,
   "address":"http://localhost/ad-hoc",

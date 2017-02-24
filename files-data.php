@@ -10,7 +10,8 @@ if($id)
         $archivos = new \DAO\ArchivoDAO($db, "archivos");
 
         $archivo = $archivos->read(
-            array(
+            array
+            (
                 "archivo_id" => $id
             )
         );
@@ -25,7 +26,7 @@ if($id)
     }
 else
 {
-    $repositorio=$config["repositorios"][$_GET["rep"]];
+    $repositorio=$repositorios[$_GET["rep"]];
     $archivos =new \DAO\ArchivoDAO($db,"archivos",$repositorio);
 
     if(!$repositorio)

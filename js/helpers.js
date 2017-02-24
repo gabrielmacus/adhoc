@@ -48,3 +48,9 @@ function upperCaseF(a){
         a.value = a.value.toUpperCase();
     }, 1);
 }
+
+function removeLastComma(strng){
+    var n=strng.lastIndexOf(",");
+    var a=strng.substring(0,n)
+    return a;
+}

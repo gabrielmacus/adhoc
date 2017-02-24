@@ -40,12 +40,14 @@ class ArchivoDAO extends CoreDAO
 
         $uploadedFiles=array();
 
+
+        if($files["success"])
+        {
             foreach($files["success"] as $file)
             {
-                
-                
+
                 $file=json_encode($file);
-                
+
                 $archivo = array(
                     "archivo_repositorio"=>$this->config["repositorio"],
                     "archivo_data"=>$file
@@ -59,8 +61,11 @@ class ArchivoDAO extends CoreDAO
 
                 $uploadedFiles[]= $this->upsert($archivo);//parent::upsert($archivo);
             }
+        }
 
-            return $uploadedFiles;
+
+
+            return $files;
 
 
     }
@@ -119,6 +124,7 @@ class ArchivoDAO extends CoreDAO
             }
             $sql = rtrim($sql,"AND");
         }
+        $sql.=" {$sqlExtra}";
 
         if($res=  $this->db->query($sql))
         {

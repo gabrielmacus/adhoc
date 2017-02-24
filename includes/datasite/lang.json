@@ -25,20 +25,10 @@
     "1":"Derecha"
   },
   "teamnoplayers":"Este equipo no tiene jugadores",
-  "repositorios":
-  {
-    "1":"Imagenes",
-    "2":"Videos",
-    "3":"Archivos",
-    "4":"Audios"
-  },
   "menu":[
-    {"texto":"Repositorios","items":[
-
-      {"texto":"Imagenes","href":"files.php?rep=1"},{"texto":"Videos","href":"files.php?rep=2"},{"texto":"Archivos","href":"files.php?rep=3"}
-      ,{"texto":"Audios","href":"files.php?rep=4"}
-
-    ]},{"texto":"Subir archivos","href":"files-add.php"}
+    {"texto":"Repositorios","items":[]}
+  ,{"texto":"Crear repositorio","href":"repo-add.php"}
+  ,{"texto":"Subir archivos","href":"files-add.php"}
 
   ],
   "yes":"SI",
@@ -46,6 +36,8 @@
   "fileDelete":"¿Eliminar archivo?",
   "errors":
   {
-    "genericError":{"text":"Se ha producido un error al procesar la solicitud. Inténtelo de nuevo"}
-  }
+    "genericError":{"text":"Se ha producido un error al procesar la solicitud. Inténtelo de nuevo"},
+    "filesError":{"text":"Error al subir los siguientes archivos: "}
+  },
+  "formatList":["jpg","jpeg","gif","exe","zip","rar","svg","png","mp4","mp3","avi"]
 }
