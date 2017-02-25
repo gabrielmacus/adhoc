@@ -118,7 +118,6 @@
 
 
 </script>
-<h1>Area en desarrollo..</h1>
 <form class="row">
 
     <div class="col s12 m12 l12">

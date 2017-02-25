@@ -3,15 +3,63 @@
 
     var id ;
     var rep;
-    function showDeleteDialog(_id,_rep) {
+    function showDeleteDialog(_id,_rep,div) {
 
         id=_id;
         rep=_rep;
+
+
+        if(!div)
+        {
+            div="#file-delete";
+        }
+
+
+
         $.fancybox.open({
-            src  : '#file-delete',
+            src  :div,
             type : 'inline'
         });
     }
+
+    <?php if(count($dataToSkin)==0)
+    {
+    ?>
+    function deleteRepo()
+    {
+
+        $.ajax(
+            {
+                url:"repo-data.php?act=delete",
+                method:"post",
+                dataType:"json",
+                data:{repositorio:rep},
+                success:function(res)
+                {
+
+                    console.log(res);
+                    if(res)
+                    {
+                        window.location.href="files-add.php";
+                    }
+                    else
+                    {
+                        error();
+                    }
+                },
+                error:error
+            }
+        );
+        parent.jQuery.fancybox.getInstance().close();
+
+    }
+
+
+
+    <?php
+    }?>
+
+
     function deleteFile()
     {
 
@@ -51,6 +99,8 @@
 
         <div class="col s12 m12 l12">
             <h2><?php echo $lang["nofiles"];?></h2>
+
+            <h3>Si no usas el repositorio, podés <a onclick='showDeleteDialog(0,"<?php echo $_GET["rep"] ?>","#repo-delete")' style="font-size: 18px" class="waves-effect waves-light btn">borrarlo</a></h3>
         </div>
 
 
@@ -82,7 +132,7 @@
 
         ?>
         <div class="col s12 m12 l6">
-            <div class="card">
+            <div class="card " style="overflow: hidden">
                 <div class="card-image ">
 
                     <?php
@@ -93,7 +143,7 @@
                         case 'image':
                             ?>
                             <a href="<?php echo  $valor["archivo_data"]["o"]["completeUrl"];?>" data-fancybox="images">
-                                <img  rel="<?php  echo  $lang["repositorios"][$k]; ?>" style="object-fit: cover;height: 300px" src="<?php echo  $valor["archivo_data"]["o"]["completeUrl"];?>">
+                                <img class="zoomOnHover"  rel="<?php  echo  $lang["repositorios"][$k]; ?>" style="object-fit: cover;height: 300px" src="<?php echo  $valor["archivo_data"]["o"]["completeUrl"];?>">
                             </a>
 
                             <?php
@@ -114,7 +164,7 @@
                                           <!--
                                           <iframe style="width: 100%;height: 100%" class="valign "  src="http://docs.google.com/gview?url=<?php echo  $valor["archivo_data"]["o"]["completeUrl"];?>&embedded=true" aria-hidden="true"></iframe>
                                           -->
-                                          <i style="font-size: 250px;width: 100%" class="valign fa fa fa-file-word-o blue-text darken-1" aria-hidden="true"></i>
+                                          <i  style="font-size: 250px;width: 100%" class="zoomOnHover valign fa fa fa-file-word-o blue-text darken-1" aria-hidden="true"></i>
 
                                       </a>
 
@@ -129,7 +179,7 @@
                                           <!--
                                           <iframe style="width: 100%;height: 100%" class="valign "  src="http://docs.google.com/gview?url=<?php echo  $valor["archivo_data"]["o"]["completeUrl"];?>&embedded=true" aria-hidden="true"></iframe>
                                           -->
-                                          <i style="font-size: 250px;width: 100%" class="valign fa fa fa-file-excel-o green-text" aria-hidden="true"></i>
+                                          <i style="font-size: 250px;width: 100%" class="zoomOnHover valign fa fa fa-file-excel-o green-text" aria-hidden="true"></i>
 
                                       </a>
 
@@ -144,7 +194,7 @@
                                           <!--
                                           <iframe style="width: 100%;height: 100%" class="valign "  src="http://docs.google.com/gview?url=<?php echo  $valor["archivo_data"]["o"]["completeUrl"];?>&embedded=true" aria-hidden="true"></iframe>
                                           -->
-                                          <i style="font-size: 250px;width: 100%" class="valign fa fa fa-file-powerpoint-o purple-text" aria-hidden="true"></i>
+                                          <i style="font-size: 250px;width: 100%" class="zoomOnHover valign fa fa fa-file-powerpoint-o purple-text" aria-hidden="true"></i>
 
                                       </a>
 
@@ -156,7 +206,7 @@
 
 
                                       <div style="width: 100%;height: 300px" class="valign-wrapper center grey lighten-3">
-                                          <i style="font-size: 250px;width: 100%" class="valign fa fa fa-file-powerpoint-o purple-text" aria-hidden="true"></i>
+                                          <i style="font-size: 250px;width: 100%" class="zoomOnHover valign fa fa fa-file-powerpoint-o purple-text" aria-hidden="true"></i>
 
                                       </div>
 
@@ -173,7 +223,7 @@
                            ?>
 
                             <div style="width: 100%;height: 300px" class="valign-wrapper center grey lighten-3">
-                                <video controls style="width: 100%;height: 300px" class="mejs-player">
+                                <video preload="none" controls style="width: 100%;height: 300px;" class="mejs-player">
                                     <source src="<?php echo  $valor["archivo_data"]["o"]["completeUrl"];?>" />
                                 </video>
                             </div>
@@ -204,7 +254,7 @@
 
 
                             <div style="width: 100%;height: 300px" class="valign-wrapper center grey lighten-3">
-                                <i style="font-size: 250px;width: 100%" class="valign fa fa-file-archive-o" aria-hidden="true"></i>
+                                <i style="font-size: 250px;width: 100%" class="zoomOnHover valign fa fa-file-archive-o" aria-hidden="true"></i>
 
                             </div>
 
@@ -270,4 +320,15 @@
 
 </div>
 
+<div style="display: none;" class="card" id="repo-delete">
+    <div class="card-content black-text center">
+        <span class="card-title"></span>
+        <p><?php echo $lang["repoDelete"];?></p>
+    </div>
+    <div class="card-action center">
+        <button onclick="parent.jQuery.fancybox.getInstance().close();" class="waves-effect waves-teal btn white teal-text"><?php echo $lang["no"];?></button>
+        <button onclick="deleteRepo()" class="waves-effect waves-teal btn white teal-text"><?php echo $lang["yes"];?></button>
+    </div>
+
+</div>
 

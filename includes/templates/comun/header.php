@@ -122,6 +122,22 @@
         display: none;
         text-align: center;
     }
+    .zoomOnHover
+    {
+        -webkit-transition: all 300ms ease-out;
+        -moz-transition: all 300ms ease-out;
+        -ms-transition: all 300ms ease-out;;
+        -o-transition: all  300ms ease-out;;
+        transition: all  300ms ease-out;
+    }
+    .zoomOnHover:hover
+    {
+        -webkit-transform: scale(1.2);
+        -moz-transform: scale(1.2);
+        -ms-transform: scale(1.2);
+        -o-transform: scale(1.2);
+        transform: scale(1.2);
+    }
 </style>
 <div   class="loader" style=" display:none;position: fixed;top: 0px;left: 0px;z-index: 10000;background-color: rgba(0,0,0,0.7);height: 100%;width: 100%">
 

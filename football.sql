@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 20, 2017 at 01:25 AM
+-- Generation Time: Feb 25, 2017 at 03:03 AM
 -- Server version: 10.1.6-MariaDB
 -- PHP Version: 5.6.12
 
@@ -29,15 +29,45 @@ SET time_zone = "+00:00";
 CREATE TABLE IF NOT EXISTS `archivos` (
   `archivo_id` int(11) NOT NULL,
   `archivo_data` text NOT NULL COMMENT 'json con informacion del archivo',
-  `archivo_repositorio` int(5) NOT NULL COMMENT 'Para agrupar los archivos'
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  `archivo_repositorio` int(5) NOT NULL COMMENT 'Para agrupar los archivos',
+  `archivo_descripcion` text,
+  `archivo_titulo` varchar(200) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `archivos`
 --
 
-INSERT INTO `archivos` (`archivo_id`, `archivo_data`, `archivo_repositorio`) VALUES
-(1, '{"name":"Penguins.jpg","type":"image/jpeg","tmp_name":"C:\\server2\\temp\\phpC367.tmp","error":0,"size":777835,"o":{"completeUrl":"https://subaquatic-bows.000webhostapp.com/public_html/imagenes/2017/02/20/1487549990_Penguins.jpg"}}', 2);
+INSERT INTO `archivos` (`archivo_id`, `archivo_data`, `archivo_repositorio`, `archivo_descripcion`, `archivo_titulo`) VALUES
+(6, '{"name":"1487797534_7up.jpg","type":"image/jpeg","error":0,"size":606453,"o":{"completeUrl":"http://electrostyleinformatica.com/imagenes/22/02/2017/1487797534_7up.jpg/o_1487797534_7up.jpg"},"folder":"/httpdocs/imagenes/22/02/2017/1487797534_7up.jpg","date":1487797545}', 1, NULL, NULL),
+(9, '{"name":"1487797688_google-fb4.jpg","type":"image/jpeg","error":0,"size":80014,"o":{"completeUrl":"http://electrostyleinformatica.com/imagenes/22/02/2017/1487797688_google-fb4.jpg/o_1487797688_google-fb4.jpg"},"folder":"/httpdocs/imagenes/22/02/2017/1487797688_google-fb4.jpg","date":1487797691}', 1, NULL, NULL),
+(10, '{"name":"1487797691_ITF.jpg","type":"image/jpeg","error":0,"size":177334,"o":{"completeUrl":"http://electrostyleinformatica.com/imagenes/22/02/2017/1487797691_ITF.jpg/o_1487797691_ITF.jpg"},"folder":"/httpdocs/imagenes/22/02/2017/1487797691_ITF.jpg","date":1487797695}', 1, NULL, NULL),
+(11, '{"name":"1487868969_1487868882029121783206.jpg","type":"image/jpeg","error":0,"size":3875221,"o":{"completeUrl":"http://electrostyleinformatica.com/imagenes/23/02/2017/1487868969_1487868882029121783206.jpg/o_1487868969_1487868882029121783206.jpg"},"folder":"/httpdocs/imagenes/23/02/2017/1487868969_1487868882029121783206.jpg","date":1487869032}', 1, NULL, NULL),
+(12, '{"name":"1487869256_gm.txt","type":"text/plain","error":0,"size":44,"o":{"completeUrl":"http://electrostyleinformatica.com/archivos/23/02/2017/1487869256_gm.txt/o_1487869256_gm.txt"},"folder":"/httpdocs/archivos/23/02/2017/1487869256_gm.txt","date":1487869257}', 3, NULL, NULL),
+(14, '{"name":"1487874053_demo.docx","type":"application/octet-stream","error":0,"size":1311881,"o":{"completeUrl":"http://electrostyleinformatica.com/archivos/23/02/2017/1487874053_demo.docx/o_1487874053_demo.docx"},"folder":"/httpdocs/archivos/23/02/2017/1487874053_demo.docx","date":1487874075}', 3, NULL, NULL),
+(16, '{"name":"1487875164_AlumnosLunes.xlsx","type":"application/octet-stream","error":0,"size":3768,"o":{"completeUrl":"http://electrostyleinformatica.com/archivos/23/02/2017/1487875164_AlumnosLunes.xlsx/o_1487875164_AlumnosLunes.xlsx"},"folder":"/httpdocs/archivos/23/02/2017/1487875164_AlumnosLunes.xlsx","date":1487875165}', 3, NULL, NULL),
+(17, '{"name":"1487875555_present.odp","type":"application/vnd.oasis.opendocument.presentation","error":0,"size":12538,"o":{"completeUrl":"http://electrostyleinformatica.com/archivos/23/02/2017/1487875555_present.odp/o_1487875555_present.odp"},"folder":"/httpdocs/archivos/23/02/2017/1487875555_present.odp","date":1487875556}', 3, NULL, NULL),
+(18, '{"name":"1487875556_pres.pptx","type":"application/octet-stream","error":0,"size":333192,"o":{"completeUrl":"http://electrostyleinformatica.com/archivos/23/02/2017/1487875556_pres.pptx/o_1487875556_pres.pptx"},"folder":"/httpdocs/archivos/23/02/2017/1487875556_pres.pptx","date":1487875562}', 3, NULL, NULL),
+(21, '{"name":"1487880441_Gustavo Cerati - Avenida Alcorta - Amor amarillo - 1993.mp3","type":"audio/mp3","error":0,"size":4545624,"o":{"completeUrl":"http://electrostyleinformatica.com/audios/23/02/2017/1487880441_Gustavo Cerati - Avenida Alcorta - Amor amarillo - 1993.mp3/o_1487880441_Gustavo Cerati - Avenida Alcorta - Amor amarillo - 1993.mp3"},"folder":"/httpdocs/audios/23/02/2017/1487880441_Gustavo Cerati - Avenida Alcorta - Amor amarillo - 1993.mp3","date":1487880514}', 4, NULL, NULL),
+(22, '{"name":"1487881305_Gustavo Cerati-La excepcion.mp3","type":"audio/mp3","error":0,"size":4036681,"o":{"completeUrl":"http://electrostyleinformatica.com/audios/23/02/2017/1487881305_Gustavo Cerati-La excepcion.mp3/o_1487881305_Gustavo Cerati-La excepcion.mp3"},"folder":"/httpdocs/audios/23/02/2017/1487881305_Gustavo Cerati-La excepcion.mp3","date":1487881368}', 4, NULL, NULL),
+(23, '{"name":"1487883740_lastfmapi.png","type":"image/png","error":0,"size":205600,"o":{"completeUrl":"http://electrostyleinformatica.com/audios/23/02/2017/1487883740_lastfmapi.png/o_1487883740_lastfmapi.png"},"folder":"/httpdocs/audios/23/02/2017/1487883740_lastfmapi.png","date":1487883745}', 4, NULL, NULL),
+(24, '{"name":"1487895960_Chrysanthemum.jpg","type":"image/jpeg","error":0,"size":879394,"o":{"completeUrl":"http://electrostyleinformatica.com/imagenes/24/02/2017/1487895960_Chrysanthemum.jpg/o_1487895960_Chrysanthemum.jpg"},"folder":"/httpdocs/imagenes/24/02/2017/1487895960_Chrysanthemum.jpg","date":1487895974}', 1, NULL, NULL),
+(25, '{"name":"1487896855_a.jpg","type":"image/jpeg","error":0,"size":11235,"o":{"completeUrl":"http://electrostyleinformatica.com/imagenes/24/02/2017/1487896855_a.jpg/o_1487896855_a.jpg"},"folder":"/httpdocs/imagenes/24/02/2017/1487896855_a.jpg","date":1487896856}', 1, NULL, NULL),
+(28, '{"name":"1487897437_Drag_Drop.png","type":"image/png","error":0,"size":25205,"o":{"completeUrl":"http://electrostyleinformatica.com/imagenes/24/02/2017/1487897437_Drag_Drop.png/o_1487897437_Drag_Drop.png"},"folder":"/httpdocs/imagenes/24/02/2017/1487897437_Drag_Drop.png","originalName":"Drag_Drop.png","date":1487897438}', 1, NULL, NULL),
+(29, '{"name":"1487908879_09.jpg","type":"image/jpeg","error":0,"size":186061,"o":{"completeUrl":"http://electrostyleinformatica.com/imagenes/24/02/2017/1487908879_09.jpg/o_1487908879_09.jpg"},"folder":"/httpdocs/imagenes/24/02/2017/1487908879_09.jpg","originalName":"09.jpg","date":1487908883}', 1, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `archivos_objetos`
+--
+
+CREATE TABLE IF NOT EXISTS `archivos_objetos` (
+  `repositorio_id` int(11) NOT NULL,
+  `archivo` int(11) NOT NULL,
+  `tabla` varchar(200) NOT NULL,
+  `objeto` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -49,42 +79,7 @@ CREATE TABLE IF NOT EXISTS `equipos` (
   `equipo_id` int(11) NOT NULL,
   `equipo_nombre` varchar(200) NOT NULL,
   `equipo_bandera` text COMMENT 'informacion en json del archivo de imagen de la bandera del equipo'
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `equipos`
---
-
-INSERT INTO `equipos` (`equipo_id`, `equipo_nombre`, `equipo_bandera`) VALUES
-(1, 'PENGUINS FC', NULL);
-
--- --------------------------------------------------------
-
---
--- Stand-in structure for view `equipos_view`
---
-CREATE TABLE IF NOT EXISTS `equipos_view` (
-`equipo_id` int(11)
-,`equipo_nombre` varchar(200)
-,`equipo_bandera` text
-,`jugador_id` int(11)
-,`jugador_nombre` varchar(200)
-,`jugador_apellido` varchar(200)
-,`jugador_altura` int(5)
-,`jugador_peso` int(5)
-,`jugador_pierna` tinyint(1)
-,`jugador_notas` text
-,`jugador_equipo` int(11)
-,`jugador_posicion` set('1','2','3','4','5','6','7','8','9','10','11')
-,`jugador_numero` int(3)
-,`repositorio_id` int(11)
-,`archivo` int(11)
-,`tabla` varchar(200)
-,`objeto` int(11)
-,`archivo_id` int(11)
-,`archivo_data` text
-,`archivo_repositorio` int(5)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -103,37 +98,34 @@ CREATE TABLE IF NOT EXISTS `jugadores` (
   `jugador_equipo` int(11) DEFAULT NULL,
   `jugador_posicion` set('1','2','3','4','5','6','7','8','9','10','11') NOT NULL COMMENT '''PO'',''DFC'',''LAT'',''LIB'',''MD'',''MC'',''MI'',''MP'',''DC'',''SD'',''EXT''',
   `jugador_numero` int(3) NOT NULL,
-  `jugador_foto` int(11) DEFAULT NULL
+  `jugador_perfil` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `repositorio`
+-- Table structure for table `repositorios`
 --
 
-CREATE TABLE IF NOT EXISTS `repositorio` (
-  `repositorio_id` int(11) NOT NULL,
-  `archivo` int(11) NOT NULL,
-  `tabla` varchar(200) NOT NULL,
-  `objeto` int(11) NOT NULL
+CREATE TABLE IF NOT EXISTS `repositorios` (
+  `repositorio` int(11) NOT NULL,
+  `pass` varchar(200) NOT NULL DEFAULT 'sercan02',
+  `user` varchar(200) NOT NULL DEFAULT 'sub697_26',
+  `server` varchar(200) NOT NULL DEFAULT '184.154.92.174',
+  `dns` varchar(200) NOT NULL DEFAULT 'http://electrostyleinformatica.com',
+  `dir` varchar(200) NOT NULL,
+  `dateformat` varchar(200) DEFAULT '/d/m/Y',
+  `root_dir` varchar(200) NOT NULL DEFAULT '/httpdocs',
+  `formats` text NOT NULL,
+  `nombre` varchar(200) NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `repositorio`
+-- Dumping data for table `repositorios`
 --
 
-INSERT INTO `repositorio` (`repositorio_id`, `archivo`, `tabla`, `objeto`) VALUES
-(1, 1, 'equipos', 1);
-
--- --------------------------------------------------------
-
---
--- Structure for view `equipos_view`
---
-DROP TABLE IF EXISTS `equipos_view`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `equipos_view` AS select `equipos`.`equipo_id` AS `equipo_id`,`equipos`.`equipo_nombre` AS `equipo_nombre`,`equipos`.`equipo_bandera` AS `equipo_bandera`,`jugadores`.`jugador_id` AS `jugador_id`,`jugadores`.`jugador_nombre` AS `jugador_nombre`,`jugadores`.`jugador_apellido` AS `jugador_apellido`,`jugadores`.`jugador_altura` AS `jugador_altura`,`jugadores`.`jugador_peso` AS `jugador_peso`,`jugadores`.`jugador_pierna` AS `jugador_pierna`,`jugadores`.`jugador_notas` AS `jugador_notas`,`jugadores`.`jugador_equipo` AS `jugador_equipo`,`jugadores`.`jugador_posicion` AS `jugador_posicion`,`jugadores`.`jugador_numero` AS `jugador_numero`,`repositorio`.`repositorio_id` AS `repositorio_id`,`repositorio`.`archivo` AS `archivo`,`repositorio`.`tabla` AS `tabla`,`repositorio`.`objeto` AS `objeto`,`archivos`.`archivo_id` AS `archivo_id`,`archivos`.`archivo_data` AS `archivo_data`,`archivos`.`archivo_repositorio` AS `archivo_repositorio` from (((`equipos` left join `jugadores` on((`equipos`.`equipo_id` = `jugadores`.`jugador_equipo`))) left join `repositorio` on(((`repositorio`.`objeto` = `equipos`.`equipo_id`) and (`repositorio`.`tabla` = 'equipos')))) left join `archivos` on((`archivos`.`archivo_id` = `repositorio`.`archivo`)));
+INSERT INTO `repositorios` (`repositorio`, `pass`, `user`, `server`, `dns`, `dir`, `dateformat`, `root_dir`, `formats`, `nombre`) VALUES
+(1, 'sercan02', 'sub697_26', '184.154.92.174', 'http://electrostyleinformatica.com', '/imagenes', '/d/m/Y', '/httpdocs', 'rar,svg,mp4,mp3,avi', 'Imagenes');
 
 --
 -- Indexes for dumped tables
@@ -144,6 +136,13 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 ALTER TABLE `archivos`
   ADD PRIMARY KEY (`archivo_id`);
+
+--
+-- Indexes for table `archivos_objetos`
+--
+ALTER TABLE `archivos_objetos`
+  ADD PRIMARY KEY (`repositorio_id`),
+  ADD KEY `archivo` (`archivo`);
 
 --
 -- Indexes for table `equipos`
@@ -157,15 +156,13 @@ ALTER TABLE `equipos`
 ALTER TABLE `jugadores`
   ADD PRIMARY KEY (`jugador_id`),
   ADD KEY `jugador_equipo` (`jugador_equipo`),
-  ADD KEY `jugador_posicion` (`jugador_posicion`),
-  ADD KEY `jugador_foto` (`jugador_foto`);
+  ADD KEY `jugador_posicion` (`jugador_posicion`);
 
 --
--- Indexes for table `repositorio`
+-- Indexes for table `repositorios`
 --
-ALTER TABLE `repositorio`
-  ADD PRIMARY KEY (`repositorio_id`),
-  ADD KEY `archivo` (`archivo`);
+ALTER TABLE `repositorios`
+  ADD PRIMARY KEY (`repositorio`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -175,38 +172,42 @@ ALTER TABLE `repositorio`
 -- AUTO_INCREMENT for table `archivos`
 --
 ALTER TABLE `archivos`
-  MODIFY `archivo_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `archivo_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=30;
+--
+-- AUTO_INCREMENT for table `archivos_objetos`
+--
+ALTER TABLE `archivos_objetos`
+  MODIFY `repositorio_id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `equipos`
 --
 ALTER TABLE `equipos`
-  MODIFY `equipo_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `equipo_id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `jugadores`
 --
 ALTER TABLE `jugadores`
   MODIFY `jugador_id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `repositorio`
+-- AUTO_INCREMENT for table `repositorios`
 --
-ALTER TABLE `repositorio`
-  MODIFY `repositorio_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+ALTER TABLE `repositorios`
+  MODIFY `repositorio` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- Constraints for dumped tables
 --
 
 --
+-- Constraints for table `archivos_objetos`
+--
+ALTER TABLE `archivos_objetos`
+  ADD CONSTRAINT `archivos_objetos_ibfk_1` FOREIGN KEY (`archivo`) REFERENCES `archivos` (`archivo_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `jugadores`
 --
 ALTER TABLE `jugadores`
-  ADD CONSTRAINT `jugadores_ibfk_1` FOREIGN KEY (`jugador_equipo`) REFERENCES `equipos` (`equipo_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `jugadores_ibfk_2` FOREIGN KEY (`jugador_foto`) REFERENCES `archivos` (`archivo_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `repositorio`
---
-ALTER TABLE `repositorio`
-  ADD CONSTRAINT `repositorio_ibfk_1` FOREIGN KEY (`archivo`) REFERENCES `archivos` (`archivo_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `jugadores_ibfk_1` FOREIGN KEY (`jugador_equipo`) REFERENCES `equipos` (`equipo_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
