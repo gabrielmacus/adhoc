@@ -22,7 +22,7 @@ include("includes/datasite/schema/DAO/JugadorDAO.php");
 include("includes/datasite/schema/DAO/EquipoDAO.php");
 include("includes/datasite/schema/DAO/ArchivoDAO.php");
 include("includes/datasite/schema/DAO/RepositorioDAO.php");
-
+include("includes/framework/classes/ImageResize.php");
 include("includes/framework/Mustache/Autoloader.php");
 
 Mustache_Autoloader::register();
@@ -35,3 +35,4 @@ include("includes/framework/helpers/arrays.php");
 
 /** Preload del sitio **/
 include("includes/datasite/preload.php");
+

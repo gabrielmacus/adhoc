@@ -164,11 +164,48 @@ function uploadFiles($files,$dir,$config)
 
                     $completeName= $folder."/o_".$name;//Se indica el prefijo o para los archivos originales
 
-                    // cargar un archivo
+
+                    //creo las dimensiones dadas
+                    $config["sizes"]=explode(";", $config["sizes"]);
+
+                    // cargo el archivo original
                     if (ftp_put($conn_id,$completeName, $tmpFile, FTP_BINARY)) {
 
 
-                        $file["o"]["completeUrl"]=$config["dns"].str_replace($config["root_dir"],"",$completeName);
+                        $file["sizes"]["o"]["completeUrl"]=$config["dns"].str_replace($config["root_dir"],"",$completeName);
+
+
+
+
+
+                        foreach($config["sizes"] as $k=>$size)
+                        {
+
+
+                            $size= explode(",",$size);
+
+                            $completeName= $folder."/{$k}_".$name;//Se indica el prefijo o para los archivos originales
+
+                            $image = new \Eventviva\ImageResize($tmpFile);
+                            $image->resizeToBestFit($size[0], $size[1]);
+                            $image->save($tmpFile);
+
+                            if (ftp_put($conn_id,$completeName, $tmpFile, FTP_BINARY)) {
+                                $file["sizes"][$k]["completeUrl"]=$config["dns"].str_replace($config["root_dir"],"",$completeName);
+
+
+
+                            }
+                            else
+                            {
+                                $ret["error"][]=$file["name"];
+                            }
+
+
+                        }
+
+
+
 
                         $file["folder"]=$folder;
                         $file["name"]=$name;
@@ -186,6 +223,11 @@ function uploadFiles($files,$dir,$config)
                     } else {
                         $ret["error"][]=$file["name"];
                     }
+
+
+
+
+
                 }
                 else
                 { $ret["error"][]=$file["name"];

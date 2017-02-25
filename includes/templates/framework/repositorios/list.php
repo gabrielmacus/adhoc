@@ -140,10 +140,11 @@
 
                     switch($type)
                     {
+
                         case 'image':
                             ?>
-                            <a href="<?php echo  $valor["archivo_data"]["o"]["completeUrl"];?>" data-fancybox="images">
-                                <img class="zoomOnHover"  rel="<?php  echo  $lang["repositorios"][$k]; ?>" style="object-fit: cover;height: 300px" src="<?php echo  $valor["archivo_data"]["o"]["completeUrl"];?>">
+                            <a href="<?php echo  $valor["archivo_data"]["sizes"]["o"]["completeUrl"];?>" data-fancybox="images">
+                                <img class="zoomOnHover"  rel="<?php  echo  $lang["repositorios"][$k]; ?>" style="object-fit: cover;height: 300px" src="<?php echo  $valor["archivo_data"]["sizes"][0]["completeUrl"];?>">
                             </a>
 
                             <?php

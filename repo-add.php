@@ -1,9 +1,8 @@
 <?php
 require("/includes/autoload.php");
-
 $site="framework/repositorios";
 $action="add";
-//Content
+
 
 if(is_numeric($_GET["id"]))
 {
