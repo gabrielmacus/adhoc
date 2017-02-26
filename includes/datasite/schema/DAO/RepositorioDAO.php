@@ -27,15 +27,23 @@ class RepositorioDAO extends CoreDAO
         return parent::delete($object);
     }
 
-    function read($object =array(),$sqlExtra="")
+    function getPager($limit, $actualPage, $paddingPages)
+    {
+        return parent::getPager($limit, $actualPage, $paddingPages);
+    }
+
+    function read($object =array(),$sqlExtra="",$offset=0,$limit=false)
     {
 /*INSERT INTO `repositorios`(`repositorio`, `pass`, `user`, `server`, `dns`, `dir`, `dateformat`, `root_dir`, `formats`) VALUES (1,"sercan02","sub697_26","184.154.92.174","http://electrostyleinformatica.com","/imagenes","/d/m/Y","/httpdocs","mp4,avi")*/
-   $repositorios =  parent::read($object,$sqlExtra);
+   $repositorios =  parent::read($object,$sqlExtra,$offset,$limit);
         $array = array();
        foreach($repositorios as $rep)
        {
 
            $rep["formats"]=explode(",",$rep["formats"]);
+
+           $rep["sizes"]=explode(";",$rep["sizes"]);
+
            $array[$rep["repositorio"]]=$rep;
 
        }

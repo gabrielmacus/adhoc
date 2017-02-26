@@ -118,7 +118,17 @@
 
 <div  class="row">
 
-    <h2><?php echo $lang["repositorios"][$k]; ?></h2>
+    <h2><?php
+
+        foreach($v as $data)
+        {
+            echo $repositorios[$data["archivo_repositorio"]]["nombre"];
+            break;
+        }
+
+        ?>
+
+    </h2>
 
     <?php
     foreach($v as $clave=>$valor)
@@ -134,6 +144,8 @@
         <div class="col s12 m12 l6">
             <div class="card " style="overflow: hidden">
                 <div class="card-image ">
+
+
 
                     <?php
 
@@ -215,6 +227,17 @@
 
                                       <?php
                                       break;
+                                  default:
+                                      ?>
+
+                                      <div style="width: 100%;height: 300px" class="valign-wrapper center grey lighten-3">
+                                          <i style="font-size: 250px;width: 100%" class="zoomOnHover valign fa fa-file-archive-o" aria-hidden="true"></i>
+
+                                      </div>
+
+
+                                      <?php
+                                      break;
 
                               }
 
@@ -255,6 +278,7 @@
 
 
                             <div style="width: 100%;height: 300px" class="valign-wrapper center grey lighten-3">
+
                                 <i style="font-size: 250px;width: 100%" class="zoomOnHover valign fa fa-file-archive-o" aria-hidden="true"></i>
 
                             </div>
@@ -297,6 +321,8 @@
 
 
 
+
+
  </div>
 
     <?php
@@ -308,6 +334,53 @@
 
     }
 </style>
+<?php
+
+if(count($dataToSkin)>0) {
+
+?>
+    <div class="row">
+
+
+        <ul class="pagination col s12 center ">
+
+            <?php
+
+            if($page==1)
+            {
+                $prevClass="disabled";
+            }
+            ?>
+            <li class="waves-effect <?php echo $prevClass; ?>"><a href="files.php?<?php echo $qs."&p=".($page-1) ?>"><i class="material-icons">chevron_left</i></a></li>
+
+            <?php
+
+
+
+            //PAGINADOR
+            foreach($pager as $k=>$v)
+            {
+                ?>
+
+
+
+                <li class="waves-effect   <?php echo $v["class"]; ?>"><a href="files.php?<?php echo $qs."&p={$v["number"]}" ?>"> <?php echo $v["number"]; ?></a></li>
+
+
+                <?php
+            }
+
+            if($page==count($pager))
+            {
+                $nextClass="disabled";
+            }
+            ?>
+            <li class="waves-effect <?php echo $nextClass; ?>"><a  href="files.php?<?php echo $qs."&p=".($page+1) ?>"><i class="material-icons">chevron_right</i></a></li>
+        </ul>
+    </div>
+    <?php
+}
+?>
 
 <div style="display: none;" class="card" id="file-delete">
     <div class="card-content black-text center">

@@ -49,8 +49,9 @@ function upperCaseF(a){
     }, 1);
 }
 
-function removeLastComma(strng){
-    var n=strng.lastIndexOf(",");
+function removeLast(strng,char){
+    var n=strng.lastIndexOf(char);
     var a=strng.substring(0,n)
     return a;
 }
+

@@ -12,9 +12,9 @@ namespace DAO;
 class EquipoDAO extends CoreDAO
 {
 
-    public function __construct($db, $table)
+    public function __construct($db, $table,$limit=null)
 {
-    parent::__construct($db, $table);
+    parent::__construct($db, $table,$limit);
 }
 
     function upsert($object,ArchivoDAO $archivoData=null)

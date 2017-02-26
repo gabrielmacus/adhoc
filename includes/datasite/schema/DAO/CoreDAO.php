@@ -15,6 +15,7 @@ class CoreDAO
     protected  $db;
     protected $table;
     protected $idField;
+    protected $resultNumber;
 
 
     function __construct($db,$table)
@@ -26,26 +27,109 @@ class CoreDAO
  
         $this->idField=$res->fetch_all(true)[0]["Column_name"];
 
+
+
     }
 
-    function read($object=array(),$sqlExtra="")
+    function getPager($limit,$actualPage,$paddingPages)
     {
 
-        
-        $sql="SELECT * FROM {$this->table}";
+
+        $pager =array();
+
+       $pages = ceil( $this->resultNumber / $limit);
+
+
+        if($actualPage>$pages)
+        {
+            $actualPage = $pages;
+        }
+
+
+        //paginas hacia atras
+
+          for($i=$actualPage-$paddingPages;$i<=$actualPage;$i++ )
+          {
+              if($i>0)
+              { $pager[]["number"]=$i;
+
+              }
+
+          }
+
+
+
+
+
+        // paginas hacia adelante
+        for($i=1;$i<=$paddingPages;$i++)
+        {
+            if(($actualPage+$i)<=$pages)
+            {
+
+                $pager[]["number"]=$actualPage+$i;
+            }
+        }
+
+
+        foreach($pager as $k=>$v)
+        {
+            if($v["number"]==$actualPage)
+            {
+                $pager[$k]["class"]="active";
+            }
+
+        }
+
+
+        return $pager;
+
+
+
+
+    }
+    function read($object=array(),$sqlExtra="",$offset=0,$limit=false)
+    {
+
+        $result=array();
+
+        $sql="SELECT * FROM {$this->table} ";
+
+        $countSql="SELECT count(*) as 'total' FROM {$this->table} ";
 
         if(count($object)>0)
         {
             $sql.=" WHERE ";
 
+            $countSql.=" WHERE";
             foreach ($object as $k=>$v)
             {
                 $sql.=" {$k}={$v} AND";
+
+                $countSql.=" {$k}={$v} AND";
             }
             $sql = rtrim($sql,"AND");
+            $countSql= rtrim($countSql,"AND");
         }
         $sql.=" {$sqlExtra}";
-        
+        $countSql.= " {$sqlExtra}";
+
+
+        $this->resultNumber= $this->db->query($countSql)->fetch_all(true)[0]["total"];
+
+
+
+        if($limit)
+        {
+
+
+            $offset = $offset*$limit;
+
+            $sql.=" LIMIT {$limit} OFFSET {$offset}";
+
+        }
+
+
 
         if($res=  $this->db->query($sql))
         {

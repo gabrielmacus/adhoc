@@ -4,10 +4,38 @@
         background-color: white!important;
 
     }
+    .clone
+    {
+        display:none;
+    }
 </style>
 <script>
 
+    var i=0;
+    function deleteSize(e)
+    {
+        var target =$(e);
+        target.closest(".size").remove();
+    }
+    function clone(selector,obj)
+    {
+        var clon =$(selector).clone()
+        clon.removeClass("clone");
+
+        if(obj)
+        {
+
+            clon.find(".width input").val(obj.width);
+            clon.find(".height input").val(obj.height);
+        }
+
+        $(selector).after(clon);
+
+
+    }
     $(document).ready(function(){
+
+
 
         <?php if($repo)
 
@@ -35,6 +63,21 @@
 
 
                         break;
+                    case "sizes":
+
+
+
+
+                        for(var i=0;i<v.length;i++)
+                        {
+                            var split = v[i].split(",");
+
+                         clone(".resolution .clone",{width:split[0],height:split[1]});
+
+                        }
+
+
+                        break;
                 }
 
             });
@@ -48,12 +91,12 @@
 
     });
     $(document).on("submit","form",function (e) {
-
+        e.preventDefault();
         var data = new FormData();
         var serializedForm =$(this).serializeArray();
 
         var formats="";
-
+        var sizes="";
 
 
 
@@ -62,9 +105,24 @@
 
             formats+=$(v).val()+",";
         });
-       formats = removeLastComma(formats);
+
+
+        $(".size:visible").each(function(k,v){
+
+            v= $(v);
+            sizes+=   v.find(".width input").val()+","+   v.find(".height input").val()+";";
+        });
+
+
+
+        formats = removeLast(formats,",");
+        sizes = removeLast(sizes,";");
+
         data.append("formats", formats);
+        data.append("sizes",sizes);
         data.append("dir","/"+ $("#nombre").val().toLowerCase());
+
+
         $.each(serializedForm,function(key,value)
         {
             data.append(value["name"], value["value"]);
@@ -82,17 +140,17 @@
             success:function(res)
             {
 
-                console.log(res);
-
                 try{
                     res = JSON.parse(res);
+
+                    console.log(res);
+
 
 
                     if( res)
                     {
 
-
-                    window.location="files.php?rep="+res;
+                        window.location="files.php?rep="+res;
                     }
                     else
                     {
@@ -112,7 +170,7 @@
 
 
 
-        e.preventDefault();
+
     });
 
 
@@ -153,9 +211,31 @@
 
 
         </div>
+        <div class="resolution">
+
+            <div class="clone size" style="float: left;width: 100%;position: relative">
+                <div class="input-field col s12 m12 l6 width">
+
+                    <input data-name="sizes[$][width]"  type="number" class="validate" placeholder="<?php echo $lang["width"]; ?>">
+                </div>
+                <div class="input-field col s12 m12 l6 height">
+
+                    <input data-name="sizes[$][height]"  type="number" placeholder="<?php echo $lang["height"]; ?>">
+                </div>
+                <i onclick="deleteSize(this)" class="close material-icons " style="position: absolute;top: 0px;right: 10px">delete</i>
+
+             </div>
+   </div>
+        <div class="col s12" style="margin-top: 15px">
+            <button onclick='clone(".resolution .clone")' class="btn waves-effect right waves-light" type="button" >Nueva resolucion
+            </button>
+        </div>
+
+
+
     </div>
 
-    <div class="col s12" style="margin-top: 15px">
+    <div class="col s12 input-field" style="margin-top: 15px">
         <button class="btn waves-effect right waves-light" type="submit" >Submit
             <i class="material-icons right">send</i>
         </button>

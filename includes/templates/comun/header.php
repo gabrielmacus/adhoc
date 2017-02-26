@@ -124,11 +124,11 @@
     }
     .zoomOnHover
     {
-        -webkit-transition: all 300ms ease-out;
-        -moz-transition: all 300ms ease-out;
-        -ms-transition: all 300ms ease-out;;
-        -o-transition: all  300ms ease-out;;
-        transition: all  300ms ease-out;
+        -webkit-transition: all 500ms linear;
+        -moz-transition: all 500ms linear;
+        -ms-transition: all 500ms linear;
+        -o-transition: all  500ms linear;
+        transition: all 500ms linear;
     }
     .zoomOnHover:hover
     {

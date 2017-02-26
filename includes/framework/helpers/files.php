@@ -147,8 +147,11 @@ function uploadFiles($files,$dir,$config)
 
 
 
-                $type = explode("/",$file["type"]);
-                $type = $type[1];
+
+                $type = explode(".",$file["name"]);
+                $type = $type[count($type)-1];//extension
+
+
                 if(   in_array($type, $config["formats"]))
                 {
                     $tmpFile =$file["tmp_name"];
@@ -166,7 +169,7 @@ function uploadFiles($files,$dir,$config)
 
 
                     //creo las dimensiones dadas
-                    $config["sizes"]=explode(";", $config["sizes"]);
+                   // $config["sizes"]=explode(";", $config["sizes"]);
 
                     // cargo el archivo original
                     if (ftp_put($conn_id,$completeName, $tmpFile, FTP_BINARY)) {
@@ -178,29 +181,34 @@ function uploadFiles($files,$dir,$config)
 
 
 
-                        foreach($config["sizes"] as $k=>$size)
+                        $type  = explode("/",$file["type"])[0];
+                        if($type=="image")
                         {
-
-
-                            $size= explode(",",$size);
-
-                            $completeName= $folder."/{$k}_".$name;//Se indica el prefijo o para los archivos originales
-
-                            $image = new \Eventviva\ImageResize($tmpFile);
-                            $image->resizeToBestFit($size[0], $size[1]);
-                            $image->save($tmpFile);
-
-                            if (ftp_put($conn_id,$completeName, $tmpFile, FTP_BINARY)) {
-                                $file["sizes"][$k]["completeUrl"]=$config["dns"].str_replace($config["root_dir"],"",$completeName);
-
-
-
-                            }
-                            else
+                            foreach($config["sizes"] as $k=>$size)
                             {
-                                $ret["error"][]=$file["name"];
-                            }
 
+
+                                $size= explode(",",$size);
+
+                                $completeName= $folder."/{$k}_".$name;//Se indica el prefijo o para los archivos originales
+
+                                $image = new \Eventviva\ImageResize($tmpFile);
+                                $image->resizeToBestFit($size[0], $size[1]);
+                                $image->save($tmpFile);
+
+                                if (ftp_put($conn_id,$completeName, $tmpFile, FTP_BINARY)) {
+                                    $file["sizes"][$k]["completeUrl"]=$config["dns"].str_replace($config["root_dir"],"",$completeName);
+
+
+
+                                }
+                                else
+                                {
+                                    $ret["error"][]=$file["name"];
+                                }
+
+
+                            }
 
                         }
 

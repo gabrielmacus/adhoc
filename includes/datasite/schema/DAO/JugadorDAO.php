@@ -11,9 +11,9 @@ namespace DAO;
 
 class JugadorDAO extends CoreDAO
 {
-    public function __construct($db, $table)
+    public function __construct($db, $table,$limit=null)
     {
-        parent::__construct($db, $table);
+        parent::__construct($db, $table,$limit);
     }
 
 

@@ -39,6 +39,8 @@
     "genericError":{"text":"Se ha producido un error al procesar la solicitud. Inténtelo de nuevo"},
     "filesError":{"text":"Error al subir los siguientes archivos: "}
   },
-  "formatList":["jpg","jpeg","gif","exe","zip","rar","svg","png","mp4","mp3","avi"],
-  "repoDelete":"¿Deseas eliminar el repositorio?"
+  "formatList":["jpg","gif","exe","zip","rar","svg","png","mp4","mp3","avi"],
+  "repoDelete":"¿Deseas eliminar el repositorio?",
+  "width":"Ancho",
+  "height":"Alto"
 }
