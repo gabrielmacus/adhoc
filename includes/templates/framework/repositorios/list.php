@@ -130,6 +130,17 @@
 
     </h2>
 
+    <style>
+        .file
+        {object-fit: cover;
+            height: 200px;
+            width: 100%;
+        }
+        .file i
+        {
+            font-size: 150px;width: 100%
+        }
+    </style>
     <?php
     foreach($v as $clave=>$valor)
     {
@@ -141,7 +152,7 @@
 
 
         ?>
-        <div class="col s12 m12 l6">
+        <div class="col s12 m6 l4">
             <div class="card " style="overflow: hidden">
                 <div class="card-image ">
 
@@ -156,7 +167,7 @@
                         case 'image':
                             ?>
                             <a href="<?php echo  $valor["archivo_data"]["sizes"]["o"]["completeUrl"];?>" data-fancybox="images">
-                                <img class="zoomOnHover"  rel="<?php  echo  $lang["repositorios"][$k]; ?>" style="object-fit: cover;height: 300px" src="<?php echo  $valor["archivo_data"]["sizes"][0]["completeUrl"];?>">
+                                <img class="zoomOnHover file"  rel="<?php  echo  $lang["repositorios"][$k]; ?>"  src="<?php echo  $valor["archivo_data"]["sizes"]["p"]["completeUrl"];?>">
                             </a>
 
                             <?php
@@ -173,7 +184,7 @@
                                       ?>
 
                                       <a   rel="<?php  echo  $lang["repositorios"][$k]; ?>"   data-fancybox="iframe"  href="http://docs.google.com/gview?url=<?php echo  $valor["archivo_data"]["o"]["completeUrl"];?>&embedded=true"
-                                                style="width: 100%;height: 300px" class="valign-wrapper center grey lighten-3">
+                                                class="valign-wrapper center grey lighten-3 file">
                                           <!--
                                           <iframe style="width: 100%;height: 100%" class="valign "  src="http://docs.google.com/gview?url=<?php echo  $valor["archivo_data"]["o"]["completeUrl"];?>&embedded=true" aria-hidden="true"></iframe>
                                           -->
@@ -188,11 +199,11 @@
                                   case "xlsx":
                                       ?>
                                       <a  rel="<?php  echo  $lang["repositorios"][$k]; ?>"    data-fancybox="iframe"  href="https://view.officeapps.live.com/op/embed.aspx?src=<?php echo  $valor["archivo_data"]["o"]["completeUrl"];?>&embedded=true"
-                                              style="width: 100%;height: 300px" class="valign-wrapper center grey lighten-3">
+                                              class="valign-wrapper center grey lighten-3 file">
                                           <!--
                                           <iframe style="width: 100%;height: 100%" class="valign "  src="http://docs.google.com/gview?url=<?php echo  $valor["archivo_data"]["o"]["completeUrl"];?>&embedded=true" aria-hidden="true"></iframe>
                                           -->
-                                          <i style="font-size: 250px;width: 100%" class="zoomOnHover valign fa fa fa-file-excel-o green-text" aria-hidden="true"></i>
+                                          <i class="zoomOnHover valign fa fa fa-file-excel-o green-text" aria-hidden="true"></i>
 
                                       </a>
 
@@ -203,11 +214,11 @@
 
                                       ?>
                                       <a  rel="<?php  echo  $lang["repositorios"][$k]; ?>"    data-fancybox="iframe"  href="https://view.officeapps.live.com/op/embed.aspx?src=<?php echo  $valor["archivo_data"]["o"]["completeUrl"];?>&embedded=true"
-                                          style="width: 100%;height: 300px" class="valign-wrapper center grey lighten-3">
+                                           class="valign-wrapper center grey lighten-3 file">
                                           <!--
                                           <iframe style="width: 100%;height: 100%" class="valign "  src="http://docs.google.com/gview?url=<?php echo  $valor["archivo_data"]["o"]["completeUrl"];?>&embedded=true" aria-hidden="true"></iframe>
                                           -->
-                                          <i style="font-size: 250px;width: 100%" class="zoomOnHover valign fa fa fa-file-powerpoint-o purple-text" aria-hidden="true"></i>
+                                          <i class="zoomOnHover valign fa fa fa-file-powerpoint-o purple-text" aria-hidden="true"></i>
 
                                       </a>
 
@@ -218,8 +229,8 @@
                                       ?>
 
 
-                                      <div style="width: 100%;height: 300px" class="valign-wrapper center grey lighten-3">
-                                          <i style="font-size: 250px;width: 100%" class="zoomOnHover valign fa fa fa-file-powerpoint-o purple-text" aria-hidden="true"></i>
+                                      <div class="valign-wrapper center grey lighten-3 file">
+                                          <i  class="zoomOnHover valign fa fa fa-file-powerpoint-o purple-text" aria-hidden="true"></i>
 
                                       </div>
 
@@ -230,8 +241,8 @@
                                   default:
                                       ?>
 
-                                      <div style="width: 100%;height: 300px" class="valign-wrapper center grey lighten-3">
-                                          <i style="font-size: 250px;width: 100%" class="zoomOnHover valign fa fa-file-archive-o" aria-hidden="true"></i>
+                                      <div class="valign-wrapper center grey lighten-3 file">
+                                          <i  class="zoomOnHover valign fa fa-file-archive-o" aria-hidden="true"></i>
 
                                       </div>
 
@@ -246,8 +257,8 @@
 
                            ?>
 
-                            <div style="width: 100%;height: 300px" class="valign-wrapper center grey lighten-3">
-                                <video preload="none" controls style="width: 100%;height: 300px;" class="mejs-player">
+                            <div  class="valign-wrapper center grey lighten-3 file">
+                                <video preload="none" controls style="width: 100%;height:100%;" class="mejs-player">
                                     <source src="<?php echo  $valor["archivo_data"]["o"]["completeUrl"];?>" />
                                 </video>
                             </div>
@@ -261,7 +272,7 @@
 
                             ?>
 
-                            <div style="width: 100%;padding:10px;height: 300px" class="valign-wrapper center grey lighten-3 ">
+                            <div class="valign-wrapper center grey lighten-3 file ">
 
 
                                 <audio controls style="width: 100%;position: absolute;bottom: 0px" class="mejs-player ">
@@ -277,9 +288,9 @@
                             ?>
 
 
-                            <div style="width: 100%;height: 300px" class="valign-wrapper center grey lighten-3">
+                            <div  class="valign-wrapper center grey lighten-3 file">
 
-                                <i style="font-size: 250px;width: 100%" class="zoomOnHover valign fa fa-file-archive-o" aria-hidden="true"></i>
+                                <i class="zoomOnHover valign fa fa-file-archive-o" aria-hidden="true"></i>
 
                             </div>
 

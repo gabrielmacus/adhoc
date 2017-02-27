@@ -42,7 +42,11 @@ class CoreDAO
 
         if($actualPage>$pages)
         {
-            $actualPage = $pages;
+
+           $_GET["p"]=$pages;
+            $qs=http_build_query($_GET);
+            header("Location: files.php?{$qs}");
+
         }
 
 
