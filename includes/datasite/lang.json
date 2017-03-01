@@ -29,11 +29,7 @@
     {"texto":"Repositorios","items":[]}
   ,{"texto":"Crear repositorio","href":"repo-add.php"}
   ,{"texto":"Subir archivos","href":"files-add.php"},
-    {"texto":"Territorios","items":[
-      {"texto":"Ver","href":"territorios.php"},
-      {"texto":"Nuevo territorio","href":"territorios-add.php"}
-
-    ]}
+    {"texto":"Territorios","href":"territorios-add.php"}
 
   ],
   "yes":"SI",

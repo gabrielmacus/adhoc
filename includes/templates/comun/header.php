@@ -161,3 +161,4 @@
 <script src="https://cdn.jsdelivr.net/mediaelement/latest/mediaelement-and-player.min.js"></script>
 <link href="https://cdn.jsdelivr.net/mediaelement/latest/mediaelementplayer.css" rel="stylesheet">
 <script src="js/jscolor.min.js"></script>
+<script src="js/js.cookie.js"></script>

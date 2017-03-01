@@ -33,6 +33,7 @@ if(is_numeric($id))
     {
         case 'add':
 
+      
             echo json_encode($territorios->upsert($_POST));
 
             break;

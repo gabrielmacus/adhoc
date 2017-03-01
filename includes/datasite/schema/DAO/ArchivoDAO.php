@@ -126,10 +126,10 @@ class ArchivoDAO extends CoreDAO
 
     }
 
-    function read($object =array(),$sqlExtra="",$offset=0,$limit=false)
+    function read($object =array(),$sqlExtra="",$offset=0,$limit=false,$joinSql=false)
     {
 
-        return parent::read($object,$sqlExtra,$offset,$limit);
+        return parent::read($object,$sqlExtra,$offset,$limit,$joinSql);
 
     }
 

@@ -18,9 +18,9 @@ class TerritorioDAO extends \DAO\CoreDAO
         parent::process($result, $item);
     }
 
-    function read($object = array(), $sqlExtra = "", $offset = 0, $limit = false)
+    function read($object = array(), $sqlExtra = "", $offset = 0, $limit = false,$joinSql=false)
     {
-        return parent::read($object, $sqlExtra, $offset, $limit);
+        return parent::read($object, $sqlExtra, $offset, $limit,$joinSql);
     }
 
     protected function update($object)

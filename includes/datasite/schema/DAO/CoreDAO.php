@@ -42,49 +42,58 @@ class CoreDAO
        $pages = ceil( $this->resultNumber / $limit);
 
 
-        if($actualPage>$pages)
+        if($pages>0)
+
+        {  if($actualPage>$pages)
         {
 
-           $_GET["p"]=$pages;
+            $_GET["p"]=$pages;
             $qs=http_build_query($_GET);
             header("Location: files.php?{$qs}");
 
         }
 
 
-        //paginas hacia atras
+            //paginas hacia atras
 
-          for($i=$actualPage-$paddingPages;$i<=$actualPage;$i++ )
-          {
-              if($i>0)
-              { $pager[]["number"]=$i;
-
-              }
-
-          }
-
-        // paginas hacia adelante
-        for($i=1;$i<=$paddingPages;$i++)
-        {
-            if(($actualPage+$i)<=$pages)
+            for($i=$actualPage-$paddingPages;$i<=$actualPage;$i++ )
             {
+                if($i>0)
+                { $pager[]["number"]=$i;
 
-                $pager[]["number"]=$actualPage+$i;
-            }
-        }
+                }
 
-
-        foreach($pager as $k=>$v)
-        {
-            if($v["number"]==$actualPage)
-            {
-                $pager[$k]["class"]="active";
             }
 
+            // paginas hacia adelante
+            for($i=1;$i<=$paddingPages;$i++)
+            {
+                if(($actualPage+$i)<=$pages)
+                {
+
+                    $pager[]["number"]=$actualPage+$i;
+                }
+            }
+
+
+            foreach($pager as $k=>$v)
+            {
+                if($v["number"]==$actualPage)
+                {
+                    $pager[$k]["class"]="active";
+                }
+
+            }
+
+
+            return $pager;
+
+
         }
-
-
-        return $pager;
+        else
+        {
+            return false;
+        }
 
 
 
@@ -100,12 +109,16 @@ class CoreDAO
 //echo json_encode($item);
 
     }
-    function read($object=array(),$sqlExtra="",$offset=0,$limit=false)
+    function read($object=array(),$sqlExtra="",$offset=0,$limit=false,$joinSql=false)
     {
 
         $result=array();
+        $sql="SELECT * FROM {$this->table} LEFT JOIN archivos_objetos ON objeto='{$this->idField}' AND tabla = '{$this->table}' LEFT JOIN archivos ON archivo_id=archivo";
 
-        $sql="SELECT * FROM {$this->table} ";
+        if($joinSql)
+        {
+            $sql.=" {$joinSql}";
+        }
 
         $countSql="SELECT count(*) as 'total' FROM {$this->table} ";
 
@@ -164,7 +177,7 @@ class CoreDAO
         }
 
 
-        return $result;
+        return $sql;
     }
 
    protected function update($object)

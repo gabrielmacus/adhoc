@@ -28,4 +28,5 @@ else
     $dataToSkin=  $archivos->read(array(),$sqlExtra);
 }
 
+
 require ("/includes/templates/estructura.php");
