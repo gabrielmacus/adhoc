@@ -9,84 +9,7 @@
         display:none;
     }
 </style>
-<script>
 
-
-    $(document).on("submit","form",function (e) {
-        e.preventDefault();
-        var data = new FormData();
-        var serializedForm =$(this).serializeArray();
-        var polygons= [];
-
-        $.each(polygonsArray,function(k,v)
-        {
-
-            var manzana=[];
-            $.each(v.getPath().b,function(clave,valor){
-
-                var loc ={lat:valor.lat(),lng:valor.lng()};
-
-                manzana.push(loc);
-            });
-            polygons.push(manzana);
-        });
-
-        data.append("territorio_polygons",JSON.stringify(polygons));
-        $.each(serializedForm,function(key,value)
-        {
-            data.append(value["name"], value["value"]);
-        });
-
-
-
-
-        $.ajax({
-            url: "territorios-data.php?act=add",
-            type: "post",
-            dataType: "html",
-            data: data,
-            cache: false,
-            contentType: false,
-            processData: false,
-            success:function(res)
-            {
-
-                try{
-                    res = JSON.parse(res);
-
-                    console.log(res);
-
-
-
-                    if( res)
-                    {
-
-                        //window.location="territor.php?rep="+res;
-                    }
-                    else
-                    {
-
-
-                        error(null,"<?php echo $lang["errors"]["filesError"]["text"]; ?>"+res.error.join());
-                    }
-
-                }
-                catch(e)
-                {
-                    error();
-                }
-
-            }
-        })
-
-
-
-
-    });
-
-
-
-</script>
 <form class="row">
 
     <div class="col s12 m12 l12">
@@ -101,10 +24,15 @@
             <?php
         }?>
 
-        <div class="input-field col s12 m12 l12">
+        <div class="input-field col s12 m6 l6">
             <input id="numero" type="number" name="territorio_numero" class="validate">
             <label for="numero">Numero del territorio</label>
         </div>
+
+        <div class="input-field col s12 m6 l6">
+            <input id="color" name="territorio_color"  class="jscolor  {hash:true}">
+        </div>
+
         <style>
             html, body {
                 height: 100%;
@@ -125,6 +53,10 @@
 
                 </div>
             </div>
+            <div class="input-field col s12 m12 l12">
+                <textarea name="territorio_notas" id="textarea1" class="materialize-textarea"></textarea>
+                <label for="textarea1">Notas</label>
+            </div>
 
             <script>
 
@@ -132,12 +64,94 @@
                 var polygonsArray = [];
                 function initMap() {
 
+
+
+                    $(document).on("submit","form",function (e) {
+                        e.preventDefault();
+                        var data = new FormData();
+                        var polygons= [];
+
+                        var serialized = $(this).serializeArray();
+
+                        $.each(serialized,function (k,v) {
+
+
+                            data.append(v["name"],v["value"]);
+                        });
+                        $.each(polygonsArray,function(k,v)
+                        {
+
+                            var manzana=[];
+                            $.each(v.getPath().b,function(clave,valor){
+
+                                var loc ={lat:valor.lat(),lng:valor.lng()};
+
+                                manzana.push(loc);
+                            });
+                            polygons.push(manzana);
+                        });
+
+                        data.append("territorio_polygons",JSON.stringify(polygons));
+
+
+
+                        $.ajax({
+                            url: "territorios-data.php?act=add",
+                            type: "post",
+                            dataType: "html",
+                            data: data,
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            success:function(res)
+                            {
+
+                                try{
+                                    res = JSON.parse(res);
+
+                                    console.log(res);
+
+
+
+                                    if( res)
+                                    {
+
+                                        //window.location="territor.php?rep="+res;
+                                    }
+                                    else
+                                    {
+
+
+                                        error(null,"<?php echo $lang["errors"]["filesError"]["text"]; ?>"+res.error.join());
+                                    }
+
+                                }
+                                catch(e)
+                                {
+                                    error();
+                                }
+
+                            }
+                        })
+
+                    });
+
                     var geocoder = new google.maps.Geocoder();
                     var map = new google.maps.Map(document.getElementById('map'), {
                         zoom: 15,
                         center: {lat: 24.886, lng: -70.268},
                         draggableCursor: 'crosshair'
                     });
+
+
+
+
+
+
+
+
+
+
                     if (navigator.geolocation) {
                         navigator.geolocation.getCurrentPosition(function(position) {
                             var pos = {
@@ -160,6 +174,28 @@
                         map: map
                     });
 
+                    var territorios = <?php echo $territorios?>;
+
+
+                    $.each(territorios,function (k,v) {
+
+                        console.log(JSON.parse(v["territorio_polygons"]));
+
+                        marcarMapa(JSON.parse(v["territorio_polygons"]));
+                        /* var poly=  new google.maps.Polygon(
+                         {
+                         strokeColor:"#2d2e30",
+                         strokeOpacity: 0.8,
+                         strokeWeight: 2,
+                         fillColor: "#2d2e30",
+                         fillOpacity: 0.35,
+                         map:map,
+                         path:JSON.parse(v["territorio_polygons"])
+                         }
+                         );*/
+
+
+                    });
                     map.addListener('click', function (data) {
 
 
@@ -180,18 +216,23 @@
                     });
 
 
-                    function marcarMapa(coords)
+                    function marcarMapa(coords,color)
                     {
-                        if(!coords.length)
+                        if(!coords || !coords.length)
                         {
                             coords=polygonCoords;
                         }
+
+                        if(!color)
+                        {
+                            color = "#41f468";
+                        }
                         var arrayPolygon=new google.maps.Polygon(
                             {
-                                strokeColor: "#41f468",
+                                strokeColor:color,
                                 strokeOpacity: 0.8,
                                 strokeWeight: 2,
-                                fillColor: "#41f468",
+                                fillColor: color,
                                 fillOpacity: 0.35,
                                 map:map,
                                 path:coords
@@ -228,7 +269,11 @@
 
                     //map.addListener('rightclick', marcarMapa);
 
-                    $(document).on("click","#marcar-mapa",marcarMapa);
+                    $(document).on("click","#marcar-mapa",function () {
+
+
+                        marcarMapa();
+                    });
                     $(document).on("keypress","#search-location",function (e) {
 
                       if(e.which==13)
@@ -270,10 +315,11 @@
 
                                     var polygons = JSON.parse(v);
 
+                                    console.log(polygons);
                                     $.each(polygons,function(clave,coordenadas)
                                     {
-                                        console.log(coordenadas);
-                                        marcarMapa(coordenadas);
+
+                                        marcarMapa(coordenadas,valor["territorio_color"]);
                                     })
 
                                     break;
