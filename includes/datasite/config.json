@@ -1,11 +1,11 @@
 {
-  "_db":{
+  "db":{
     "name":"cm",
     "host":"173.236.78.206",
     "user":"gmac",
     "password":"sercan02"
   },
-  "db":
+  "_db":
   {
     "name":"football",
     "host":"localhost",
