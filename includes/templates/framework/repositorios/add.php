@@ -37,12 +37,12 @@
 
 
 
-        <?php if($repo)
+        <?php if($obj)
 
         {
         ?>
 
-        var repo = <?php echo $repo; ?>;
+        var repo = <?php echo $obj; ?>;
 
         $.each(repo,function(clave,valor)
         {
@@ -181,7 +181,7 @@
     <div class="col s12 m12 l12">
         <h2>Crear repositorio</h2>
 
-        <?php if($repo)
+        <?php if($obj)
 
         {
            ?>

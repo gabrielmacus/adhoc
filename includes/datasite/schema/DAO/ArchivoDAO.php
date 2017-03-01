@@ -115,71 +115,21 @@ class ArchivoDAO extends CoreDAO
 
     }
 
+    function process(&$result, $item)
+    {
+
+
+        $result[$item["archivo_repositorio"]][$item["archivo_id"]]["archivo_id"]=$item["archivo_id"];
+        $result[$item["archivo_repositorio"]][$item["archivo_id"]]["archivo_data"]=json_decode($item["archivo_data"],true);
+        $result[$item["archivo_repositorio"]][$item["archivo_id"]]["archivo_repositorio"]=$item["archivo_repositorio"];
+        $result[$item["archivo_repositorio"]][$item["archivo_id"]]["archivo_descripcion"]=$item["archivo_descripcion"];
+
+    }
+
     function read($object =array(),$sqlExtra="",$offset=0,$limit=false)
     {
 
-        $result=array();
-
-        $sql="SELECT * FROM {$this->table} ";
-
-        $countSql="SELECT count(*) as 'total' FROM {$this->table} ";
-
-        if(count($object)>0)
-        {
-            $sql.=" WHERE ";
-
-            $countSql.=" WHERE";
-            foreach ($object as $k=>$v)
-            {
-                $sql.=" {$k}={$v} AND";
-
-                $countSql.=" {$k}={$v} AND";
-            }
-            $sql = rtrim($sql,"AND");
-            $countSql= rtrim($countSql,"AND");
-        }
-        $sql.=" {$sqlExtra}";
-        $countSql.= " {$sqlExtra}";
-
-
-       $this->resultNumber= $this->db->query($countSql)->fetch_all(true)[0]["total"];
-
-        if($limit)
-        {
-
-
-            $offset = $offset*$limit;
-
-            $sql.=" LIMIT {$limit} OFFSET {$offset}";
-
-        }
-
-
-        if($res=  $this->db->query($sql))
-        {
-
-            $res= $res->fetch_all(1);
-
-            foreach ($res as $item)
-            {
-
-
-                $result[$item["archivo_repositorio"]][$item["archivo_id"]]["archivo_id"]=$item["archivo_id"];
-                $result[$item["archivo_repositorio"]][$item["archivo_id"]]["archivo_data"]=json_decode($item["archivo_data"],true);
-                $result[$item["archivo_repositorio"]][$item["archivo_id"]]["archivo_repositorio"]=$item["archivo_repositorio"];
-                $result[$item["archivo_repositorio"]][$item["archivo_id"]]["archivo_descripcion"]=$item["archivo_descripcion"];
-
-
-            }
-
-        }
-        else
-        {
-            $result=false;
-        }
-
-
-        return $result;
+        return parent::read($object,$sqlExtra,$offset,$limit);
 
     }
 

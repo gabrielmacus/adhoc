@@ -24,8 +24,10 @@ class CoreDAO
         $this->table=$table;
         $res=$db->query("SHOW KEYS FROM {$this->table} WHERE Key_name = 'PRIMARY'");
 
- 
-        $this->idField=$res->fetch_all(true)[0]["Column_name"];
+
+            $this->idField=$res->fetch_assoc();
+            $this->idField=  $this->idField["Column_name"];
+
 
 
 
@@ -61,10 +63,6 @@ class CoreDAO
 
           }
 
-
-
-
-
         // paginas hacia adelante
         for($i=1;$i<=$paddingPages;$i++)
         {
@@ -90,6 +88,16 @@ class CoreDAO
 
 
 
+
+    }
+
+    function process(&$result,$item)
+    {
+
+        $result[]=$item;
+
+
+//echo json_encode($item);
 
     }
     function read($object=array(),$sqlExtra="",$offset=0,$limit=false)
@@ -138,7 +146,17 @@ class CoreDAO
         if($res=  $this->db->query($sql))
         {
 
-            $result= $res->fetch_all(1);
+
+                while($item=$res->fetch_assoc())
+                {
+
+
+                    $this->process($result,$item);
+                }
+
+
+
+           // $result= $res->fetch_all(1);
         }
         else
         {

@@ -1,4 +1,7 @@
 <?php
+
+include("includes/datasite/schema/DAO/TerritorioDAO.php");
+
 $repositorios = new \DAO\RepositorioDAO($db,"repositorios");
 
 $repositorios= $repositorios->read();

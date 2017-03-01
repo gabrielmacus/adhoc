@@ -1,15 +1,15 @@
 <?php
 require("/includes/autoload.php");
-$site="framework/repositorios";
+$site="datasite/territorios";
 $action="add";
 
 
-if(is_numeric($_GET["id"]))
+if(is_numeric($_GET["n"]))
 {
-    $obj= new \DAO\RepositorioDAO($db,"repositorios");
+    $obj= new TerritorioDAO($db,"territorios");
     $obj= json_encode($obj->read(
         array(
-      "repositorio"=>$_GET["id"]
+            "territorio_numero"=>$_GET["n"]
         )
     ));
 }

@@ -114,7 +114,7 @@ function uploadFiles($files,$dir,$config)
     $ret["success"]=false;
     $ret["error"]=false;
 // establecer una conexión b�sica
-    $conn_id = ftp_connect($config["server"]);
+    $conn_id = ftp_connect($config["server"],21,120);
 
 // iniciar sesi�n con nombre de usuario y contrase�a
 
@@ -172,6 +172,7 @@ function uploadFiles($files,$dir,$config)
                    // $config["sizes"]=explode(";", $config["sizes"]);
 
                     // cargo el archivo original
+
                     if (ftp_put($conn_id,$completeName, $tmpFile, FTP_BINARY)) {
 
 

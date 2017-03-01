@@ -180,7 +180,6 @@
                                   case "docx":
 
 
-
                                       ?>
 
                                       <a   rel="<?php  echo  $lang["repositorios"][$k]; ?>"   data-fancybox="iframe"  href="http://docs.google.com/gview?url=<?php echo  $valor["archivo_data"]["o"]["completeUrl"];?>&embedded=true"
@@ -188,7 +187,7 @@
                                           <!--
                                           <iframe style="width: 100%;height: 100%" class="valign "  src="http://docs.google.com/gview?url=<?php echo  $valor["archivo_data"]["o"]["completeUrl"];?>&embedded=true" aria-hidden="true"></iframe>
                                           -->
-                                          <i  style="font-size: 250px;width: 100%" class="zoomOnHover valign fa fa fa-file-word-o blue-text darken-1" aria-hidden="true"></i>
+                                          <i  style="font-size: 150px;width: 100%" class="zoomOnHover valign fa fa fa-file-word-o blue-text darken-1" aria-hidden="true"></i>
 
                                       </a>
 

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <script
+            src="https://code.jquery.com/jquery-1.12.4.min.js"
+            integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+            crossorigin="anonymous"></script>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Simple Polygon</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        #map {
+            height: 400px
+        }
+    </style>
+</head>
+<body>
+
+
+
+
+
+
+<div id="map"></div>
+<script>
+
+    // This example creates a simple polygon representing the Bermuda Triangle.
+
+    function initMap() {
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 5,
+            center: {lat: 24.886, lng: -70.268},
+            draggableCursor: 'crosshair'
+        });
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var pos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+
+                map.setCenter(pos);
+            });
+        }
+
+
+
+        var polygonCoords = [];
+        var polygonsArray = [];
+        var points = [];
+        var path = new google.maps.Polyline({
+            strokeColor: '#000000',
+            strokeOpacity: 1.0,
+            strokeWeight: 3,
+            map: map
+        });
+
+        map.addListener('click', function (data) {
+
+
+            var lat = data.latLng.lat();
+            var lng = data.latLng.lng();
+
+            var loc = {lat: lat, lng: lng};
+            polygonCoords.push(loc);
+
+
+            path.getPath().push(data.latLng);
+            points.push(new google.maps.Marker({
+                position: loc,
+                map: map
+            }));
+
+
+        });
+
+
+        function marcarMapa()
+        {
+            var arrayPolygon=new google.maps.Polygon(
+                    {
+                        strokeColor: "#41f468",
+                        strokeOpacity: 0.8,
+                        strokeWeight: 2,
+                        fillColor: "#41f468",
+                        fillOpacity: 0.35,
+                        map:map,
+                        path:polygonCoords
+                    }
+            );
+
+
+
+            arrayPolygon.addListener("click",function()
+            {
+
+                this.setMap(null);
+
+
+            });
+
+
+            polygonsArray.push(arrayPolygon);
+            polygonCoords=[];
+
+            $.each(points, function (k,v) {
+
+                v.setMap(null);
+                delete v;
+            });
+            path.setPath([]);
+
+            // alert("Area marcada: "+ google.maps.geometry.spherical.computeArea(arrayPolygon.getPath())+"m2");
+
+        }
+
+
+        //map.addListener('rightclick', marcarMapa);
+
+    $(document).on("click","#marcar-mapa",marcarMapa);
+
+
+
+
+
+
+    }
+
+</script>
+<button id="marcar-mapa">Marcar</button>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCxqL3eG6quOKEbnY7d00DUPX0h5yoqS5Q&callback=initMap"></script>
+</body>
+</html>
