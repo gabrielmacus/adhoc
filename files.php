@@ -5,7 +5,9 @@ require("includes/autoload.php");
 
 
 $site="framework/repositorios";
+
 $action="list";
+
 //Content
 
 
@@ -27,8 +29,16 @@ if(!$page)
 $limit=6;
 $padding=4;
 
-$dataToSkin = $archivos->read($filter," ORDER BY archivo_id DESC",($page-1),$limit);
 
+
+if($_GET["modal"])
+
+{
+    $action="modal";
+    $limit=false;
+}
+
+$dataToSkin = $archivos->read($filter," ORDER BY archivo_id DESC",($page-1),$limit);
 
 $pager = $archivos->getPager($limit,$page,$padding);
 

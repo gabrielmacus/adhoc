@@ -38,57 +38,65 @@ class CoreDAO
     {
 
 
-        $pager =array();
-
-       $pages = ceil( $this->resultNumber / $limit);
-
-
-        if($pages>0)
-
-        {  if($actualPage>$pages)
+        if($limit)
         {
+            $pager =array();
 
-            $_GET["p"]=$pages;
-            $qs=http_build_query($_GET);
-            header("Location: files.php?{$qs}");
-
-        }
+            $pages = ceil( $this->resultNumber / $limit);
 
 
-            //paginas hacia atras
+            if($pages>0)
 
-            for($i=$actualPage-$paddingPages;$i<=$actualPage;$i++ )
+            {  if($actualPage>$pages)
             {
-                if($i>0)
-                { $pager[]["number"]=$i;
 
-                }
+                $_GET["p"]=$pages;
+                $qs=http_build_query($_GET);
+                header("Location: files.php?{$qs}");
 
             }
 
-            // paginas hacia adelante
-            for($i=1;$i<=$paddingPages;$i++)
-            {
-                if(($actualPage+$i)<=$pages)
+
+                //paginas hacia atras
+
+                for($i=$actualPage-$paddingPages;$i<=$actualPage;$i++ )
                 {
+                    if($i>0)
+                    { $pager[]["number"]=$i;
 
-                    $pager[]["number"]=$actualPage+$i;
+                    }
+
                 }
-            }
 
-
-            foreach($pager as $k=>$v)
-            {
-                if($v["number"]==$actualPage)
+                // paginas hacia adelante
+                for($i=1;$i<=$paddingPages;$i++)
                 {
-                    $pager[$k]["class"]="active";
+                    if(($actualPage+$i)<=$pages)
+                    {
+
+                        $pager[]["number"]=$actualPage+$i;
+                    }
                 }
 
+
+                foreach($pager as $k=>$v)
+                {
+                    if($v["number"]==$actualPage)
+                    {
+                        $pager[$k]["class"]="active";
+                    }
+
+                }
+
+
+                return $pager;
+
+
             }
-
-
-            return $pager;
-
+            else
+            {
+                return false;
+            }
 
         }
         else
@@ -104,7 +112,40 @@ class CoreDAO
     function process(&$result,$item)
     {
 
-        $result[]=$item;
+
+
+
+        foreach ($item as $clave =>$valor)
+        {
+            switch ($clave)
+            {
+
+                default:
+                    $result[$item[$this->idField]][$clave]=$valor;
+                    break;
+
+
+
+                case 'archivo_id':
+
+                    if($item[$this->idField]) {
+
+                        $archivo["archivo_id"]=$item["archivo_id"];
+                        $archivo["archivo_data"]=json_decode($item["archivo_data"],true);
+                        $archivo["archivo_repositorio"]=$item["archivo_repositorio"];
+
+                        $result[$item[$this->idField]]["archivos"][$item["archivo_id"]]=$archivo;
+
+
+                    }
+
+                    break;
+            }
+        }
+
+
+
+        //$result[]=$item;
 
 
 //echo json_encode($item);
@@ -113,8 +154,17 @@ class CoreDAO
     function read($object=array(),$sqlExtra="",$offset=0,$limit=false,$joinSql=false)
     {
 
-        $result=array();
-        $sql="SELECT * FROM {$this->table} ";
+        $result = array();
+        if ($this->table != "archivos")
+        {
+            $sql="SELECT * FROM {$this->table}  LEFT JOIN archivos_objetos ON objeto={$this->idField} AND tabla = '{$this->table}'  LEFT JOIN archivos ON archivo_id=archivo";
+
+        }
+        else
+        {
+            $sql="SELECT * FROM {$this->table}";
+
+        }
 
         //LEFT JOIN archivos_objetos ON objeto='{$this->idField}' AND tabla = '{$this->table}' LEFT JOIN archivos ON archivo_id=archivo"
         if($joinSql)
@@ -187,17 +237,51 @@ class CoreDAO
         $sql = "UPDATE {$this->table} SET ";
 
         foreach ($object as $k=>$v)
+        { if(!is_array($v))
         {
             $sql.="{$k}='{$v}',";
+        }
+
         }
         $sql = rtrim($sql,",");
         $sql.=" WHERE {$this->idField}={$object[$this->idField]}";
 
         if($this->db->query($sql))
         {
+
+            if($object["adjuntos"])
+            {
+
+                if(!$this->attach($this->db->insert_id,$object["adjuntos"]))
+                {
+                    return false;
+                }
+            }
+
+
             return $object[$this->idField];
         }
             return false;
+    }
+
+    function attach($id,$adjuntos)
+    {
+        $sql = "INSERT INTO archivos_objetos (archivo,tabla,objeto) VALUES ";
+        $values = "";
+        foreach ($adjuntos as $adjunto) {
+            $values .= "({$adjunto},'{$this->table}',{$id}),";
+
+        }
+        $values = rtrim($values, ",");
+
+        $sql .= $values;
+
+        if($this->db->query($sql))
+        {
+            return true;
+        }
+
+        return false;
     }
 
     function insert($object)
@@ -212,29 +296,50 @@ class CoreDAO
 
         foreach ($object as $k=>$v)
         {
-            if($v=='')
+            if(!is_array($v))
             {
-                $v="NULL";
+
+                     if($v=='')
+                     {
+                         $v="NULL";
+
+                     }
+                     else
+                     {
+                         $v="'{$v}'";
+                     }
+                     $query.="{$v},";
+
 
             }
-            else
-            {
-                $v="'{$v}'";
-            }
-            $query.="{$v},";
+
         }
 
 
         $query= rtrim($query,",");
         $sql.="({$query})";
 
+
        if( $this->db->query($sql))
         {
 
-            return $this->db->insert_id;
+
+
+            if($object["adjuntos"])
+            {
+
+              if(!$this->attach($this->db->insert_id,$object["adjuntos"]))
+              {
+                  return false;
+              }
+            }
+
+
+
+            return $object;//$this->db->insert_id;
         }
 
-        return $sql;
+        return false;
 
     }
 

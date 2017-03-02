@@ -36,6 +36,7 @@ if(is_numeric($id))
 
             $filesDao = new \DAO\ArchivoDAO($db,"archivos",$repositorios[5]);
 
+         
             echo json_encode($territorios->upsert($_POST,$filesDao));
 
             break;

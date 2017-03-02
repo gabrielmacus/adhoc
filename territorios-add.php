@@ -5,15 +5,15 @@ $action="add";
 
 $t= new TerritorioDAO($db,"territorios");
 $sqlExtra="";
-if(is_numeric($_GET["n"]))
+if(is_numeric($_GET["id"]))
 {
 
     $obj= $t->read(
         array(
-            "territorio_numero"=>$_GET["n"]
+            "territorio_id"=>$_GET["id"]
         )
     );
-    $sqlExtra=    " WHERE territorio_numero!={$obj[0]["territorio_numero"]}";
+
     $obj= json_encode($obj,JSON_NUMERIC_CHECK);
 }
 

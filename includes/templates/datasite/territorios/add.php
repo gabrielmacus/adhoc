@@ -1,5 +1,8 @@
 
+<?php
 
+
+?>
 <form class="row">
     <h3>Nuevo territorio</h3>
     <div class="input-field col s12 m12 l6">
@@ -15,16 +18,23 @@
         <div id="map" style="width: 100%;height: 400px"></div>
 
     </div>
-
-    <div class="input-field col s12 center">
-
-        <button id="marcar-territorio" type="button" class="btn">Marcar</button>
-        &nbsp; <button  type="submit" class="btn">Enviar</button>
-    </div>
     <div class="input-field col s12">
         <textarea id="textarea1" name="territorio_notas" class="materialize-textarea"></textarea>
         <label for="textarea1">Notas</label>
     </div>
+
+    <div class="input-field col s12 center">
+        <a data-fancybox data-src="files.php?rep=5&modal=true" href="javascript:;" id="marcar-territorio" type="button" class="btn">Adjuntar archivo</a>
+        &nbsp;
+        <button id="marcar-territorio" type="button" class="btn">Marcar</button>
+        &nbsp; <button  type="submit" class="btn">Enviar</button>
+    </div>
+
+
+
+
+
+    <!--
     <div class="file-field input-field col s12">
         <div class="btn">
             <span>Archivo</span>
@@ -33,9 +43,11 @@
         <div class="file-path-wrapper">
             <input class="file-path validate" type="text" placeholder="Upload one or more files">
         </div>
-    </div>
+    </div>-->
 
 <script>
+
+
 
 
     function initMap() {
@@ -77,6 +89,54 @@
 
 
         }
+
+
+        $(document).ready(function () {
+
+            <?php
+
+            if($obj)
+            {
+            ?>
+            var obj= <?php echo $obj;?>;
+
+            $.each(obj,function (k,v) {
+
+                $.each(v,function (clave,valor) {
+                    switch (clave)
+                    {
+                        default:
+
+                            $("[name='"+clave+"']").val(valor);
+
+                            break;
+                        case 'territorio_polygons':
+
+                            points.setPath(JSON.parse(valor));
+
+                            var color = v["territorio_color"];
+                            points.setOptions({strokeColor:color,fillColor: color});
+
+                            break;
+                    }
+                })
+
+            });
+
+            <?php
+            }?>
+
+
+        });
+
+
+
+
+
+
+
+
+
         points.addListener("click",function () {
 
             points.setPath([]);
@@ -107,20 +167,42 @@
         });
 
 
+        var adjuntos=[];
+        function receiveMessage(event)
+        {
+
+            if(event.origin==location.origin)
+            {      console.log(event.origin);
+                adjuntos= event.data;
+
+
+            }
+        }
+
+        window.addEventListener("message", receiveMessage, false);
+        
+        
+
         $(document).on("submit", "form", function (e) {
             e.preventDefault();
             var data = new FormData();
             var serialized = $(this).serializeArray();
             var territorio=[];
 
+            if(adjuntos.length>0)
+            {
+                data.append("adjuntos",adjuntos);
+            }
+            console.log(adjuntos);
+            /*
             var files = document.querySelector("#files").files;
 
-            console.log(files);
+
 
             $.each(files,function (k,v) {
 
                 data.append(k,v);
-            });
+            });*/
 
             $.each(serialized, function (k, v) {
 
