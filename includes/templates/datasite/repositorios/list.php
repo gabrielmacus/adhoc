@@ -45,6 +45,7 @@ foreach ($dataToSkin as $k=>$v)
                 dataType:"json",
                 success:function (res) {
 
+
                     if(res)
                     {
                         window.location.reload();

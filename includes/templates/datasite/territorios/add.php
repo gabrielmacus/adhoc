@@ -27,8 +27,8 @@
     </div>
     <div class="file-field input-field col s12">
         <div class="btn">
-            <span>File</span>
-            <input id="files" type="file" multiple>
+            <span>Archivo</span>
+            <input id="files" type="file" name="files" multiple>
         </div>
         <div class="file-path-wrapper">
             <input class="file-path validate" type="text" placeholder="Upload one or more files">
@@ -150,15 +150,18 @@
                 contentType: false,
                 processData: false,
                 success: function (res) {
-
+                    console.log(res);
                     try {
+
+
                         res = JSON.parse(res);
 
 
 
+                        console.log(res);
                         if (res) {
 
-                        window.location.reload();
+                        //window.location.reload();
                         }
                         else {
 

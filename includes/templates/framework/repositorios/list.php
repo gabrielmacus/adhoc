@@ -70,7 +70,7 @@
                 dataType:"json",
                 data:{archivo_id:id},
                 success:function(res)
-                {
+                {                    console.log(res);
 
                     if(res)
                     {

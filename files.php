@@ -35,8 +35,7 @@ $pager = $archivos->getPager($limit,$page,$padding);
 unset($_GET["p"]);
 $qs=http_build_query($_GET);
 
-var_dump($dataToSkin);
-//require ("includes/templates/comun/estructura.php");
+require ("includes/templates/comun/estructura.php");
 
 
 

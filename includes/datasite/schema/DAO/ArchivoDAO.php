@@ -35,7 +35,7 @@ class ArchivoDAO extends CoreDAO
     }
 
 
-    function upload($files,$object)
+    function upload($files,$object=false)
     {
 
 
@@ -44,7 +44,10 @@ class ArchivoDAO extends CoreDAO
         {
             $dir.=date($this->config["dateformat"]);
         }
+
         $files =uploadFiles($files,$dir,$this->config);
+
+
 
         $uploadedFiles=array();
 
@@ -61,9 +64,14 @@ class ArchivoDAO extends CoreDAO
                     "archivo_data"=>$file
                 );
 
-                foreach ($object as $k=>$v)
+
+                if($object)
+                { foreach ($object as $k=>$v)
                 {
                     $archivo[$k]=$v;
+                }
+
+
                 }
 
 
@@ -73,7 +81,7 @@ class ArchivoDAO extends CoreDAO
 
 
 
-            return $files;
+            return $uploadedFiles;
 
 
     }
@@ -99,7 +107,10 @@ class ArchivoDAO extends CoreDAO
                         if(deleteDir($folder,$this->config))
                         {
 
-                            return parent::delete(array($this->idField=>$clave));
+
+
+
+                                 return parent::delete(array($this->idField=>$valor["archivo_id"]));
                         }
 
 

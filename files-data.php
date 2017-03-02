@@ -52,6 +52,7 @@ switch ($_GET["act"])
         break;
     case 'delete':
 
+
         echo  json_encode($archivos->delete(
             $_POST
         ));

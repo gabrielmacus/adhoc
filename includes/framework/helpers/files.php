@@ -183,16 +183,24 @@ function uploadFiles($files,$dir,$config)
 
 
                         $type  = explode("/",$file["type"])[0];
+
                         if($type=="image")
                         {
 
-                            /*******  creo el archivo con la resolucion de panel ********/
                             //tamano de panel
                                $completeName= $folder."/p_".$name;//Se indica el prefijo o para los archivos originales
 
+
                             $image = new \Eventviva\ImageResize($tmpFile);
+
+
+
                             $panelRes = explode(",",$config["panelSize"]);
-                            $image->resizeToBestFit($panelRes[0], $panelRes[1]);
+
+
+
+
+                            $image->resizeToBestFit(intval($panelRes[0]), intval($panelRes[1]));
                             $image->save($tmpFile);
 
                             if (ftp_put($conn_id,$completeName, $tmpFile, FTP_BINARY)) {
@@ -203,10 +211,11 @@ function uploadFiles($files,$dir,$config)
                                 $ret["error"][]=$file["name"];
                             }
 
-/************/
 
 
 
+                            //TODO copiar el archivo para mas de un resize
+                            /*
                             foreach($config["sizes"] as $k=>$size)
                             {
 
@@ -232,6 +241,9 @@ function uploadFiles($files,$dir,$config)
 
 
                             }
+                            */
+
+
 
                         }
 

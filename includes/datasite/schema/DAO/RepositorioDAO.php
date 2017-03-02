@@ -36,7 +36,9 @@ class RepositorioDAO extends CoreDAO
     {
 /*INSERT INTO `repositorios`(`repositorio`, `pass`, `user`, `server`, `dns`, `dir`, `dateformat`, `root_dir`, `formats`) VALUES (1,"sercan02","sub697_26","184.154.92.174","http://electrostyleinformatica.com","/imagenes","/d/m/Y","/httpdocs","mp4,avi")*/
    $repositorios =  parent::read($object,$sqlExtra,$offset,$limit,$joinSql);
+
         $array = array();
+
        foreach($repositorios as $rep)
        {
 

@@ -31,6 +31,7 @@ class CoreDAO
 
 
 
+
     }
 
     function getPager($limit,$actualPage,$paddingPages)
@@ -113,8 +114,9 @@ class CoreDAO
     {
 
         $result=array();
-        $sql="SELECT * FROM {$this->table} LEFT JOIN archivos_objetos ON objeto='{$this->idField}' AND tabla = '{$this->table}' LEFT JOIN archivos ON archivo_id=archivo";
+        $sql="SELECT * FROM {$this->table} ";
 
+        //LEFT JOIN archivos_objetos ON objeto='{$this->idField}' AND tabla = '{$this->table}' LEFT JOIN archivos ON archivo_id=archivo"
         if($joinSql)
         {
             $sql.=" {$joinSql}";
@@ -177,7 +179,7 @@ class CoreDAO
         }
 
 
-        return $sql;
+        return $result;
     }
 
    protected function update($object)
@@ -232,7 +234,7 @@ class CoreDAO
             return $this->db->insert_id;
         }
 
-        return false;
+        return $sql;
 
     }
 
@@ -258,7 +260,10 @@ class CoreDAO
 
             if($archivoData)
             {
-                $uploadedFiles=  $archivoData->upload($files);
+              $uploadedFiles=  $archivoData->upload($files);
+
+
+
                $filesSql="INSERT INTO archivos_objetos (archivo,tabla,objeto) VALUES ";
                 $values="";
                 foreach($uploadedFiles as $file)
@@ -274,20 +279,23 @@ class CoreDAO
                 {
                     $res=false;
                 }
-
             }
 
 
 
         }
 
-
-        /*if($archivoData)
+        return $res;
+        /*
+        if($archivoData)
         {
-            return $filesSql;
-        }*/
-
             return $res;
+        }
+        else
+        {
+            return $res;
+
+        }*/
 
     }
 
