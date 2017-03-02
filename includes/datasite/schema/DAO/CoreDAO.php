@@ -284,9 +284,27 @@ class CoreDAO
         return false;
     }
 
+    function getKeys($object)
+    {
+        $keys=array();
+        foreach ($object as $k=>$v)
+        {
+            if(!is_array($v))
+            {
+                $keys[]=$k;
+
+            }
+        }
+
+        return $keys;
+    }
+
     function insert($object)
     {
-        $keys= implode(",",array_keys($object));
+
+
+
+        $keys= implode(",",$this->getKeys($object));
 
         $sql ="INSERT INTO {$this->table}  ({$keys}) values ";
 
@@ -313,11 +331,13 @@ class CoreDAO
 
             }
 
+
         }
 
 
         $query= rtrim($query,",");
         $sql.="({$query})";
+
 
 
        if( $this->db->query($sql))
@@ -336,10 +356,10 @@ class CoreDAO
 
 
 
-            return $object;//$this->db->insert_id;
+            return $this->db->insert_id;
         }
 
-        return false;
+        return $sql;
 
     }
 

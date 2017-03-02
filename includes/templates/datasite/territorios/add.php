@@ -24,9 +24,9 @@
     </div>
 
     <div class="input-field col s12 center">
-        <a data-fancybox data-src="files.php?rep=5&modal=true" href="javascript:;" id="marcar-territorio" type="button" class="btn">Adjuntar archivo</a>
+        <a data-fancybox data-src="files.php?rep=5&modal=true"  class="btn">Adjuntar archivo</a>
         &nbsp;
-        <button id="marcar-territorio" type="button" class="btn">Marcar</button>
+        <a id="marcar-territorio"  class="btn">Marcar</a>
         &nbsp; <button  type="submit" class="btn">Enviar</button>
     </div>
 
@@ -172,7 +172,7 @@
         {
 
             if(event.origin==location.origin)
-            {      console.log(event.origin);
+            {
                 adjuntos= event.data;
 
 
@@ -184,80 +184,59 @@
         
 
         $(document).on("submit", "form", function (e) {
+
+
             e.preventDefault();
-            var data = new FormData();
+            var data = {};
             var serialized = $(this).serializeArray();
-            var territorio=[];
-
-            if(adjuntos.length>0)
-            {
-                data.append("adjuntos",adjuntos);
-            }
-            console.log(adjuntos);
-            /*
-            var files = document.querySelector("#files").files;
-
-
-
-            $.each(files,function (k,v) {
-
-                data.append(k,v);
-            });*/
-
             $.each(serialized, function (k, v) {
 
-
-                data.append(v["name"], v["value"]);
+                data[v["name"]] = v["value"];
             });
 
+            data.adjuntos = adjuntos;
+
+            var polygons=[];
+
+
+                var manzana = [];
                 $.each(points.getPath().b, function (clave, valor) {
 
                     var loc = {lat: valor.lat(), lng: valor.lng()};
-                    territorio.push(loc);
 
+                    manzana.push(loc);
                 });
+                polygons.push(manzana);
+
+
+            data["territorio_poylgons"]=  JSON.stringify(polygons);
 
 
 
+            $.ajax(
+                {
+                    url: "territorios-data.php?act=add",
+                    method: "post",
+                    dataType: "json",
+                    data: data,
+                    success: function (res) {
 
-            data.append("territorio_polygons", JSON.stringify(territorio));
+                        if(res)
+                        {
 
-
-            $.ajax({
-                url: "territorios-data.php?act=add",
-                type: "post",
-                dataType: "html",
-                data: data,
-                cache: false,
-                contentType: false,
-                processData: false,
-                success: function (res) {
-                    console.log(res);
-                    try {
-
-
-                        res = JSON.parse(res);
-
-
-
-                        console.log(res);
-                        if (res) {
-
-                        //window.location.reload();
                         }
-                        else {
-
-
-                            error(null, "<?php echo $lang["errors"]["filesError"]["text"]; ?>" + res.error.join());
+                        else
+                        {
+                            error();
                         }
+                    },
+                    error: function (err) {
 
+                        console.log(err);
+                        error(err);
                     }
-                    catch (e) {
-                        error();
-                    }
-
                 }
-            })
+            );
 
         });
 
