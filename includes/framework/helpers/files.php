@@ -184,6 +184,8 @@ function uploadFiles($files,$dir,$config)
 
                         $type  = explode("/",$file["type"])[0];
 
+                        $file["ext"]=$type[1];
+
                         if($type=="image")
                         {
 

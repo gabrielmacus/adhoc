@@ -78,11 +78,15 @@
     var adjuntos=[];
 
     $(document).on("click",".adjunto a",function(){
-       var id= $(this).closest(".collection-item").data("id");
+        var item= $(this).closest(".collection-item");
+       var id= item.data("id");
 
         adjuntos[id]=false;
 
-        console.log(adjuntos);
+        item.fadeOut(function () {
+            item.remove();
+        });
+
 
 
     });

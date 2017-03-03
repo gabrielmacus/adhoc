@@ -259,7 +259,7 @@ class CoreDAO
                 }
             }
 
-            return $object[$this->idField];
+            return $object[$this->idField];//$object[$this->idField];
         }
             return false;
     }
@@ -268,24 +268,38 @@ class CoreDAO
 
     function attach($id,$adjuntos)
     {
-        $sql = "INSERT INTO archivos_objetos (archivo,tabla,objeto) VALUES ";
+        $sql = "REPLACE INTO archivos_objetos (archivo,tabla,objeto) VALUES ";
+        $sqlDelete="DELETE FROM archivos_objetos WHERE ";
         $values = "";
+        $deleteValues="";
         foreach ($adjuntos as $k=>$v) {
 
-            if($v)
+            if($v!="false")
             {
                 $values .= "({$k},'{$this->table}',{$id}),";
             }
             else
             {
-
+                $deleteValues.="{$k},";
             }
 
 
         }
+
+        $deleteValues = rtrim($deleteValues,",");
         $values = rtrim($values, ",");
 
         $sql .= $values;
+       if($deleteValues!="")
+       {
+           $sqlDelete.=" archivo IN({$deleteValues}) AND objeto={$id}";
+
+           if(!$this->db->query($sqlDelete))
+           {
+               return false;
+           }
+       }
+
 
         if($this->db->query($sql))
         {
