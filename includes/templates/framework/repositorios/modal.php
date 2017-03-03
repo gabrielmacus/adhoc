@@ -104,6 +104,18 @@
 </script>
 
 
+
+<style>
+    .file
+    {object-fit: cover;
+        height: 200px;
+        width: 100%;
+    }
+    .file i
+    {
+        font-size: 150px;width: 100%
+    }
+</style>
 <?php if(count($dataToSkin)==0 || !$dataToSkin)
 {
     ?>
@@ -134,18 +146,6 @@ if($dataToSkin)
     <div  class="row">
 
 
-
-        <style>
-            .file
-            {object-fit: cover;
-                height: 200px;
-                width: 100%;
-            }
-            .file i
-            {
-                font-size: 150px;width: 100%
-            }
-        </style>
         <?php
         foreach($v as $clave=>$valor)
         {
@@ -161,7 +161,7 @@ if($dataToSkin)
             <div class="col s12 m6 l4" >
 
                 <p style="overflow: hidden">
-                    <input value="<?php echo $valor["archivo_id"]?>" type="checkbox" class="filled-in" id="filled-in-box-<?php echo  $valor["archivo_id"];?>" />
+                    <input value='<?php echo json_encode($valor);?>' type="checkbox" class="filled-in" id="filled-in-box-<?php echo  $valor["archivo_id"];?>" />
                     <label class="truncate" for="filled-in-box-<?php echo  $valor["archivo_id"];?>"><?php echo  $valor["archivo_data"]["name"]?></label>
                 </p>
 
@@ -356,7 +356,7 @@ if($dataToSkin)
 
                     $("input:checked").each(function () {
 
-                      adjuntos.push(  $(this).val());
+                      adjuntos.push( JSON.parse($(this).val()));
 
                     });
 

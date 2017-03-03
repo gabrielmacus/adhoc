@@ -253,6 +253,7 @@ class CoreDAO
             if($object["adjuntos"])
             {
 
+                return $this->attach($object[$this->idField],$object["adjuntos"]);
                 if(!$this->attach($object[$this->idField],$object["adjuntos"]))
                 {
                     return false;
@@ -272,9 +273,9 @@ class CoreDAO
         $sqlDelete="DELETE FROM archivos_objetos WHERE ";
         $values = "";
         $deleteValues="";
-        foreach ($adjuntos as $k=>$v) {
+        foreach ($adjuntos as $k=>$item) {
 
-            if($v!="false")
+            if(!$item["delete"])
             {
                 $values .= "({$k},'{$this->table}',{$id}),";
             }
@@ -301,29 +302,7 @@ class CoreDAO
        }
 
 
-        if($this->db->query($sql))
-        {
-            return true;
-        }
-
-        return false;
-    }
-
-
-
-
-    /*
-    function attach($id,$adjuntos)
-    {
-        $sql = "INSERT INTO archivos_objetos (archivo,tabla,objeto) VALUES ";
-        $values = "";
-        foreach ($adjuntos as $adjunto) {
-            $values .= "({$adjunto},'{$this->table}',{$id}),";
-
-        }
-        $values = rtrim($values, ",");
-
-        $sql .= $values;
+     //   return $sql." ".$sqlDelete;
 
         if($this->db->query($sql))
         {
@@ -332,7 +311,11 @@ class CoreDAO
 
         return false;
     }
-*/
+
+
+
+
+    
     function getKeys($object)
     {
         $keys=array();

@@ -75,19 +75,27 @@
 
 <script>
 
-    var adjuntos=[];
+    var adjuntos={};
 
     $(document).on("click",".adjunto a",function(){
         var item= $(this).closest(".collection-item");
+
        var id= item.data("id");
 
-        adjuntos[id]=false;
+        if(  !adjuntos[id])
+        {
+            adjuntos[id]={};
+
+        }
+
+        adjuntos[id]["delete"]=true;
 
         item.fadeOut(function () {
             item.remove();
         });
 
 
+        console.log(adjuntos);
 
     });
 
@@ -259,14 +267,21 @@
         function receiveMessage(event)
         {
 
+
             if(event.origin==location.origin)
             {
 
+
                 $.each(event.data,function(k,v)
                 {
-                    adjuntos[v]= true;
 
+                    adjuntos[v["archivo_id"]]=v
+
+
+                    delete      adjuntos[v["archivo_id"]]["archivo_data"];
                 });
+                console.log(adjuntos);
+
 
 
             }
@@ -301,7 +316,6 @@
 
             data["territorio_polygons"]=  JSON.stringify(manzana);
 
-            console.log(data);
 
 
             $.ajax(
