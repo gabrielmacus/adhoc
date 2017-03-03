@@ -253,7 +253,7 @@ class CoreDAO
             if($object["adjuntos"])
             {
 
-                return $this->attach($object[$this->idField],$object["adjuntos"]);
+            //    return $this->attach($object[$this->idField],$object["adjuntos"]);
                 if(!$this->attach($object[$this->idField],$object["adjuntos"]))
                 {
                     return false;
@@ -291,6 +291,8 @@ class CoreDAO
         $values = rtrim($values, ",");
 
         $sql .= $values;
+
+
        if($deleteValues!="")
        {
            $sqlDelete.=" archivo IN({$deleteValues}) AND objeto={$id}";
@@ -304,12 +306,16 @@ class CoreDAO
 
      //   return $sql." ".$sqlDelete;
 
-        if($this->db->query($sql))
+        if($values!="")
         {
-            return true;
+            if(!$this->db->query($sql))
+            {
+                return false;
+            }
         }
 
-        return false;
+
+        return true;
     }
 
 

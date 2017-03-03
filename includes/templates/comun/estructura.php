@@ -6,7 +6,19 @@
 <style>
   
 </style>
-<body data-ng-app="app" data-ng-controller="ctrl">
+<body data-ng-app="app" data-ng-controller="ctrl" >
+<script>
+
+
+    var app = angular.module('app', []);
+    var scope;
+    app.controller('ctrl', function($scope) {
+      scope=$scope;
+
+        ;
+    });
+</script>
+</script>
 
    <div class="navbar teal lighten-1">
        <?php include ("includes/templates/navbars/sidenav-fixed.php")?>

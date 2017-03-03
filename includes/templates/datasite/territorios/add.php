@@ -42,10 +42,21 @@
     </div>
 
 
-    <div class="col s12">
+    <div class="col s12" data-ng-if="adjuntos">
 
-        <ul id="file-list" class="collection">
+        <h3>Adjuntos</h3>
 
+        <ul id="file-list" class="collection" >
+
+
+            <li data-ng-if="a.archivo_data.type=='image/jpeg'"class="valign-wrapper collection-item avatar" data-ng-repeat="a in adjuntos" data-id="{{a.archivo_id}}">
+
+
+                    <a data-fancybox="image" href="{{a.archivo_data.sizes.o.completeUrl}}" class="title valign">{{a.archivo_data.originalName}}</a>
+                    <img style="object-fit: cover" data-ng-src="{{a.archivo_data.sizes.p.completeUrl}}" alt="" class="circle">
+
+                <a href="#!" class="secondary-content"><i class="fa fa-times" aria-hidden="true"></i></a>
+            </li>
         </ul>
     </div>
 
@@ -142,6 +153,8 @@
         }
 
 
+
+
         $(document).ready(function () {
 
             <?php
@@ -171,47 +184,14 @@
 
                             break;
                         case 'archivos':
-                            var html="";
 
-                            $.each(valor,function(k,v){
-                                var data= v["archivo_data"];
-                                if(data)
-                                {
-                                    html+="<li class='adjunto collection-item avatar' data-id='"+v["archivo_id"]+"'>" +
-                                        "<a  ><i class='fa fa-times right secondary-content' aria-hidden='true'></i></a>"+
-                                        "<img style='object-fit: cover' src='"+data["sizes"]["p"]["completeUrl"]+"' class='circle'>" +
-                                        "<span class='title'>" ;
+
+                            scope.adjuntos=valor;
+
+                            scope.$apply();
 
 
 
-
-
-                                    var type  = data["type"].split("/");
-                                    type=type[0];
-                                    switch ( type)
-                                    {
-                                        case "image":
-
-                                            html+=data["originalName"];
-
-
-                                            break;
-                                        default:
-
-                                            break;
-                                    }
-
-
-
-                                    html+="</span>" +
-                                        "<p>"+formatBytes(data["size"],2)+"</p>" +
-                                        "</li>";
-                                }
-
-
-
-                            });
-                            $("#file-list").append(html);
 
                             break;
                     }
@@ -348,5 +328,6 @@
 
     }
 </script>
+
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCxqL3eG6quOKEbnY7d00DUPX0h5yoqS5Q&callback=initMap"></script>

@@ -162,3 +162,4 @@
 <link href="https://cdn.jsdelivr.net/mediaelement/latest/mediaelementplayer.css" rel="stylesheet">
 <script src="js/jscolor.min.js"></script>
 <script src="js/js.cookie.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
