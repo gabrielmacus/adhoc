@@ -147,29 +147,34 @@
                             var html="";
 
                             $.each(valor,function(k,v){
-
-                                html+="<li>";
-                               var data= v["archivo_data"];
-
-
-                                var type  = data["type"].split("/");
-                                type=type[0];
-                               switch ( type)
-                               {
-                                   case "image":
-
-                                       html+=data["originalName"];
-
-
-                                       break;
-                                   default:
-
-                                       break;
-                               }
+                                var data= v["archivo_data"];
+                                if(data)
+                                {
+                                    html+="<li>";
 
 
 
-                                html+="</li>";
+                                    var type  = data["type"].split("/");
+                                    type=type[0];
+                                    switch ( type)
+                                    {
+                                        case "image":
+
+                                            html+=data["originalName"];
+
+
+                                            break;
+                                        default:
+
+                                            break;
+                                    }
+
+
+
+                                    html+="</li>";
+                                }
+
+
 
                             });
                             $("#file-list").append(html);
