@@ -49,7 +49,7 @@
             //$polygons =json_decode($data["territorio_polygons"],true);
             ?>
 
-            var infoHtml= "<a href='index.php'><h6 class='center'><?php echo $data["territorio_numero"];?></h6>"
+            var infoHtml= "<a href='territorios.php?id=<?php echo $data["territorio_id"];?>'><h6 class='center'><?php echo $data["territorio_numero"];?></h6>"
             + "<span style='color:black'>" +
                 "<?php echo $data["territorio_notas"];?>" +
                 "</span><br>" +
@@ -131,13 +131,30 @@
                <li></li>
            </ul>
 
+        <?php
+
+
+           if(count($archivos)>0)
+           {
+               ?>
+
+
+
+
+
+
+               <?php
+           }?>
            <h4>Imagenes</h4>
            <?php
+
+
            $archivos = $data["archivos"];
 
 
            foreach ($archivos as $archivo)
            {
+
 
                $archivo=$archivo["archivo_data"];
                $type= explode(".",$archivo["name"]);

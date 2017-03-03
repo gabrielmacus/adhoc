@@ -249,15 +249,15 @@ class CoreDAO
         if($this->db->query($sql))
         {
 
+
             if($object["adjuntos"])
             {
 
-                if(!$this->attach($this->db->insert_id,$object["adjuntos"]))
+                if(!$this->attach($object[$this->idField],$object["adjuntos"]))
                 {
                     return false;
                 }
             }
-
 
             return $object[$this->idField];
         }
@@ -359,7 +359,7 @@ class CoreDAO
             return $this->db->insert_id;
         }
 
-        return $sql;
+        return false;
 
     }
 

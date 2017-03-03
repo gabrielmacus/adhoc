@@ -4,7 +4,25 @@
 
 ?>
 <form class="row">
-    <h3>Nuevo territorio</h3>
+    <h2 class="grey-text">Territorios</h2>
+    <?php if($obj)
+
+    {
+        ?>
+
+        <h3>Modificando el territorio <?php  echo json_decode($obj,true)[0]["territorio_numero"]?></h3>
+        <input name="territorio_id" hidden  >
+        <?php
+    }
+    else
+    {
+        ?>
+
+
+        <h3>Creando nuevo territorio</h3>
+        <?php
+    }?>
+
     <div class="input-field col s12 m12 l6">
        <input id="territorio_numero"  type="number" name="territorio_numero" class="input-field">
         <label for="territorio_numero">Numero</label>
@@ -23,12 +41,18 @@
         <label for="textarea1">Notas</label>
     </div>
 
+
+    <ul id="file-list">
+
+    </ul>
+
     <div class="input-field col s12 center">
         <a data-fancybox data-src="files.php?rep=5&modal=true"  class="btn">Adjuntar archivo</a>
         &nbsp;
         <a id="marcar-territorio"  class="btn">Marcar</a>
         &nbsp; <button  type="submit" class="btn">Enviar</button>
     </div>
+
 
 
 
@@ -103,6 +127,7 @@
             $.each(obj,function (k,v) {
 
                 $.each(v,function (clave,valor) {
+
                     switch (clave)
                     {
                         default:
@@ -116,6 +141,38 @@
 
                             var color = v["territorio_color"];
                             points.setOptions({strokeColor:color,fillColor: color});
+
+                            break;
+                        case 'archivos':
+                            var html="";
+
+                            $.each(valor,function(k,v){
+
+                                html+="<li>";
+                               var data= v["archivo_data"];
+
+
+                                var type  = data["type"].split("/");
+                                type=type[0];
+                               switch ( type)
+                               {
+                                   case "image":
+
+                                       html+=data["originalName"];
+
+
+                                       break;
+                                   default:
+
+                                       break;
+                               }
+
+
+
+                                html+="</li>";
+
+                            });
+                            $("#file-list").append(html);
 
                             break;
                     }
@@ -196,7 +253,6 @@
 
             data.adjuntos = adjuntos;
 
-            var polygons=[];
 
 
                 var manzana = [];
@@ -206,11 +262,12 @@
 
                     manzana.push(loc);
                 });
-                polygons.push(manzana);
 
 
-            data["territorio_poylgons"]=  JSON.stringify(polygons);
 
+            data["territorio_polygons"]=  JSON.stringify(manzana);
+
+            console.log(data);
 
 
             $.ajax(
@@ -221,6 +278,7 @@
                     data: data,
                     success: function (res) {
 
+                        console.log(res);
                         if(res)
                         {
 
