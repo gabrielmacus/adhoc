@@ -264,6 +264,41 @@ class CoreDAO
             return false;
     }
 
+
+
+    function attach($id,$adjuntos)
+    {
+        $sql = "INSERT INTO archivos_objetos (archivo,tabla,objeto) VALUES ";
+        $values = "";
+        foreach ($adjuntos as $k=>$v) {
+
+            if($v)
+            {
+                $values .= "({$k},'{$this->table}',{$id}),";
+            }
+            else
+            {
+
+            }
+
+
+        }
+        $values = rtrim($values, ",");
+
+        $sql .= $values;
+
+        if($this->db->query($sql))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+
+
+
+    /*
     function attach($id,$adjuntos)
     {
         $sql = "INSERT INTO archivos_objetos (archivo,tabla,objeto) VALUES ";
@@ -283,7 +318,7 @@ class CoreDAO
 
         return false;
     }
-
+*/
     function getKeys($object)
     {
         $keys=array();

@@ -42,9 +42,13 @@
     </div>
 
 
-    <ul id="file-list">
+    <div class="col s12">
 
-    </ul>
+        <ul id="file-list" class="collection">
+
+        </ul>
+    </div>
+
 
     <div class="input-field col s12 center">
         <a data-fancybox data-src="files.php?rep=5&modal=true"  class="btn">Adjuntar archivo</a>
@@ -71,7 +75,17 @@
 
 <script>
 
+    var adjuntos=[];
 
+    $(document).on("click",".adjunto a",function(){
+       var id= $(this).closest(".collection-item").data("id");
+
+        adjuntos[id]=false;
+
+        console.log(adjuntos);
+
+
+    });
 
 
     function initMap() {
@@ -89,7 +103,8 @@
             strokeOpacity: 0.8,
             strokeWeight: 2,
             fillColor: '#FF0000',
-            fillOpacity: 0.35
+            fillOpacity: 0.35,
+            draggable:true
         });
 
         var path= new google.maps.Polyline({
@@ -150,7 +165,12 @@
                                 var data= v["archivo_data"];
                                 if(data)
                                 {
-                                    html+="<li>";
+                                    html+="<li class='adjunto collection-item avatar' data-id='"+v["archivo_id"]+"'>" +
+                                        "<a  ><i class='fa fa-times right secondary-content' aria-hidden='true'></i></a>"+
+                                        "<img style='object-fit: cover' src='"+data["sizes"]["p"]["completeUrl"]+"' class='circle'>" +
+                                        "<span class='title'>" ;
+
+
 
 
 
@@ -171,7 +191,9 @@
 
 
 
-                                    html+="</li>";
+                                    html+="</span>" +
+                                        "<p>"+formatBytes(data["size"],2)+"</p>" +
+                                        "</li>";
                                 }
 
 
@@ -229,13 +251,18 @@
         });
 
 
-        var adjuntos=[];
+
         function receiveMessage(event)
         {
 
             if(event.origin==location.origin)
             {
-                adjuntos= event.data;
+
+                $.each(event.data,function(k,v)
+                {
+                    adjuntos[v]= true;
+
+                });
 
 
             }
@@ -257,8 +284,6 @@
             });
 
             data.adjuntos = adjuntos;
-
-
 
                 var manzana = [];
                 $.each(points.getPath().b, function (clave, valor) {
