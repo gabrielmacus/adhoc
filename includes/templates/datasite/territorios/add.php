@@ -46,7 +46,7 @@
 
         <h3>Adjuntos</h3>
 
-        <ul id="file-list" class="collection" >
+        <ul id="file-list" class="sortable collection" >
 
 
             <li data-ng-if="a.archivo_data.type=='image/jpeg'"class="valign-wrapper collection-item avatar" data-ng-repeat="a in adjuntos" data-id="{{a.archivo_id}}">
@@ -88,25 +88,22 @@
 
     var adjuntos={};
 
-    $(document).on("click",".adjunto a",function(){
+    $(document).on("click",".collection-item a",function(){
         var item= $(this).closest(".collection-item");
 
        var id= item.data("id");
 
-        if(  !adjuntos[id])
+        if(  !scope.adjuntos[id])
         {
-            adjuntos[id]={};
+            scope.adjuntos[id]={};
 
         }
-
-        adjuntos[id]["delete"]=true;
+        scope.adjuntos[id]["delete"]=true;
 
         item.fadeOut(function () {
             item.remove();
         });
 
-
-        console.log(adjuntos);
 
     });
 
@@ -157,6 +154,9 @@
 
         $(document).ready(function () {
 
+
+
+            scope.adjuntos={};
             <?php
 
             if($obj)
@@ -252,15 +252,15 @@
             {
 
 
-                $.each(event.data,function(k,v)
+            $.each(event.data,function(k,v)
                 {
 
-                    adjuntos[v["archivo_id"]]=v
+                    scope.adjuntos[v["archivo_id"]]=v;
 
-
-                    delete      adjuntos[v["archivo_id"]]["archivo_data"];
+                  //  delete      adjuntos[v["archivo_id"]]["archivo_data"];
                 });
-                console.log(adjuntos);
+
+     scope.$apply();
 
 
 
@@ -282,7 +282,7 @@
                 data[v["name"]] = v["value"];
             });
 
-            data.adjuntos = adjuntos;
+            data.adjuntos = scope.adjuntos;
 
                 var manzana = [];
                 $.each(points.getPath().b, function (clave, valor) {
@@ -331,3 +331,12 @@
 
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCxqL3eG6quOKEbnY7d00DUPX0h5yoqS5Q&callback=initMap"></script>
+    <ul class="sortable">
+        <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 1</li>
+        <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 2</li>
+        <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 3</li>
+        <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 4</li>
+        <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 5</li>
+        <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 6</li>
+        <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 7</li>
+    </ul>

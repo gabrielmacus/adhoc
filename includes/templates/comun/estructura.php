@@ -14,8 +14,7 @@
     var scope;
     app.controller('ctrl', function($scope) {
       scope=$scope;
-
-        ;
+        $(".sortable").sortable();
     });
 </script>
 </script>

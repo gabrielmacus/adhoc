@@ -3,7 +3,7 @@ require("includes/autoload.php");
 
 $action="list";
 $site="datasite/territorios";
-$sqlExtra =" ORDER BY territorio_id";
+$sqlExtra =" ORDER BY territorio_id,orden DESC";
 $id=$_GET["id"];
 
 if(!is_numeric($id) && !empty($id))

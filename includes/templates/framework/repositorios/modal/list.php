@@ -6,8 +6,9 @@
     }
     .body
     {
-        width: 90%;
+        width:100%;
         padding: 20px;
+        height: 100%;
     }
 
 </style>
@@ -53,7 +54,7 @@
                     console.log(res);
                     if(res)
                     {
-                        window.location.href="files-add.php";
+                        window.location.href="../../../../../files-add.php";
                     }
                     else
                     {
@@ -143,7 +144,7 @@ if($dataToSkin)
     ?>
 
 
-    <div  class="row">
+    <div  class="row" style="overflow: scroll;height: 100%">
 
 
         <?php

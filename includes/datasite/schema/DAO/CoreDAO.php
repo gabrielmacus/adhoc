@@ -166,6 +166,7 @@ class CoreDAO
 
         }
 
+
         //LEFT JOIN archivos_objetos ON objeto='{$this->idField}' AND tabla = '{$this->table}' LEFT JOIN archivos ON archivo_id=archivo"
         if($joinSql)
         {
@@ -189,7 +190,9 @@ class CoreDAO
             $countSql= rtrim($countSql,"AND");
         }
         $sql.=" {$sqlExtra}";
-        $countSql.= " {$sqlExtra}";
+
+
+        //$countSql.= " {$sqlExtra}";
 
 
         $this->resultNumber= $this->db->query($countSql)->fetch_all(true)[0]["total"];
@@ -227,6 +230,7 @@ class CoreDAO
         {
             $result=false;
         }
+
 
 
         return $result;

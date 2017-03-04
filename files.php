@@ -34,11 +34,11 @@ $padding=4;
 if($_GET["modal"])
 
 {
-    $action="modal";
+    $action="modal/list";
     $limit=false;
 }
 
-$dataToSkin = $archivos->read($filter," ORDER BY archivo_id DESC",($page-1),$limit);
+$dataToSkin = $archivos->read($filter," ORDER BY archivo_id ",($page-1),$limit);
 
 $pager = $archivos->getPager($limit,$page,$padding);
 
