@@ -114,8 +114,9 @@
         var geocoder = new google.maps.Geocoder();
         var map = new google.maps.Map(document.getElementById('map'), {
             zoom: 15,
-            center: {lat: 24.886, lng: -70.268},
-            draggableCursor: 'crosshair'
+            center: {lat: -31.7333 , lng: -60.5333},
+            draggableCursor: 'crosshair',
+            gestureHandling:'cooperative'
         });
         var points =  new google.maps.Polygon({
 

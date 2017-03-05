@@ -32,7 +32,8 @@
 
             var map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 15,
-                center: {lat: 24.886, lng: -70.268}
+                center:  {lat: -31.7333 , lng: -60.5333},
+                gestureHandling:'cooperative'
             });
             navigator.geolocation.getCurrentPosition(function(position) {
                 var pos = {
