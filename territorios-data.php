@@ -70,6 +70,7 @@ if(is_numeric($id))
             break;
         case 'delete':
 
+            
             echo  json_encode($territorios->delete(
                 $_POST
             ));

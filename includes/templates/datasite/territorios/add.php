@@ -134,11 +134,12 @@
 
 
             var manzanas=[];
+            var colorArray=[];
             $(document).on("click","#marcar-territorio",function () {
 
                 marcarTerritorio(path.getPath());
             });
-            function marcarTerritorio(coords) {
+            function marcarTerritorio(coords,id) {
 
 
 
@@ -158,9 +159,26 @@
                 });
 
 
+
                 manzana.addListener("click",function () {
 
-                    manzana.setPath([]);
+
+
+                    if(!id)
+                    {
+                        manzana.setPath([]);
+
+                        manzanas.splice(manzanas.indexOf(manzana),1);
+
+                    }
+                    else
+                    {
+                        manzana.setPath([{lat:0,lng:id},{lat:0,lng:0},{lat:0,lng:0},{lat:0,lng:0}]);
+                        manzanas.push(manzana);
+
+                    }
+
+
 
 
 
@@ -172,7 +190,12 @@
 
 
 
-                manzanas.push(manzana);
+                if(!id)
+                {   manzanas.push(manzana);
+
+                }
+                colorArray.push(manzana)
+
 
 
 
@@ -192,7 +215,7 @@
                 {
                 ?>
                 var obj= <?php echo $obj;?>;
-console.log(obj);
+
                 $.each(obj,function (k,v) {
 
                     $.each(v,function (clave,valor) {
@@ -209,8 +232,9 @@ console.log(obj);
 
                                 $.each(valor,function(k,manzana)
                                 {
+                                    id = manzana["manzana_id"];
                                     manzana=JSON.parse(manzana["manzana_polygon"]);
-                                    marcarTerritorio(manzana);
+                                    marcarTerritorio(manzana,id);
                                     $("#territorio_color").val( v["territorio_color"]);
                                 });
 
@@ -258,7 +282,7 @@ console.log(obj);
             $(document).on("change","#territorio_color",function () {
 
                 var color =$(this).val();
-                $.each(manzanas,function(k,v)
+                $.each(colorArray,function(k,v)
                 {
                     v.setOptions({strokeColor:color,fillColor: color});
                 });
@@ -322,7 +346,12 @@ console.log(obj);
                 $.each(manzanas,function(k,manzana)
                 {
                     var manzanaJSON=[];
+
+
+
                     $.each(manzana.getPath().b, function (clave, valor) {
+
+
 
                         var loc = {lat: valor.lat(), lng: valor.lng()};
 
@@ -331,12 +360,23 @@ console.log(obj);
 
                     if(manzanaJSON.length>0)
                     {
+                        if(manzanaJSON[0].lat==0)
+                        {
+                            id=manzanaJSON[0].lng;
+                            manzanaJSON={};
+                            manzanaJSON["delete"]=true;
+                            manzanaJSON["manzana_id"]=id;
+                        }
+
+
                         manzanasJSON.push(manzanaJSON);
 
                     }
 
 
                 });
+
+
 
 
                 data["territorio_polygons"]=  JSON.stringify(manzanasJSON);

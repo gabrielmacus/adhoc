@@ -54,10 +54,11 @@
             ?>
 
             var infoHtml= "<a href='territorios.php?id=<?php echo $data["territorio_id"];?>'><h6 class='center'><?php echo $data["territorio_numero"];?></h6>"
-            + "<span style='color:black'>" +
+            + "<span style='color:black;display:block'>" +
                 "<?php echo $data["territorio_notas"];?>" +
-                "</span><br>" +
-                "<a href='territorios-add.php?id=<?php echo $data["territorio_id"];?>'>Editar</a>"+
+                "</span>" +
+                "<a href='territorios-add.php?id=<?php echo $data["territorio_id"];?>'>Editar</a><br>"+
+                "<a href='territorios-data.php?id=<?php echo $data["territorio_id"];?>&act=delete'>Eliminar</a><br>"+
                 "</a>";
 
 
