@@ -15,7 +15,47 @@ class TerritorioDAO extends \DAO\CoreDAO
 
     function process(&$result, $item)
     {
-        parent::process($result, $item);
+
+
+        foreach ($item as $clave => $valor) {
+            switch ($clave) {
+
+                default:
+                    $result[$item[$this->idField]][$clave] = $valor;
+                    break;
+
+
+                case 'archivo_id':
+
+                    if ($item[$this->idField]) {
+
+                        $archivo["archivo_id"] = $item["archivo_id"];
+                        $archivo["archivo_data"] = json_decode($item["archivo_data"], true);
+                        $archivo["archivo_repositorio"] = $item["archivo_repositorio"];
+                        $archivo["archivos_objetos_id"] = $item["archivos_objetos_id"];
+
+                        $result[$item[$this->idField]]["archivos"][$item["archivo_id"]] = $archivo;
+
+
+                    }
+
+                    break;
+                case 'manzana_id':
+
+                    if($item[$this->idField]) {
+
+                        $manzana["manzana_id"]=$item["manzana_id"];
+                        $manzana["manzana_polygon"]=$item["manzana_polygon"];
+                        $manzana["manzana_territorio"]=$item["manzana_territorio"];
+
+                        $result[$item[$this->idField]]["manzanas"][$item["manzana_id"]]=$manzana;
+
+
+                    }
+
+                    break;
+            }
+        }
     }
 
     function read($object = array(), $sqlExtra = "", $offset = 0, $limit = false,$joinSql=false)
@@ -27,6 +67,7 @@ class TerritorioDAO extends \DAO\CoreDAO
     {
         return parent::update($object);
     }
+
 
     function insert($object)
     {

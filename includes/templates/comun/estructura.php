@@ -7,12 +7,33 @@
   
 </style>
 <body data-ng-app="app" data-ng-controller="ctrl" >
+
+
 <script>
 
 
     var app = angular.module('app', []);
     var scope;
     app.controller('ctrl', function($scope) {
+        $scope.notEmpty=function(array)
+        {
+            var notEmpty=false;
+
+            $.each(array,function(k,v)
+            {
+                console.log(v);
+
+                if(v&&v!=""&&k!="")
+                {
+                    notEmpty=true;
+
+                    return notEmpty;
+                }
+
+            })
+            return notEmpty;
+
+        }
       scope=$scope;
         $(".sortable").sortable();
     });

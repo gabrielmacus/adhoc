@@ -43,6 +43,9 @@
 
                 map.setCenter(pos);
             });
+
+
+
             <?php foreach ($dataToSkin as $data)
             {
 
@@ -57,16 +60,34 @@
                 "<a href='territorios-add.php?id=<?php echo $data["territorio_id"];?>'>Editar</a>"+
                 "</a>";
 
-           var polygon= new google.maps.Polygon({
 
-                strokeColor:'<?php echo $data["territorio_color"]?>',
-                strokeOpacity: 0.8,
-                strokeWeight: 2,
-                fillColor: '<?php echo $data["territorio_color"]?>',
-                fillOpacity: 0.35,
-                path:<?php echo $data["territorio_polygons"]?>,
-                map:map
-            });
+
+
+
+            var polygon;
+            <?php
+             foreach($data["manzanas"] as $manzana)
+             {
+             ?>
+
+
+
+                polygon= new google.maps.Polygon({
+
+                    strokeColor:'<?php echo $data["territorio_color"]?>',
+                    strokeOpacity: 0.8,
+                    strokeWeight: 2,
+                    fillColor: '<?php echo $data["territorio_color"]?>',
+                    fillOpacity: 0.35,
+                    path:<?php echo $manzana["manzana_polygon"] ?>,
+                    map:map
+                });
+
+
+            <?php
+             }?>
+
+
 
 
             var marker = new google.maps.Marker({
@@ -128,32 +149,26 @@
            ?>
 
            <h3>Datos del territorio</h3>
-           <ul>
-               <li></li>
-           </ul>
-
-        <?php
-
-
-           if(count($archivos)>0)
-           {
-               ?>
 
 
 
-
-
-
-               <?php
-           }?>
-           <h4>Imagenes</h4>
            <?php
 
 
            $archivos = $data["archivos"];
 
 
-           foreach ($archivos as $archivo)
+           if(count($archivos)>0) {
+
+
+           ?>
+               <h4 class="grey-text">Archivos adjuntos</h4>
+
+               <?php
+           }
+
+
+               foreach ($archivos as $archivo)
            {
 
 

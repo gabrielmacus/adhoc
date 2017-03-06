@@ -5,6 +5,8 @@ $action="add";
 
 $t= new TerritorioDAO($db,"territorios");
 $sqlExtra="";
+
+$joinSQL = " LEFT JOIN manzanas ON territorio_id=manzana_territorio";
 if(is_numeric($_GET["id"]))
 {
 
@@ -12,12 +14,14 @@ if(is_numeric($_GET["id"]))
         array(
             "territorio_id"=>$_GET["id"]
         )
-    );
+    ,$sqlExtra,0,false,$joinSQL);
 
     $obj= json_encode($obj,JSON_NUMERIC_CHECK);
 }
 
-$territorios = $t->read(array(),$sqlExtra);
+
+
+//$territorios = $t->read(array(),$sqlExtra);
 
 
 require ("/includes/templates/comun/estructura.php");

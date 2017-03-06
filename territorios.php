@@ -17,16 +17,18 @@ if(!is_numeric($id) && !empty($id))
 
 $territorios =new TerritorioDAO($db,"territorios");
 
+$joinSQL = " LEFT JOIN manzanas ON territorio_id=manzana_territorio";
 if(isset($id))
 {
     $dataToSkin=  $territorios->read(array(
         "territorio_id"=>$id
-    ),$sqlExtra);
+    ),$sqlExtra,0,false,$joinSQL);
 }
 else
 {
-    $dataToSkin=  $territorios->read(array(),$sqlExtra);
+    $dataToSkin=  $territorios->read(array(),$sqlExtra,0,false,$joinSQL);
 }
+
 
 
 require ("includes/templates/comun/estructura.php");

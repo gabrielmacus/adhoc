@@ -14,6 +14,10 @@ foreach($repositorios as $rep)
 
 
 }
+?>
+
+
+<?php
 /*
  * {"texto":"Imagenes","href":"files.php?rep=1"},{"texto":"Videos","href":"files.php?rep=2"},{"texto":"Archivos","href":"files.php?rep=3"}
       ,{"texto":"Audios","href":"files.php?rep=4"}

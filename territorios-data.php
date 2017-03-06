@@ -5,6 +5,7 @@ require("includes/autoload.php");
 
 $id = $_GET["id"];
 
+$manzanas = new \DAO\ManzanaDAO($db,"manzanas");
 if(!$id)
 {
 
@@ -36,8 +37,35 @@ if(is_numeric($id))
 
             $filesDao = new \DAO\ArchivoDAO($db,"archivos",$repositorios[5]);
 
-         
-            echo json_encode($territorios->upsert($_POST,$filesDao));
+
+            $manzanasJSON = json_decode($_POST["territorio_polygons"],true);
+
+            unset($_POST["territorio_polygons"]);
+
+            $territorio=$territorios->upsert($_POST,$filesDao);
+
+            foreach($manzanasJSON as $manzana)
+            {
+
+                if(!$manzana["delete"])
+                {
+                    $manzanas->insert(array(
+
+                        "manzana_polygon"=>json_encode($manzana),
+                        "manzana_territorio"=>$territorio
+
+                    ));
+                }
+                else
+                {
+                    $manzanas->delete(
+                        array("manzana_id"=>$manzana["manzana_id"])
+                    );
+                }
+
+            }
+
+           echo json_encode($territorio);
 
             break;
         case 'delete':

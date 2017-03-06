@@ -133,6 +133,7 @@ class CoreDAO
                         $archivo["archivo_id"]=$item["archivo_id"];
                         $archivo["archivo_data"]=json_decode($item["archivo_data"],true);
                         $archivo["archivo_repositorio"]=$item["archivo_repositorio"];
+                        $archivo["archivos_objetos_id"]=$item["archivos_objetos_id"];
 
                         $result[$item[$this->idField]]["archivos"][$item["archivo_id"]]=$archivo;
 
@@ -172,6 +173,8 @@ class CoreDAO
         {
             $sql.=" {$joinSql}";
         }
+
+
 
         $countSql="SELECT count(*) as 'total' FROM {$this->table} ";
 
@@ -240,6 +243,7 @@ class CoreDAO
     {
         $sql = "UPDATE {$this->table} SET ";
 
+
         foreach ($object as $k=>$v)
         { if(!is_array($v))
         {
@@ -250,30 +254,31 @@ class CoreDAO
         $sql = rtrim($sql,",");
         $sql.=" WHERE {$this->idField}={$object[$this->idField]}";
 
-        if($this->db->query($sql))
+        if(!$this->db->query($sql))
         {
+            return false;
+        }
 
-
-            if($object["adjuntos"])
+         if($object["adjuntos"])
             {
 
-            //    return $this->attach($object[$this->idField],$object["adjuntos"]);
+              // return $this->attach($object[$this->idField],$object["adjuntos"]);
                 if(!$this->attach($object[$this->idField],$object["adjuntos"]))
                 {
                     return false;
                 }
-            }
+         }
 
-            return $object[$this->idField];//$object[$this->idField];
-        }
-            return false;
+          //  return $object[$this->idField];//$object[$this->idField];
+
+            return $object[$this->idField];
     }
 
 
 
     function attach($id,$adjuntos)
     {
-        $sql = "REPLACE INTO archivos_objetos (archivo,tabla,objeto) VALUES ";
+        $sql = "INSERT INTO archivos_objetos (archivo,tabla,objeto) VALUES ";
         $sqlDelete="DELETE FROM archivos_objetos WHERE ";
         $values = "";
         $deleteValues="";
@@ -281,7 +286,11 @@ class CoreDAO
 
             if(!$item["delete"])
             {
-                $values .= "({$k},'{$this->table}',{$id}),";
+                if(!$item["archivos_objetos_id"])
+                {
+                    $values .= "({$k},'{$this->table}',{$id}),";
+                }
+
             }
             else
             {
@@ -297,6 +306,7 @@ class CoreDAO
         $sql .= $values;
 
 
+       // return $sql." ".$sqlDelete;
        if($deleteValues!="")
        {
            $sqlDelete.=" archivo IN({$deleteValues}) AND objeto={$id}";
@@ -308,7 +318,7 @@ class CoreDAO
        }
 
 
-     //   return $sql." ".$sqlDelete;
+      //  return $this->db->error." ".$sql." ".$sqlDelete;//;$sql." ".$sqlDelete;
 
         if($values!="")
         {
@@ -317,7 +327,7 @@ class CoreDAO
                 return false;
             }
         }
-
+        //return $sqlDelete." ".$sql;
 
         return true;
     }
@@ -418,6 +428,8 @@ class CoreDAO
         {
             $res=  $this->insert($object);
         }
+
+
 
 
 

@@ -32,17 +32,18 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
 <link rel="stylesheet" href="css/lity.min.css">
 <script src="js/lity.min.js"></script>
-<script src="js/helpers.js"></script>
 
+<script src="js/helpers.js"></script>
 <script type="text/javascript" src="js/jquery.fancybox.min.js"></script>
 <link rel="stylesheet" href="css/jquery.fancybox.css" type="text/css" media="screen" />
 <script type="text/javascript">
     $(document).ready(function() {
 
-
             $('select').material_select();
 
         $('.modal').modal();
+
+
 
         var fbox= $(".fancybox").fancybox(
             {

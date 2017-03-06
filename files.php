@@ -35,7 +35,7 @@ if($_GET["modal"])
 
 {
     $action="modal/list";
-    $limit=false;
+  //  $limit=false;
 }
 
 $dataToSkin = $archivos->read($filter," ORDER BY archivo_id ",($page-1),$limit);
