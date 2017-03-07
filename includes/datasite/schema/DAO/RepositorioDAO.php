@@ -42,9 +42,23 @@ class RepositorioDAO extends CoreDAO
        foreach($repositorios as $rep)
        {
 
-           $rep["formats"]=explode(",",$rep["formats"]);
+           if(strpos($rep["formats"],",")!==false)
+           {
+               $rep["formats"]=explode(",",$rep["formats"]);
 
-           $rep["sizes"]=explode(";",$rep["sizes"]);
+           }
+
+           if(strpos($rep["sizes"],";")!==false)
+           {
+               $rep["sizes"]=explode(";",$rep["sizes"]);
+
+           }
+           else
+           {
+               $rep["sizes"]=array(
+           0=>$rep["sizes"]
+               );
+           }
 
            $array[$rep["repositorio"]]=$rep;
 

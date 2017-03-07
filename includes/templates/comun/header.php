@@ -4,6 +4,10 @@
     {
         height: 100%;
     }
+    .body
+    {
+        min-height: 100%;
+    }
 </style>
 <script src="js/mustache.min.js"></script>
 <script
