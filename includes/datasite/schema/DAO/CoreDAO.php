@@ -185,9 +185,9 @@ class CoreDAO
             $countSql.=" WHERE";
             foreach ($object as $k=>$v)
             {
-                $sql.=" {$k}={$v} AND";
+                $sql.=" {$k}='{$v}' AND";
 
-                $countSql.=" {$k}={$v} AND";
+                $countSql.=" {$k}='{$v}' AND";
             }
             $sql = rtrim($sql,"AND");
             $countSql= rtrim($countSql,"AND");
@@ -198,7 +198,7 @@ class CoreDAO
         //$countSql.= " {$sqlExtra}";
 
 
-        $this->resultNumber= $this->db->query($countSql)->fetch_all(true)[0]["total"];
+       // $this->resultNumber= $this->db->query($countSql)->fetch_all(true)[0]["total"];
 
 
 
@@ -216,14 +216,24 @@ class CoreDAO
 
         if($res=  $this->db->query($sql))
         {
+            $this->resultNumber= $this->db->query($countSql)->fetch_all(true)[0]["total"];
 
 
+
+            if($res->num_rows)
+            {
                 while($item=$res->fetch_assoc())
                 {
 
 
                     $this->process($result,$item);
                 }
+
+            }
+            else
+            {
+                $result=false;
+            }
 
 
 

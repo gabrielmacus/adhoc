@@ -11,7 +11,8 @@
     "host":"localhost",
     "user":"root",
     "password":""
-  }
+  },
+  "secret":"uiopasd"
   ,
   "address":"http://localhost/ad-hoc",
   "name":"??",

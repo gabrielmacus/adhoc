@@ -5,4 +5,4 @@ $site="framework/repositorios";
 $action="upload";
 //Content
 
-require ("/includes/templates/comun/estructura.php");
+require ("includes/templates/{$subdomain}/comun/estructura.php");

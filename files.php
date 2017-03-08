@@ -40,17 +40,14 @@ if($_GET["modal"])
 
 $dataToSkin = $archivos->read($filter," ORDER BY archivo_id ",($page-1),$limit);
 
-var_dump($dataToSkin);
-exit();
+
 $pager = $archivos->getPager($limit,$page,$padding);
 
 unset($_GET["p"]);
 $qs=http_build_query($_GET);
 
 
-require ("includes/templates/comun/estructura.php");
-
-
+require ("includes/templates/{$subdomain}/comun/estructura.php");
 
 
 ?>

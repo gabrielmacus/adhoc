@@ -227,20 +227,22 @@
 
              </div>
    </div>
-        <div class="col s12" style="margin-top: 15px">
-            <button onclick='clone(".resolution .clone")' class="btn waves-effect right waves-light" type="button" >Nueva resolucion
+        <div class="col s12 center" style="margin-top: 15px">
+            <button onclick='clone(".resolution .clone")' class="btn waves-effect right waves-light col s12 m5 l3"  type="button" ><span class="truncate">Agregar resolucion</span>
+                <i class="fa fa-desktop right" aria-hidden="true"></i>
+
             </button>
         </div>
 
 
 
+        <div class="col s12 input-field" style="margin-top: 15px">
+            <button  class="btn waves-effect right waves-light col s12 m3 l2" type="submit" >Aceptar
+                <i class="material-icons right">send</i>
+            </button>
+        </div>
     </div>
 
-    <div class="col s12 input-field" style="margin-top: 15px">
-        <button class="btn waves-effect right waves-light" type="submit" >Submit
-            <i class="material-icons right">send</i>
-        </button>
-    </div>
 
 
 </form>

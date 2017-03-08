@@ -1,6 +1,6 @@
 
 
-function readFile(files,type,callback)
+function readFile(files,type,callback,finishCallback)
 {
 
     var i=0
@@ -9,7 +9,9 @@ function readFile(files,type,callback)
 
     var reader = new FileReader();
 
-    var progressBar = $(".progressBar");
+    $(".progress").fadeIn();
+    var progressBar = $(".progress .determinate");
+
 
     var label= $(".label");
 
@@ -75,7 +77,7 @@ function readFile(files,type,callback)
 
                 if(callback)
                 {
-                    callback(e.target.result,ext);
+                    callback(e.target.result,file.name,ext);
                 }
 
 
@@ -83,6 +85,17 @@ function readFile(files,type,callback)
                     i++;
 
                     process();
+                }
+                else
+                {
+                    setTimeout(function () {
+                        $(".progress").fadeOut(function () {
+                            if(finishCallback)
+                            {
+                                finishCallback();
+                            }
+                        });
+                    },500);
                 }
             }
 

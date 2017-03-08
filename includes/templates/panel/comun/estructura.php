@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="es">
 <head>
- <?php include("includes/templates/comun/header.php"); ?>
+ <?php include("includes/templates/{$subdomain}/comun/header.php"); ?>
 </head>
 <style>
   
@@ -12,7 +12,7 @@
 <script>
 
 
-    var app = angular.module('app', []);
+    var app = angular.module('app', ['ngAnimate']);
     var scope;
     app.controller('ctrl', function($scope) {
         $scope.notEmpty=function(array)
@@ -41,7 +41,7 @@
 </script>
 
    <div class="navbar teal lighten-1">
-       <?php include ("includes/templates/navbars/sidenav-fixed.php")?>
+       <?php include ("includes/templates/{$subdomain}/framework/navbars/sidenav-fixed-1.php")?>
    </div>
 
    <div style="display: none" id="error-modal">
@@ -77,7 +77,7 @@
 
        <?php
 
-       include ("includes/templates/{$site}/{$action}.php");
+       include ("includes/templates/{$subdomain}/{$site}/{$action}.php");
       //echo $mustache->render(readTemplate("{$site}/{$action}.php"),$dataToSkin);
     ?>
    </div>

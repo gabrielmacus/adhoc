@@ -119,19 +119,31 @@ if($dataToSkin)
     ?>
 
 
+    <div class="fixed-action-btn horizontal ">
+        <a href="repo-add.php?id=<?php echo  $_GET["rep"]; ?>" class="btn-floating btn-large red">
+            <i class="material-icons">edit</i>
+        </a>
+
+    </div>
+
     <div  class="row">
 
-        <h2><?php
+        <div class="col s12">
+            <h2 style="float: left"><?php
 
-            foreach($v as $data)
-            {
-                echo $repositorios[$data["archivo_repositorio"]]["nombre"];
-                break;
-            }
+                foreach($v as $data)
+                {
+                    echo $repositorios[$data["archivo_repositorio"]]["nombre"];
+                    break;
+                }
 
-            ?>
+                ?>
+            </h2>
 
-        </h2>
+
+        </div>
+
+
 
         <style>
             .file
@@ -314,7 +326,7 @@ if($dataToSkin)
                         </div>
                         <div style="position: absolute;left: 10px;top: 10px;max-width: 50%">
 
-                            <span  class="white-text truncate tooltipped btn" data-position="bottom" data-delay="50" data-tooltip="<?php echo $valor["archivo_data"]["name"]; ?>" style="background-color: rgba(0,0,0,0.7); font-size: 20px;width: 100%"><?php echo $valor["archivo_data"]["name"]; ?></span>
+                            <span  class="white-text truncate tooltipped btn" data-position="bottom" data-delay="50" data-tooltip="<?php echo $valor["archivo_data"]["originalName"]; ?>" style="background-color: rgba(0,0,0,0.7); font-size: 20px;width: 100%"><?php echo $valor["archivo_data"]["originalName"]; ?></span>
 
 
                         </div>

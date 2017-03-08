@@ -1,10 +1,8 @@
 <?php
 require("/includes/autoload.php");
 
-$site="home";
+$site="framework/home";
 $action ="index";
 
 
-
-
-require ("/includes/templates/estructura.php");
+require ("includes/templates/{$subdomain}/comun/estructura.php");

@@ -161,8 +161,9 @@ function uploadFiles($files,$dir,$config)
                     $tmpFile =$file["tmp_name"];
 
 
-                    $name =time()."_".$file["name"];
+                   // $name =time()."_".$file["name"];
 
+                    $name=time().".{$type}";
                     $originalName=$file["name"];
                     @ftp_mkdir($conn_id,$dir."/".$name);
 
@@ -177,6 +178,9 @@ function uploadFiles($files,$dir,$config)
 
                     // cargo el archivo original
 
+                    /*
+                    var_dump($completeName);
+                    var_dump($tmpFile) ;*/
                     if (ftp_put($conn_id,$completeName, $tmpFile, FTP_BINARY)) {
 
 

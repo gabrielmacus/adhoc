@@ -29,4 +29,4 @@ else
 }
 
 
-require ("/includes/templates/estructura.php");
+require ("includes/templates/{$subdomain}/comun/estructura.php");
