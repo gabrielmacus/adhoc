@@ -151,6 +151,10 @@ function uploadFiles($files,$dir,$config)
                 $type = explode(".",$file["name"]);
                 $type = $type[count($type)-1];//extension
 
+                if(!is_array($config["formats"]))
+                {
+                    $config["formats"]=array($config["formats"]);
+                }
 
                 if(   in_array($type, $config["formats"]))
                 {
@@ -186,7 +190,7 @@ function uploadFiles($files,$dir,$config)
 
                         $file["ext"]=explode(".",$originalName);
 
-                        $file["ext"]=$file["ext"][count($file["ext"]-1)];
+                        $file["ext"]=$file["ext"][count($file["ext"])-1];
                         $type=explode("/",$file["type"])[0];
                         if($type=="image")
                         {
@@ -219,20 +223,23 @@ function uploadFiles($files,$dir,$config)
 
 
                             //TODO copiar el archivo para mas de un resize
-                            /*
+
                             foreach($config["sizes"] as $k=>$size)
                             {
 
+
+                                $copyFile=$tmpFile."_".$k;
+                                copy($tmpFile,$copyFile);
 
                                 $size= explode(",",$size);
 
                                 $completeName= $folder."/{$k}_".$name;//Se indica el prefijo o para los archivos originales
 
-                                $image = new \Eventviva\ImageResize($tmpFile);
+                                $image = new \Eventviva\ImageResize($copyFile);
                                 $image->resizeToBestFit($size[0], $size[1]);
-                                $image->save($tmpFile);
+                                $image->save($copyFile);
 
-                                if (ftp_put($conn_id,$completeName, $tmpFile, FTP_BINARY)) {
+                                if (ftp_put($conn_id,$completeName, $copyFile, FTP_BINARY)) {
                                     $file["sizes"][$k]["completeUrl"]=$config["dns"].str_replace($config["root_dir"],"",$completeName);
 
 
@@ -245,7 +252,7 @@ function uploadFiles($files,$dir,$config)
 
 
                             }
-                            */
+
 
 
 
