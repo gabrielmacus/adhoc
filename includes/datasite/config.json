@@ -15,6 +15,7 @@
   "secret":"uiopasd"
   ,
   "address":"http://localhost/ad-hoc",
+  "panelAddress":"http://panel.localhost/ad-hoc",
   "name":"??",
   "version":0.1
 
