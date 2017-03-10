@@ -1,6 +1,7 @@
 <?php
 require("includes/autoload.php");
 
+require("check-login.php");
 $action="list";
 $site="datasite/territorios";
 $sqlExtra =" ORDER BY territorio_id,orden DESC";
@@ -29,6 +30,10 @@ else
     $dataToSkin=  $territorios->read(array(),$sqlExtra,0,false,$joinSQL);
 }
 
+
+$lang["menu"]["territorios"]["active"]=true;
+
+$lang["menu"]["territorios"]["items"]["list"]["active"]=true;
 
 
 require ("includes/templates/{$subdomain}/comun/estructura.php");

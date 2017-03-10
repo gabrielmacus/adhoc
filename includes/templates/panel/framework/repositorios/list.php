@@ -146,6 +146,7 @@ if($dataToSkin)
 
 
         <style>
+
             .file
             {object-fit: cover;
                 height: 200px;
@@ -155,6 +156,7 @@ if($dataToSkin)
             {
                 font-size: 150px;width: 100%
             }
+
         </style>
         <?php
         foreach($v as $clave=>$valor)
@@ -197,8 +199,12 @@ if($dataToSkin)
 
 
                                         ?>
+                                    <!--
+                                    href="http://docs.google.com/gview?url=<?php echo  $valor["archivo_data"]["sizes"]["o"]["completeUrl"];?>&embedded=true"
+                                     -->   <a   rel="<?php  echo  $lang["repositorios"][$k]; ?>"   data-fancybox="iframe"
 
-                                        <a   rel="<?php  echo  $lang["repositorios"][$k]; ?>"   data-fancybox="iframe"  href="http://docs.google.com/gview?url=<?php echo  $valor["archivo_data"]["o"]["completeUrl"];?>&embedded=true"
+                                                href="https://view.officeapps.live.com/op/view.aspx?src=<?php echo  $valor["archivo_data"]["sizes"]["o"]["completeUrl"];?>"
+
                                              class="valign-wrapper center grey lighten-3 file">
                                             <!--
                                           <iframe style="width: 100%;height: 100%" class="valign "  src="http://docs.google.com/gview?url=<?php echo  $valor["archivo_data"]["o"]["completeUrl"];?>&embedded=true" aria-hidden="true"></iframe>
@@ -213,10 +219,10 @@ if($dataToSkin)
                                     case "xls":
                                     case "xlsx":
                                         ?>
-                                        <a  rel="<?php  echo  $lang["repositorios"][$k]; ?>"    data-fancybox="iframe"  href="https://view.officeapps.live.com/op/embed.aspx?src=<?php echo  $valor["archivo_data"]["o"]["completeUrl"];?>&embedded=true"
+                                        <a  rel="<?php  echo  $lang["repositorios"][$k]; ?>"    data-fancybox="iframe"  href="https://view.officeapps.live.com/op/view.aspx?src=<?php echo  $valor["archivo_data"]["o"]["completeUrl"];?>"
                                             class="valign-wrapper center grey lighten-3 file">
                                             <!--
-                                          <iframe style="width: 100%;height: 100%" class="valign "  src="http://docs.google.com/gview?url=<?php echo  $valor["archivo_data"]["o"]["completeUrl"];?>&embedded=true" aria-hidden="true"></iframe>
+                                          <iframe style="width: 100%;height: 100%" class="valign "  src="http://docs.google.com/gview?url=<?php echo  $valor["archivo_data"]["sizes"]["o"]["completeUrl"];?>&embedded=true" aria-hidden="true"></iframe>
                                           -->
                                             <i class="zoomOnHover valign fa fa fa-file-excel-o green-text" aria-hidden="true"></i>
 
@@ -228,10 +234,10 @@ if($dataToSkin)
                                     case "pptx":
 
                                         ?>
-                                        <a  rel="<?php  echo  $lang["repositorios"][$k]; ?>"    data-fancybox="iframe"  href="https://view.officeapps.live.com/op/embed.aspx?src=<?php echo  $valor["archivo_data"]["o"]["completeUrl"];?>&embedded=true"
+                                        <a  rel="<?php  echo  $lang["repositorios"][$k]; ?>"    data-fancybox="iframe"  href="https://view.officeapps.live.com/op/view.aspx?src=<?php echo  $valor["archivo_data"]["sizes"]["o"]["completeUrl"];?>"
                                             class="valign-wrapper center grey lighten-3 file">
                                             <!--
-                                          <iframe style="width: 100%;height: 100%" class="valign "  src="http://docs.google.com/gview?url=<?php echo  $valor["archivo_data"]["o"]["completeUrl"];?>&embedded=true" aria-hidden="true"></iframe>
+                                          <iframe style="width: 100%;height: 100%" class="valign "  src="http://docs.google.com/gview?url=<?php echo  $valor["archivo_data"]["sizes"]["o"]["completeUrl"];?>&embedded=true" aria-hidden="true"></iframe>
                                           -->
                                             <i class="zoomOnHover valign fa fa fa-file-powerpoint-o purple-text" aria-hidden="true"></i>
 
@@ -326,7 +332,7 @@ if($dataToSkin)
                         </div>
                         <div style="position: absolute;left: 10px;top: 10px;max-width: 50%">
 
-                            <span  class="white-text truncate tooltipped btn" data-position="bottom" data-delay="50" data-tooltip="<?php echo $valor["archivo_data"]["originalName"]; ?>" style="background-color: rgba(0,0,0,0.7); font-size: 20px;width: 100%"><?php echo $valor["archivo_data"]["originalName"]; ?></span>
+                            <span  class="white-text truncate tooltipped btn" data-position="bottom" data-delay="50" data-tooltip="<?php echo $valor["archivo_data"]["originalName"]; ?>" style="background-color: rgba(0,0,0,0.7); font-size: 15px;width: 100%"><?php echo $valor["archivo_data"]["originalName"]; ?></span>
 
 
                         </div>

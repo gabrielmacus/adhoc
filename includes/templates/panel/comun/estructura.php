@@ -15,6 +15,15 @@
     var app = angular.module('app', ['ngAnimate']);
     var scope;
     app.controller('ctrl', function($scope) {
+
+        <?php if($usr)
+        {
+        ?>
+        $scope.user=<?php foreach($usr as $item){ echo json_encode($item); break; }; ?>;
+
+        <?php
+        }?>
+
         $scope.notEmpty=function(array)
         {
             var notEmpty=false;

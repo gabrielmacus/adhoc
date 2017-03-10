@@ -1,5 +1,9 @@
 <?php
 require("/includes/autoload.php");
+
+
+require("check-login.php");
+
 $site="datasite/territorios";
 $action="add";
 
@@ -23,5 +27,10 @@ if(is_numeric($_GET["id"]))
 
 //$territorios = $t->read(array(),$sqlExtra);
 
+
+
+$lang["menu"]["territorios"]["active"]=true;
+
+$lang["menu"]["territorios"]["items"]["add"]["active"]=true;
 
 require ("includes/templates/{$subdomain}/comun/estructura.php");

@@ -1,5 +1,8 @@
 <?php
 require("/includes/autoload.php");
+
+
+require("check-login.php");
 $site="framework/repositorios";
 $action="add";
 

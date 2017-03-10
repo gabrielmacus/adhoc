@@ -23,7 +23,7 @@
             ?>
 
 
-            <li><a class="waves-effect waves-light " href="<?php echo $item["href"]; ?>"><?php echo $item["texto"]; ?></a></li>
+            <li class="<?php if($item["active"]){ echo "active";} ?>"><a class="waves-effect waves-light  " href="<?php echo $item["href"]; ?>"><?php echo $item["texto"]; ?></a></li>
 
             <?php
         }
@@ -34,7 +34,7 @@
 
 
 
-    <li >
+    <li class="<?php if($item["active"]){ echo "active";} ?>">
         <ul  id='<?php echo $item["texto"]; ?>' class="collapsible collapsible-accordion">
             <li >
                 <a style="    padding: 0 32px;" class="waves-effect waves-light collapsible-header"><?php echo $item["texto"]; ?><i class="material-icons right">arrow_drop_down</i></a>
@@ -45,7 +45,7 @@
                        {
                            ?>
 
-                           <li ><a   href="<?php echo  $subitem["href"];?>"><?php echo  $subitem["texto"];?></a></li>
+                           <li class="<?php if($subitem["active"]){ echo "active";} ?>"><a   href="<?php echo  $subitem["href"];?>"><?php echo  $subitem["texto"];?></a></li>
                            <?php
                        }
                         ?>

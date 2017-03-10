@@ -25,24 +25,24 @@
     "1":"Derecha"
   },
   "teamnoplayers":"Este equipo no tiene jugadores",
-  "menu":[
-    {"texto":"Repositorios","items":[]}
-  ,{"texto":"Crear repositorio","href":"repo-add.php"}
-  ,{"texto":"Subir archivos","href":"files-add.php"},
-    {"texto":"Territorios","items":[
+  "menu":{
+    "repositorios":{"texto":"Repositorios","items":[]}
+  ,"repoadd":{"texto":"Crear repositorio","href":"repo-add.php"}
+  ,"filesadd":{"texto":"Subir archivos","href":"files-add.php"},
+    "territorios":{"texto":"Territorios","items":{
 
-      {"href":"territorios-add.php","texto":"Nuevo territorio"},
-      {"href":"territorios.php","texto":"Ver territorios"}
-
-    ]}
+      "add":{"href":"territorios-add.php","texto":"Nuevo territorio"},
+      "list":{"href":"territorios.php","texto":"Ver territorios"}
+      }
+    }
   ,
-    {"texto":"Ministerio&nbsp;del&nbsp;campo","items":[
+    "ministerio": {"texto":"Ministerio&nbsp;del&nbsp;campo","items":[
 
       {"href":"salidas-add.php","texto":"Nueva salida"},
       {"href":"salidas.php","texto":"Ver salidas"}
 
     ]}
-  ],
+},
   "yes":"SI",
   "no":"NO",
   "fileDelete":"¿Eliminar archivo?",
@@ -51,7 +51,7 @@
     "genericError":{"text":"Se ha producido un error al procesar la solicitud. Inténtelo de nuevo"},
     "filesError":{"text":"Error al subir los siguientes archivos: "}
   },
-  "formatList":["jpg","gif","exe","zip","rar","svg","png","mp4","mp3","avi"],
+  "formatList":["jpg","gif","exe","zip","rar","svg","png","mp4","mp3","avi","doc","docx","xls"],
   "repoDelete":"¿Deseas eliminar el repositorio?",
   "width":"Ancho",
   "height":"Alto"

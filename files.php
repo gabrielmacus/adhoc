@@ -1,7 +1,10 @@
 <?php
+
+
 require("includes/autoload.php");
 
 
+include("check-login.php");
 
 
 $site="framework/repositorios";
@@ -26,7 +29,7 @@ if(!$page)
     $page=1;
 }
 
-$limit=6;
+$limit=20;
 $padding=4;
 
 

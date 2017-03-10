@@ -55,6 +55,11 @@
                     case "formats":
 
 
+                      if(!$.isArray(v))
+                      {
+                          v = [v];
+                      }
+
                         for(var i=0;i<v.length;i++)
                         {
                             $("#"+v[i]).click();

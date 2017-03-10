@@ -1,6 +1,7 @@
 <?php
 require("/includes/autoload.php");
 
+require("check-login.php");
 $action="list";
 $site="jugadores";
 

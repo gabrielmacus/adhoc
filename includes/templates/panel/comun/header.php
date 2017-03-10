@@ -130,11 +130,13 @@
     }
     .zoomOnHover
     {
-        -webkit-transition: all 500ms linear;
-        -moz-transition: all 500ms linear;
-        -ms-transition: all 500ms linear;
-        -o-transition: all  500ms linear;
-        transition: all 500ms linear;
+
+
+        -webkit-transition: all 300ms linear;
+        -moz-transition: all 300ms linear;
+        -ms-transition: all 300ms linear;
+        -o-transition: all  300ms linear;
+        transition: all 300ms linear;
     }
     .zoomOnHover:hover
     {
@@ -143,7 +145,13 @@
         -ms-transform: scale(1.2);
         -o-transform: scale(1.2);
         transform: scale(1.2);
+
+
     }
+
+
+
+
 </style>
 <div   class="loader" style=" display:none;position: fixed;top: 0px;left: 0px;z-index: 10000;background-color: rgba(0,0,0,0.7);height: 100%;width: 100%">
 

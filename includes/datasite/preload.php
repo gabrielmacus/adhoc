@@ -9,7 +9,7 @@ $repositorios = new \DAO\RepositorioDAO($db,"repositorios");
 $repositorios= $repositorios->read();
 foreach($repositorios as $rep)
 {
-    $lang["menu"][0]["items"][]=array(
+    $lang["menu"]["repositorios"]["items"][]=array(
         "texto"=>$rep["nombre"],
         "href"=>"files.php?rep={$rep["repositorio"]}"
     );
@@ -18,13 +18,5 @@ foreach($repositorios as $rep)
 
 
 
-
-$usr = getUserData($config["secret"]);
-
-if(!$usr)
-{
-    
-}
-
-
+set_time_limit(60);
 ?>
