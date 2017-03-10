@@ -23,7 +23,7 @@
             ?>
 
 
-            <li class="<?php if($item["active"]){ echo "active";} ?>"><a class="waves-effect waves-light  " href="<?php echo $item["href"]; ?>"><?php echo $item["texto"]; ?></a></li>
+            <li class="<?php if($item["active"]){ echo "active";} ?>"><a class="waves-effect waves-light  " style="    padding: 0 32px;" href="<?php echo $item["href"]; ?>"><?php echo $item["texto"]; ?></a></li>
 
             <?php
         }

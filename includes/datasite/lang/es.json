@@ -41,7 +41,25 @@
       {"href":"salidas-add.php","texto":"Nueva salida"},
       {"href":"salidas.php","texto":"Ver salidas"}
 
-    ]}
+    ]},
+    "grupos":
+    {
+      "texto":"Grupos de predicacion",
+      "items":
+      {
+        "add":{"texto":"Nuevo grupo","href":"grupos-add.php"},
+        "list":{"texto":"Ver grupos","href":"grupos.php"}
+        }
+    },
+    "publicadores":
+    {
+      "texto":"Publicadores",
+      "items":
+      {
+        "add":{"texto":"Nuevo publicador","href":"publicador-add.php"},
+        "list":{"texto":"Ver publicadores","href":"publicadores.php"}
+      }
+    }
 },
   "yes":"SI",
   "no":"NO",

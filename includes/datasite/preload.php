@@ -2,7 +2,7 @@
 
 include("includes/datasite/schema/DAO/TerritorioDAO.php");
 include("includes/datasite/schema/DAO/ManzanaDAO.php");
-
+include("includes/datasite/schema/DAO/PublicadorDAO.php");
 
 $repositorios = new \DAO\RepositorioDAO($db,"repositorios");
 

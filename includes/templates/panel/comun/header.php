@@ -42,7 +42,7 @@
 <link rel="stylesheet" href="css/jquery.fancybox.css" type="text/css" media="screen" />
 <script type="text/javascript">
     $(document).ready(function() {
-
+        $(".button-collapse").sideNav();
             $('select').material_select();
 
         $('.modal').modal();
@@ -69,6 +69,9 @@
                 // More code
             }
         });
+    });
+    $(document).on("click",".body",function () {
+        $('.button-collapse').sideNav('hide');
     });
 </script>
 <link rel="stylesheet" href="css/materialize.min.css">

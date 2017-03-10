@@ -130,12 +130,23 @@ class CoreDAO
 
                     if($item[$this->idField]) {
 
-                        $archivo["archivo_id"]=$item["archivo_id"];
-                        $archivo["archivo_data"]=json_decode($item["archivo_data"],true);
-                        $archivo["archivo_repositorio"]=$item["archivo_repositorio"];
-                        $archivo["archivos_objetos_id"]=$item["archivos_objetos_id"];
+                        if($item["archivo_id"])
+                        {
+                            $archivo["archivo_id"]=$item["archivo_id"];
+                            $archivo["archivo_data"]=json_decode($item["archivo_data"],true);
+                            $archivo["archivo_repositorio"]=$item["archivo_repositorio"];
+                            $archivo["archivos_objetos_id"]=$item["archivos_objetos_id"];
+                            $result[$item[$this->idField]]["archivos"][$item["archivo_id"]]=$archivo;
 
-                        $result[$item[$this->idField]]["archivos"][$item["archivo_id"]]=$archivo;
+                        }
+                        else
+                        {
+                            unset($item["archivo_id"]);
+                            unset($item["archivo_data"]);
+                            unset($item["archivo_repositorio"]);
+                            unset($item["archivos_objetos_id"]);
+                        }
+
 
 
                     }
