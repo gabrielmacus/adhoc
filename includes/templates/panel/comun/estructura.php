@@ -14,6 +14,9 @@
 
     var app = angular.module('app', ['ngAnimate']);
     var scope;
+    $(window).load(function () {
+        Materialize.updateTextFields();
+    });
     app.controller('ctrl', function($scope) {
 
         <?php if($usr)

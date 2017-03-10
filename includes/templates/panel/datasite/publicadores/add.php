@@ -57,8 +57,8 @@
         </div>
         <div class="row">
             <div class="input-field col s12 ">
-                <input   data-ng-model="publicador.publicador_edad" id="edad">
-                <label for="edad">Edad (opcional)</label>
+                <input   data-ng-model="publicador.publicador_edad" name="age" id="age">
+                <label for="age">Edad (opcional)</label>
             </div>
         </div>
         <div class="row">
@@ -86,7 +86,7 @@
 
                 <h5>Direccion</h5>
                 <div style="position: relative">
-                    <input data-ng-model="dir" id="direccion" class="col s12 m10" placeholder="Buscar..." >
+                    <input data-ng-model="publicador.publicador_direccion_string" id="direccion" class="col s12 m10" placeholder="Buscar por calle y numero..." >
                     <div class=" col s12 m2 right" style="padding: 10px;    padding-right: 0px!important">
                         <button type="button" id="buscar-direccion"  style="width: 100%" class="btn " ><i class="material-icons">search</i></button>
                         </div>
@@ -175,7 +175,7 @@
         }
         $(document).on("click","#buscar-direccion",function () {
 
-            var dir=$("#direccion").val();
+            var dir=$("#direccion").val()+" Paraná Entre Rios";
             if(dir!="")
             {
                 geocode(dir,false,function (results) {
@@ -235,12 +235,13 @@
                         var dir=JSON.parse(v);
                         markLocation(dir);
 
+                        /*
                         geocode(dir,true,function (results) {
 
                            scope.dir= results[0].formatted_address;
 
                             scope.$apply();
-                        });
+                        });*/
 
 
                         break;

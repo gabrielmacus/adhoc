@@ -40,6 +40,10 @@
 <script src="js/helpers.js"></script>
 <script type="text/javascript" src="js/jquery.fancybox.min.js"></script>
 <link rel="stylesheet" href="css/jquery.fancybox.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="css/materialize.min.css">
+<script src="js/materialize.min.js"></script>
+<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script src="js/fileReader.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
         $(".button-collapse").sideNav();
@@ -69,15 +73,13 @@
                 // More code
             }
         });
+      
     });
     $(document).on("click",".body",function () {
         $('.button-collapse').sideNav('hide');
     });
 </script>
-<link rel="stylesheet" href="css/materialize.min.css">
-<script src="js/materialize.min.js"></script>
-<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<script src="js/fileReader.js"></script>
+
 
 <style>
     /* Center the loader */
@@ -134,7 +136,7 @@
 
 
 
-    /*
+    
     .zoomOnHover
     {
 
@@ -154,7 +156,7 @@
         transform: scale(1.2);
 
 
-    }*/
+    }
 
 
 

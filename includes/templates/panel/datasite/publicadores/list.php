@@ -42,4 +42,9 @@
         }?>
 
     </ul>
+
+
+
+    <?php include "includes/templates/panel/framework/paginators/pager.php"; ?>
 </div>
+

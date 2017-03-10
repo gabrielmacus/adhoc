@@ -30,6 +30,16 @@ else
     $dataToSkin=  $publicadoresDAO->read(array(),$sqlExtra,0,false,$joinSQL);
 }
 
+$page = $_GET["p"];
+if(!$page)
+{
+    $page=1;
+}
+
+$limit=20;
+$padding=4;
+
+$pager = $publicadoresDAO->getPager($limit,$page,$padding);
 
 $lang["menu"]["publicadores"]["active"]=true;
 

@@ -14,6 +14,13 @@
 </style>
 <script>
 
+    $(document).ready(function () {
+        console.log("<?php echo $_GET["rep"];?>");
+        $("#repositorios").val("<?php echo $_GET["rep"];?>");
+        $('select').material_select();
+
+
+    });
 
     var id ;
     var rep;
@@ -102,6 +109,15 @@
 
 
     }
+
+
+    $(document).on("change","#repositorios",function (e) {
+
+        window.location.href="files.php?rep="+$(this).val()+"&modal=true";
+    });
+
+
+
 </script>
 
 
@@ -124,7 +140,7 @@ if(count($repositorios)>0)
         <div class="input-field col s12">
 
 
-            <select>
+            <select id="repositorios">
                 <?php
 
                 foreach ($repositorios as $k=>$v)
@@ -136,14 +152,18 @@ if(count($repositorios)>0)
                 }?>
 
             </select>
-            <label>Repositorio</label>
+
         </div>
     </div>
 
     <?php
 }?>
 
-<?php if(count($dataToSkin)==0 || !$dataToSkin)
+<?php
+
+
+
+if(count($dataToSkin)==0 || !$dataToSkin)
 {
     ?>
 

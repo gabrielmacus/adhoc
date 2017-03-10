@@ -46,7 +46,7 @@
 
         <h3>Adjuntos</h3>
 
-        <ul id="file-list" class="sortable collection" >
+        <ul id="file-list" class="sortable collection"   >
 
 
             <li data-ng-if="a.archivo_data.type=='image/jpeg'"class="valign-wrapper collection-item avatar" data-ng-repeat="a in adjuntos" data-id="{{a.archivo_id}}">
@@ -62,7 +62,7 @@
 
 
     <div class="input-field col s12 center">
-        <a  href="files.php?rep=5&modal=true" data-lity  class="btn iframe">Adjuntar archivo</a>
+        <a  href="files.php?rep=<?php foreach ($repositorios as $k=>$v){echo $k; break;}?>&modal=true" data-lity  class="btn iframe">Adjuntar archivo</a>
         &nbsp;
         <a id="marcar-territorio"  class="btn">Marcar</a>
         &nbsp; <button  type="submit" class="btn">Enviar</button>
