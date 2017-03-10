@@ -7,9 +7,10 @@ include("includes/datasite/schema/DAO/ManzanaDAO.php");
 $repositorios = new \DAO\RepositorioDAO($db,"repositorios");
 
 $repositorios= $repositorios->read();
-foreach($repositorios as $rep)
+foreach($repositorios as $k=>$rep)
 {
-    $lang["menu"]["repositorios"]["items"][]=array(
+
+    $lang["menu"]["repositorios"]["items"][$k]=array(
         "texto"=>$rep["nombre"],
         "href"=>"files.php?rep={$rep["repositorio"]}"
     );

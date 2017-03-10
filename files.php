@@ -20,7 +20,14 @@ $filter=array();
 
 if($_GET["rep"])
 {
-    $filter["archivo_repositorio"]=$_GET["rep"];;
+    $filter["archivo_repositorio"]=$_GET["rep"];
+
+
+
+    $lang["menu"]["repositorios"]["active"]=true;
+    $lang["menu"]["repositorios"]["items"][$_GET["rep"]]["active"]=true;
+
+
 }
 
 $page = $_GET["p"];

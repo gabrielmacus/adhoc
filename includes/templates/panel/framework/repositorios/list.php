@@ -170,7 +170,9 @@ if($dataToSkin)
 
 
             ?>
-            <div class="col s12 m6 l4">
+
+            
+            <div class="col s12 m6 l4 ">
                 <div class="card " style="overflow: hidden">
                     <div class="card-image ">
 
@@ -327,7 +329,7 @@ if($dataToSkin)
                                                     <a class="white-text green" style="display: inline-block;padding: 5px">
                                                         <i  class=" material-icons">mode_edit</i>
                                                     </a>-->
-                            <a onclick="showDeleteDialog(<?php echo $valor["archivo_id"]; ?>,<?php echo $valor["archivo_repositorio"]; ?>)" class="white-text red btn " style="display: inline-block;padding: 5px!important;height: auto;line-height: inherit;"><i  style="font-size: 25px" class=" material-icons">delete</i>
+                            <a onclick="showDeleteDialog(<?php echo $valor["archivo_id"]; ?>,<?php echo $valor["archivo_repositorio"]; ?>)" class="white-text delete red btn " style="display: inline-block;padding: 5px!important;height: auto;line-height: inherit;"><i  style="font-size: 25px" class=" material-icons">delete</i>
                             </a>
                         </div>
                         <div style="position: absolute;left: 10px;top: 10px;max-width: 50%">
@@ -343,8 +345,8 @@ if($dataToSkin)
                              I am convenient because I require little markup to use effectively.</p>
                      </div>-->
                     <div class="card-action">
-                        <a  href="<?php echo  $valor["archivo_data"]["o"]["completeUrl"];?>" download=""><?php  echo $lang["download"];?></a>
-                        <a class="grey-text"><?php  echo date($lang["dateFormat"],$valor["archivo_data"]["date"]); ?></a>
+                        <a style="display: block"  href="<?php echo  $valor["archivo_data"]["o"]["completeUrl"];?>" download=""><?php  echo $lang["download"];?></a>
+                        <a  style="display: block;margin-top: 10px" class="grey-text"><?php  echo date($lang["dateFormat"],$valor["archivo_data"]["date"]); ?></a>
                     </div>
                 </div>
             </div>

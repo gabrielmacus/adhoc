@@ -22,6 +22,8 @@ if(isset($id))
     $dataToSkin=  $archivos->read(array(
         "archivo_repositorio"=>$id
     ),$sqlExtra);
+
+
 }
 else
 {

@@ -128,6 +128,10 @@
         display: none;
         text-align: center;
     }
+
+
+
+    /*
     .zoomOnHover
     {
 
@@ -147,7 +151,7 @@
         transform: scale(1.2);
 
 
-    }
+    }*/
 
 
 
