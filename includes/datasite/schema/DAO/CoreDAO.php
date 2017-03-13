@@ -230,8 +230,7 @@ class CoreDAO
 
 
 
-            if($res->num_rows)
-            {
+
                 while($item=$res->fetch_assoc())
                 {
 
@@ -239,11 +238,6 @@ class CoreDAO
                     $this->process($result,$item);
                 }
 
-            }
-            else
-            {
-                $result=false;
-            }
 
 
 

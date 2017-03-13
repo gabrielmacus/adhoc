@@ -6,13 +6,15 @@ require("check-login.php");
 
 $action= $_GET["act"]?$_GET["act"]:"list";
 
+
+
 if(!$_GET["modal"])
 {
-    $site="datasite/publicadores";
+    $site="datasite/salidas";
 }
 else
 {
-    $site="datasite/publicadores/modal";
+    $site="datasite/salidas/modal";
 }
 
 
@@ -38,27 +40,26 @@ $padding=4;
 
 
 
-
-$publicadoresDAO =new \DAO\PublicadorDAO($db,"publicadores");
+$DAO =new \DAO\SalidaDAO($db,"salidas");
 
 $joinSQL = "";
 if(isset($id))
 {
-    $dataToSkin=  $publicadoresDAO->read(array(
-        "publicador_id"=>$id
+    $dataToSkin=  $DAO->read(array(
+        "salida_id"=>$id
     ),$sqlExtra,0,false,$joinSQL);
 }
 else
 {
-    $dataToSkin=  $publicadoresDAO->read(array(),$sqlExtra,($page-1),$limit,$joinSQL);
+    $dataToSkin=  $DAO->read(array(),$sqlExtra,($page-1),$limit,$joinSQL);
 }
 
 
-$pager = $publicadoresDAO->getPager($limit,$page,$padding);
+$pager = $DAO->getPager($limit,$page,$padding);
 
-$lang["menu"]["publicadores"]["active"]=true;
+$lang["menu"]["salidas"]["active"]=true;
 
-$lang["menu"]["publicadores"]["items"]["list"]["active"]=true;
+$lang["menu"]["salidas"]["items"]["list"]["active"]=true;
 
 
 require ("includes/templates/{$subdomain}/comun/estructura.php");
