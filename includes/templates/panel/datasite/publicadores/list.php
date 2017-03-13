@@ -12,7 +12,7 @@
                        <b>Edad</b><h4 style="font-size: 18px"><?php echo $item["publicador_edad"]?> años</h4>
                    </div>
                    <div class="col s12 m6 l4">
-                       <b>Direccion</b><h4 class="truncate" style="font-size: 18px"><?php echo $item["publicador_direccion"]?> años</h4>
+                       <b>Direccion</b><h4 class="truncate tooltipped" data-tooltip="<?php echo $item["publicador_direccion_string"]?>" style="font-size: 18px"><?php echo $item["publicador_direccion_string"]?> </h4>
                    </div>
                    <div class="col s12 m12 l4">
                        <b>Telefonos</b>

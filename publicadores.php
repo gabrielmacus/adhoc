@@ -4,7 +4,7 @@ require("includes/autoload.php");
 require("check-login.php");
 $action="list";
 $site="datasite/publicadores";
-$sqlExtra =" ORDER BY publicador_id,orden DESC";
+$sqlExtra =" ORDER BY publicador_apellido,publicador_nombre ASC";
 $id=$_GET["id"];
 
 if(!is_numeric($id) && !empty($id))
@@ -12,6 +12,15 @@ if(!is_numeric($id) && !empty($id))
     header("Location:");
     exit();
 }
+
+$page = $_GET["p"];
+if(!$page)
+{
+    $page=1;
+}
+
+$limit=20;
+$padding=4;
 
 
 
@@ -23,21 +32,13 @@ if(isset($id))
 {
     $dataToSkin=  $publicadoresDAO->read(array(
         "publicador_id"=>$id
-    ),$sqlExtra,0,false,$joinSQL);
+    ),$sqlExtra,$page,$limit,$joinSQL);
 }
 else
 {
-    $dataToSkin=  $publicadoresDAO->read(array(),$sqlExtra,0,false,$joinSQL);
+    $dataToSkin=  $publicadoresDAO->read(array(),$sqlExtra,($page-1),$limit,$joinSQL);
 }
 
-$page = $_GET["p"];
-if(!$page)
-{
-    $page=1;
-}
-
-$limit=20;
-$padding=4;
 
 $pager = $publicadoresDAO->getPager($limit,$page,$padding);
 

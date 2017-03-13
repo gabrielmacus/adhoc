@@ -36,7 +36,7 @@ if(!$page)
     $page=1;
 }
 
-$limit=20;
+$limit=5;
 $padding=4;
 
 
@@ -48,7 +48,7 @@ if($_GET["modal"])
   //  $limit=false;
 }
 
-$dataToSkin = $archivos->read($filter," ORDER BY archivo_id ",($page-1),$limit);
+$dataToSkin = $archivos->read($filter," ORDER BY archivo_id DESC",($page-1),$limit);
 
 
 $pager = $archivos->getPager($limit,$page,$padding);
@@ -56,6 +56,7 @@ $pager = $archivos->getPager($limit,$page,$padding);
 unset($_GET["p"]);
 $qs=http_build_query($_GET);
 
+$url=strtok($_SERVER["REQUEST_URI"],'?');
 
 require ("includes/templates/{$subdomain}/comun/estructura.php");
 

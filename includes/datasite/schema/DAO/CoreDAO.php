@@ -216,7 +216,6 @@ class CoreDAO
         if($limit)
         {
 
-
             $offset = $offset*$limit;
 
             $sql.=" LIMIT {$limit} OFFSET {$offset}";

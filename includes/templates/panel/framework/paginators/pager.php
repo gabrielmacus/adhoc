@@ -10,12 +10,14 @@ if($pager) {
 
             <?php
 
+
             if($page==1)
             {
                 $prevClass="disabled";
+
             }
             ?>
-            <li class="waves-effect <?php echo $prevClass; ?>"><a href="files.php?<?php echo $qs."&p=".($page-1) ?>"><i class="material-icons">chevron_left</i></a></li>
+            <li class="waves-effect <?php echo $prevClass; ?>"><a href="<?php echo $url."?".$qs."&p=".($page-1) ?>"><i class="material-icons">chevron_left</i></a></li>
 
             <?php
 
@@ -28,7 +30,7 @@ if($pager) {
 
 
 
-                <li class="waves-effect   <?php echo $v["class"]; ?>"><a href="files.php?<?php echo $qs."&p={$v["number"]}" ?>"> <?php echo $v["number"]; ?></a></li>
+                <li class="waves-effect   <?php echo $v["class"]; ?>"><a href="<?php echo $url."?".$qs."&p={$v["number"]}" ?>"> <?php echo $v["number"]; ?></a></li>
 
 
                 <?php
@@ -39,7 +41,7 @@ if($pager) {
                 $nextClass="disabled";
             }
             ?>
-            <li class="waves-effect <?php echo $nextClass; ?>"><a  href="files.php?<?php echo $qs."&p=".($page+1) ?>"><i class="material-icons">chevron_right</i></a></li>
+            <li class="waves-effect <?php echo $nextClass; ?>"><a  href="<?php echo $url."?".$qs."&p=".($page+1) ?>"><i class="material-icons">chevron_right</i></a></li>
         </ul>
     </div>
     <?php

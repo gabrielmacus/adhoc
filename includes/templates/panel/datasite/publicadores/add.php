@@ -56,7 +56,12 @@
             </div>
         </div>
         <div class="row">
-            <div class="input-field col s12 ">
+
+            <div class="input-field col s12 m6">
+                <input   data-ng-model="publicador.publicador_grupo" name="grupo" id="grupo">
+                <label for="grupo">Grupo</label>
+            </div>
+            <div class="input-field col s12 m6">
                 <input   data-ng-model="publicador.publicador_edad" name="age" id="age">
                 <label for="age">Edad (opcional)</label>
             </div>
