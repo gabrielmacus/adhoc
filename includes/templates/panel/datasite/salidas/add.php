@@ -97,7 +97,10 @@
 
             <div class="input-field col s12 m4">
                <label for="hora">Hora</label>
-                <input type="text" data-ng-model="salida.salida_hora" id="hora" name="hora">
+
+
+                <input  style="display: inline-block" type="text" data-ng-model="salida.salida_hora" id="hora" name="hora">
+         
             </div>
 
 
