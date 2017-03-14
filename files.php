@@ -36,7 +36,7 @@ if(!$page)
     $page=1;
 }
 
-$limit=5;
+$limit=20;
 $padding=4;
 
 

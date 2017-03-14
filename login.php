@@ -14,12 +14,9 @@ if($_GET["login"]) {
             "usuario_contrasena" => hash("sha256", $_POST["usuario_contrasena"])
         )
     );
-    var_dump( array(
 
-        "usuario_nick" => $_POST["usuario_nick"],
-        "usuario_contrasena" => hash("sha256", $_POST["usuario_contrasena"])
-    ));
 
+  
 
     if($usr)
     {

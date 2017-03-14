@@ -81,7 +81,7 @@ class ArchivoDAO extends CoreDAO
 
 
 
-            return $uploadedFiles;
+            return $files;
 
 
     }
@@ -93,9 +93,9 @@ class ArchivoDAO extends CoreDAO
     function delete($object)
     {
 
-     $object=$this->read($object);
+     $data=$this->read($object);
 
-        foreach($object as $k=>$v)
+        foreach($data as $k=>$v)
         {
             foreach($v as $clave =>$valor)
             {
@@ -104,23 +104,27 @@ class ArchivoDAO extends CoreDAO
 
 
 
-                        if(deleteDir($folder,$this->config))
+                        if(!deleteDir($folder,$this->config))
                         {
 
 
-
-
-                                 return parent::delete(array($this->idField=>$valor["archivo_id"]));
+                               return false;
                         }
+
 
 
             }
 
         }
 
+        if(!parent::delete($object))
+        {
+            return false;
+        }
 
 
-        return false;
+
+        return true;
         
 
 

@@ -5,8 +5,8 @@ $action="list";
 $site="repositorios";
 $sqlExtra =" ORDER BY archivo_repositorio";
 $id=$_GET["id"];
-
-if(!is_numeric($id) && !empty($id))
+$rep =$_GET["rep"];
+if((!is_numeric($id) && !empty($id) )||(!is_numeric($rep)))
 {
     header("Location:");
     exit();

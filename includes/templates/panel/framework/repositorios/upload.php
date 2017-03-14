@@ -8,7 +8,7 @@
 <script>
     $(document).on("submit","form",function (e) {
 
-        var files = $(this).find("#archivos")[0].files;
+
 
         var data = new FormData();
         $.each(files, function(key, value)
@@ -67,21 +67,46 @@
         e.preventDefault();
     });
     $(document).ready(function () {
+        angular.element(document).ready(function () {
+            scope.adjuntos=[]; // Your document is ready, place your code here
 
+            scope.deleteFile=function (file) {
+
+
+              var idx=files.findIndex(
+                  function (e) {
+
+                      return e.name == file.name
+                  }
+              );
+
+                files.splice(idx,1);
+
+                 idx=scope.adjuntos.indexOf(file);
+
+                scope.adjuntos.splice(idx,1);
+                console.log(files);
+
+            }
+        });
     });
+    var files=[];
     $(document).on("change","[type='file']",function () {
 
 
-        angular.element(document).ready(function () {
-            scope.adjuntos=[]; // Your document is ready, place your code here
-        });
+    var inputFiles = this.files;
+
 
         readFile(this.files,1,function (data,name) {
 
 
             scope.adjuntos.push({src:data,name:name});
 
+
+
+
         },function () {
+            $.merge( files ,inputFiles);
             scope.$apply();
         });
 
@@ -147,8 +172,11 @@
     <div class="col s12">
         <div   class="col s12 m4 l3 animate-repeat" data-ng-repeat="a in adjuntos">
             <div class="card">
-                <div class="card-image">
+                <div class="card-image" style="position: relative">
                     <img   style="height: 150px;object-fit: cover" data-ng-src="{{a.src}}">
+                    <a data-ng-click="deleteFile(a)" style="position: absolute;top: 10px;right: 10px;">
+                        <i  style="font-size: 36px" class="material-icons red-text">delete_forever</i>
+                    </a>
                 </div>
 
                 <div class="card-action">

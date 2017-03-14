@@ -67,8 +67,26 @@ include("includes/framework/classes/JWT/JWT.php");
 Mustache_Autoloader::register();
 $mustache = new Mustache_Engine();
 
+$repositorios = new \DAO\RepositorioDAO($db,"repositorios");
 
+$repositorios= $repositorios->read();
+if(count($repositorios)>0)
+{
+    foreach($repositorios as $k=>$rep)
+    {
 
+        $lang["menu"]["repositorios"]["items"][$k]=array(
+            "texto"=>$rep["nombre"],
+            "href"=>"files.php?rep={$rep["repositorio"]}"
+        );
+
+    }
+
+}
+else
+{
+    unset(  $lang["menu"]["repositorios"]);
+}
 
 
 /** Preload del sitio **/

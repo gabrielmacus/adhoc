@@ -23,7 +23,14 @@
             ?>
 
 
-            <li class="<?php if($item["active"]){ echo "active";} ?>"><a class="waves-effect waves-light  " style="    padding: 0 32px;" href="<?php echo $item["href"]; ?>"><?php echo $item["texto"]; ?></a></li>
+            <li class="<?php if($item["active"]){ echo "active";} ?>"><a class="waves-effect waves-light  " style="    padding: 0 32px;" href="<?php echo $item["href"]; ?>"><?php echo $item["texto"]; ?>
+                    <?php if($item["icono"])
+                    {
+                        ?>       <i style="font-size: 1.6rem;margin-right: 29px" class="fa <?php echo $item["icono"]?> right" aria-hidden="true"></i><?Php
+                    }?>
+                </a>
+
+            </li>
 
             <?php
         }
@@ -37,7 +44,18 @@
     <li class="<?php if($item["active"]){ echo "active";} ?>">
         <ul  id='<?php echo $item["texto"]; ?>' class="collapsible collapsible-accordion">
             <li >
-                <a style="    padding: 0 32px;" class="waves-effect waves-light collapsible-header"><?php echo $item["texto"]; ?><i class="material-icons right">arrow_drop_down</i></a>
+                <a style="    padding: 0 32px;" class="waves-effect waves-light collapsible-header"><?php echo $item["texto"]; ?>
+                    <?php if($item["icono"])
+                    {
+                        ?>       <i style="font-size: 1.6rem;margin-right: 29px" class="fa <?php echo $item["icono"]?> right" aria-hidden="true"></i><?Php
+                    }
+                    else
+                    {
+                        ?>
+                        <i class="material-icons right">arrow_drop_down</i>
+                        <?php
+                    }?>
+                   </a>
                 <div class="collapsible-body no-padding">
                     <ul>
                         <?php
@@ -45,7 +63,12 @@
                        {
                            ?>
 
-                           <li class="<?php if($subitem["active"]){ echo "active";} ?>"><a   href="<?php echo  $subitem["href"];?>"><?php echo  $subitem["texto"];?></a></li>
+                           <li class="<?php if($subitem["active"]){ echo "active";} ?>"><a   href="<?php echo  $subitem["href"];?>"><?php echo  $subitem["texto"];?>
+                                   <?php if($item["icono"])
+                                   {
+                                       ?>       <i style="font-size: 1.6rem;margin-right: 29px" class="fa <?php echo $item["icono"]?> right" aria-hidden="true"></i><?Php
+                                   }?>
+                               </a></li>
                            <?php
                        }
                         ?>

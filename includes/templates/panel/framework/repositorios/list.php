@@ -22,6 +22,13 @@
         });
     }
 
+    function showMultipleDeleteDialog() {
+        $.fancybox.open({
+            src  :"#files-delete",
+            type : 'inline'
+        });
+    }
+
     <?php if(count($dataToSkin)==0)
     {
     ?>
@@ -58,6 +65,41 @@
 
     <?php
     }?>
+
+    function deleteFiles() {
+
+        var items=[];
+        $("input:checked").each(function () {
+
+            items.push($(this).data("id"));
+        });
+
+        $.ajax(
+            {
+                url:"files-data.php?act=delete&rep=<?php  echo $_GET["rep"]?>",
+                method:"post",
+                dataType:"json",
+                data:{archivo_id:items},
+                success:function(res)
+                {
+                    console.log(res);
+
+                    if(res)
+                    {
+                        window.location.reload();
+                    }
+                    else
+                    {
+                      error();
+                    }
+                },
+                error:error
+            }
+        );
+        parent.jQuery.fancybox.getInstance().close();
+
+
+    }
 
 
     function deleteFile()
@@ -119,16 +161,35 @@ if($dataToSkin)
     ?>
 
 
+
+
+    <div class="fixed-action-btn horizontal">
+        <a class="btn-floating btn-large teal">
+            <i class="large material-icons">menu</i>
+        </a>
+        <ul>
+            <li><a  onclick="showMultipleDeleteDialog()"  class="btn-floating red"><i class="material-icons">delete</i></a></li>
+            <li>
+                <a href="repo-add.php?id=<?php echo  $_GET["rep"]; ?>" class="btn-floating green">
+                    <i class="material-icons">mode_edit</i>
+                </a>
+            </li>
+            <li><a  href="files-add.php" class="btn-floating blue"><i class="material-icons">publish</i></a></li>
+        </ul>
+    </div>
+    <!--
     <div class="fixed-action-btn horizontal ">
         <a href="repo-add.php?id=<?php echo  $_GET["rep"]; ?>" class="btn-floating btn-large red">
-            <i class="material-icons">edit</i>
+            <i class="material-icons">mode_edit</i>
         </a>
 
-    </div>
+    </div>-->
 
     <div  class="row">
 
         <div class="col s12">
+
+
             <h2 style="float: left"><?php
 
                 foreach($v as $data)
@@ -139,7 +200,6 @@ if($dataToSkin)
 
                 ?>
             </h2>
-
 
         </div>
 
@@ -174,7 +234,7 @@ if($dataToSkin)
             
             <div class="col s12 m6 l4 ">
                 <div class="card " style="overflow: hidden">
-                    <div class="card-image ">
+                    <div class="card-image">
 
 
 
@@ -329,8 +389,15 @@ if($dataToSkin)
                                                     <a class="white-text green" style="display: inline-block;padding: 5px">
                                                         <i  class=" material-icons">mode_edit</i>
                                                     </a>-->
-                            <a onclick="showDeleteDialog(<?php echo $valor["archivo_id"]; ?>,<?php echo $valor["archivo_repositorio"]; ?>)" class="white-text delete red btn " style="display: inline-block;padding: 5px!important;height: auto;line-height: inherit;"><i  style="font-size: 25px" class=" material-icons">delete</i>
+
+                            <!--
+                                <a onclick="showDeleteDialog(<?php echo $valor["archivo_id"]; ?>,<?php echo $valor["archivo_repositorio"]; ?>)" class="white-text delete red btn " style="display: inline-block;padding: 5px!important;height: auto;line-height: inherit;"><i  style="font-size: 25px" class=" material-icons">delete</i>
                             </a>
+                            -->
+
+                            <input data-id="<?php echo $valor["archivo_id"]; ?>" style="background-color: black" type="checkbox" class="filled-in" id="cb<?php echo $valor["archivo_id"];?>" />
+                            <label style="    position: absolute;right: -15px" for="cb<?php echo $valor["archivo_id"];?>"></label>
+
                         </div>
                         <div style="position: absolute;left: 10px;top: 10px;max-width: 50%">
 
@@ -344,10 +411,13 @@ if($dataToSkin)
                         <p>I am a very simple card. I am good at containing small bits of information.
                              I am convenient because I require little markup to use effectively.</p>
                      </div>-->
+
                     <div class="card-action">
-                        <a style="display: block"  href="<?php echo  $valor["archivo_data"]["o"]["completeUrl"];?>" download=""><?php  echo $lang["download"];?></a>
+                        <a style="display: block"  href="<?php echo  $valor["archivo_data"]["sizes"]["o"]["completeUrl"];?>" download=""><?php  echo $lang["download"];?></a>
                         <a  style="display: block;margin-top: 10px" class="grey-text"><?php  echo date($lang["dateFormat"],$valor["archivo_data"]["date"]); ?></a>
+
                     </div>
+         
                 </div>
             </div>
             <?php
@@ -379,14 +449,39 @@ if($dataToSkin)
 <div style="display: none;" class="card" id="file-delete">
     <div class="card-content black-text center">
         <span class="card-title"></span>
-        <p><?php echo $lang["fileDelete"];?></p>
+        <p><?php echo $lang["filsDelete"];?></p>
     </div>
-    <div class="card-action">
+    <div class="card-action center ">
+
         <button onclick="parent.jQuery.fancybox.getInstance().close();" class="waves-effect waves-teal btn white teal-text"><?php echo $lang["no"];?></button>
         <button onclick="deleteFile()" class="waves-effect waves-teal btn white teal-text"><?php echo $lang["yes"];?></button>
+
     </div>
 
 </div>
+
+
+
+<div style="display: none;" class="card" id="files-delete">
+    <div class="card-content black-text center">
+        <span class="card-title"></span>
+        <p><?php echo $lang["filesDelete"];?></p>
+    </div>
+    <div class="card-action center">
+
+        <button onclick="parent.jQuery.fancybox.getInstance().close();" class="waves-effect waves-teal btn white teal-text"><?php echo $lang["no"];?></button>
+        <button onclick="deleteFiles()" class="waves-effect waves-teal btn white teal-text"><?php echo $lang["yes"];?></button>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
 
 <div style="display: none;" class="card" id="repo-delete">
     <div class="card-content black-text center">

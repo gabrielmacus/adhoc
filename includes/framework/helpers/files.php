@@ -151,10 +151,15 @@ function uploadFiles($files,$dir,$config)
                 $type = explode(".",$file["name"]);
                 $type = $type[count($type)-1];//extension
 
+                //Si tiene un solo formato
                 if(!is_array($config["formats"]))
                 {
                     $config["formats"]=array($config["formats"]);
                 }
+
+                
+
+
 
                 if(   in_array($type, $config["formats"]))
                 {
@@ -231,28 +236,33 @@ function uploadFiles($files,$dir,$config)
                             foreach($config["sizes"] as $k=>$size)
                             {
 
-
-                                $copyFile=$tmpFile."_".$k;
-                                copy($tmpFile,$copyFile);
-
-                                $size= explode(",",$size);
-
-                                $completeName= $folder."/{$k}_".$name;//Se indica el prefijo o para los archivos originales
-
-                                $image = new \Eventviva\ImageResize($copyFile);
-                                $image->resizeToBestFit($size[0], $size[1]);
-                                $image->save($copyFile);
-
-                                if (ftp_put($conn_id,$completeName, $copyFile, FTP_BINARY)) {
-                                    $file["sizes"][$k]["completeUrl"]=$config["dns"].str_replace($config["root_dir"],"",$completeName);
-
-
-
-                                }
-                                else
+                                if($size)
                                 {
-                                    $ret["error"][]=$file["name"];
+                                    $copyFile=$tmpFile."_".$k;
+                                    copy($tmpFile,$copyFile);
+
+                                    $size= explode(",",$size);
+
+                                    $completeName= $folder."/{$k}_".$name;//Se indica el prefijo o para los archivos originales
+
+                                    $image = new \Eventviva\ImageResize($copyFile);
+                                    $image->resizeToBestFit($size[0], $size[1]);
+                                    $image->save($copyFile);
+
+                                    if (ftp_put($conn_id,$completeName, $copyFile, FTP_BINARY)) {
+                                        $file["sizes"][$k]["completeUrl"]=$config["dns"].str_replace($config["root_dir"],"",$completeName);
+
+
+
+                                    }
+                                    else
+                                    {
+                                        $ret["error"][]=$file["name"];
+                                    }
+
                                 }
+
+
 
 
                             }
@@ -288,7 +298,8 @@ function uploadFiles($files,$dir,$config)
 
                 }
                 else
-                { $ret["error"][]=$file["name"];
+                {
+                    $ret["error"][]=$file["name"];
 
                 }
 

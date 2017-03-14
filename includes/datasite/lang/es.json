@@ -29,6 +29,7 @@
     "repositorios":{"texto":"Repositorios","items":[]}
   ,"repoadd":{"texto":"Crear repositorio","href":"repo-add.php"}
   ,"filesadd":{"texto":"Subir archivos","href":"files-add.php"},
+    "configuracion":{"texto":"Configuraci&oacute;n","href":"config.php","icono":"fa-cog"},
     "territorios":{"texto":"Territorios","items":{
 
       "add":{"href":"territorios-add.php","texto":"Nuevo territorio"},
@@ -64,6 +65,7 @@
   "yes":"SI",
   "no":"NO",
   "fileDelete":"¿Eliminar archivo?",
+  "filesDelete":"¿Eliminar los archivos seleccionados?",
   "errors":
   {
     "genericError":{"text":"Se ha producido un error al procesar la solicitud. Inténtelo de nuevo"},

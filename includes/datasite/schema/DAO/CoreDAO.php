@@ -179,6 +179,7 @@ class CoreDAO
         }
 
 
+
         //LEFT JOIN archivos_objetos ON objeto='{$this->idField}' AND tabla = '{$this->table}' LEFT JOIN archivos ON archivo_id=archivo"
         if($joinSql)
         {
@@ -196,9 +197,29 @@ class CoreDAO
             $countSql.=" WHERE";
             foreach ($object as $k=>$v)
             {
-                $sql.=" {$k}='{$v}' AND";
+                //$sql.=" {$k}='{$v}' AND";
 
-                $countSql.=" {$k}='{$v}' AND";
+                if(is_array($v))
+                {
+                    $values ="";
+                    foreach ($v as $item)
+                    {
+
+                        $values.="'{$item}',";
+                    }
+                    $values = rtrim($values,",");
+
+                    $v  =$values;
+                }
+                else
+                {
+                    $v = "'$v'";
+                }
+
+                $sql.=" {$k} IN ({$v}) AND";
+                $countSql.=" {$k} IN ({$v}) AND";
+
+                //$countSql.=" {$k}='{$v}' AND";
             }
             $sql = rtrim($sql,"AND");
             $countSql= rtrim($countSql,"AND");
@@ -495,11 +516,30 @@ class CoreDAO
     function delete($object)
     {
         $sql ="DELETE FROM {$this->table} WHERE ";
-
+        
         foreach ($object as $k=>$v)
         {
 
-            $sql.=" {$k}='{$v}' AND";
+            
+            if(is_array($v))
+            {
+                $values ="";
+                
+                foreach ($v as $item)
+                {
+                    $values.="'{$item}',";
+                }
+                
+                $values = rtrim($values,",");
+                
+                $v =$values;
+                
+            }
+            
+            $sql.=" {$k} IN ({$v}) AND";
+            
+            
+            
         }
         $sql= rtrim($sql,"AND");
 
