@@ -111,6 +111,11 @@ function deleteFile($file,$config)
 function uploadFiles($files,$dir,$config)
 {
 
+    if(trim($dir)=="/")
+    {
+        $dir="";
+    }
+
     $ret["success"]=false;
     $ret["error"]=false;
 // establecer una conexión b�sica
