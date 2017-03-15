@@ -77,6 +77,15 @@ if(is_numeric($id))
 
 
             break;
+        case 'report':
+            
+            $r= new \DAO\ReporteDAO($db,"reportes");
+            echo json_encode(
+                $r->upsert($_POST)
+            );
+            
+            
+            break;
     }
 
     $db->commit();

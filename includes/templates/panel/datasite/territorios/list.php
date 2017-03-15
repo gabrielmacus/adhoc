@@ -25,6 +25,8 @@
 
     <script>
 
+        var selectedManzanas=[];
+
 
         function initMap() {
 
@@ -53,13 +55,6 @@
             //$polygons =json_decode($data["territorio_polygons"],true);
             ?>
 
-            var infoHtml= "<a href='territorios.php?id=<?php echo $data["territorio_id"];?>'><h6 class='center'><?php echo $data["territorio_numero"];?></h6>"
-            + "<span style='color:black;display:block'>" +
-                "<?php echo $data["territorio_notas"];?>" +
-                "</span>" +
-                "<a href='territorios-add.php?id=<?php echo $data["territorio_id"];?>'>Editar</a><br>"+
-                "<a href='territorios-data.php?id=<?php echo $data["territorio_id"];?>&act=delete'>Eliminar</a><br>"+
-                "</a>";
 
 
 
@@ -83,7 +78,32 @@
                     path:<?php echo $manzana["manzana_polygon"] ?>,
                     map:map
                 });
+            polygon.addListener("click",
+            function () {
 
+          
+                if(this.strokeColor!="black")
+                {
+                    this.setOptions({strokeColor:"black"
+                        ,strokeWeight:3});
+
+                    selectedManzanas.push(<?php echo $manzana["manzana_id"] ?>);
+                }
+                else
+                {
+                    this.setOptions({strokeColor:"<?php echo $data["territorio_color"]?>"
+                        ,strokeWeight:2});
+
+                    var idx=        selectedManzanas.indexOf(<?php echo $manzana["manzana_id"] ?>);
+                    selectedManzanas.splice(idx,1);
+                }
+
+                console.log(selectedManzanas);
+
+
+               
+
+            });
 
             <?php
              }?>
@@ -94,13 +114,27 @@
             var marker = new google.maps.Marker({
                 position: polygonCenter(polygon),
                 map: map,
-                visible: false
+                visible: true,
+                icon:"https://raw.githubusercontent.com/Concept211/Google-Maps-Markers/master/images/marker_red<?php echo $data["territorio_numero"];?>.png"
             });
 
-            var infowindow = new google.maps.InfoWindow({
-                content: infoHtml
-            });
-            infowindow.open(map,marker);
+
+            marker.addListener("click",function () {
+
+                var infoHtml= "<a href='territorios.php?id=<?php echo $data["territorio_id"];?>'><h5 style='color:black!important' class='center'><b><?php echo $data["territorio_numero"];?></b></h5>"
+                    + "<span style='color:black;display:block'>" +
+                    "<?php echo $data["territorio_notas"];?>" +
+                    "</span>" +
+                    "<a class='btn'  style='width:100%!important;color:white!important;margin-top:10px!important;' href='territorios-add.php?id=<?php echo $data["territorio_id"];?>'>Editar</a><br>"+
+                    "<a class='btn'  style='width:100%!important;color:white!important;margin-top:10px!important;' href='territorios-data.php?id=<?php echo $data["territorio_id"];?>&act=delete'>Eliminar</a><br>"+
+                    "</a>";
+
+                var infowindow = new google.maps.InfoWindow({
+                    content: infoHtml,
+                });
+                infowindow.open(map,this);
+            })
+
 
             <?php
             }?>
@@ -141,11 +175,31 @@
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCxqL3eG6quOKEbnY7d00DUPX0h5yoqS5Q&callback=initMap"></script>
 
-<div class="row " >
-    <?php
-    include ("objetos/files-loader.php")?>
+<div class="row" >
+<div class="col s12">
+    <ul class="collapsible" data-collapsible="accordion">
+        <li>
+            <div class="collapsible-header"><i class="material-icons">filter_drama</i>Informar</div>
+            <div class="collapsible-body center">
 
+                <?php
+                include ("objetos/report.php")?>
+
+            </div>
+        </li>
+
+    </ul>
 </div>
 
+    <div class="col s12">
+        <?php
+        include ("objetos/files-loader.php")?>
+        </div>
+
+
+
+
+
+</div>
 
 </div>

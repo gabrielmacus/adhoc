@@ -247,41 +247,74 @@
 
         <h3 class="grey-text">Configuración avanzada</h3>
 
-        <div class="col s12 m4 input-field">
-            <label for="server">Direccion FTP</label>
-            <input  type="text" id="server" name="server">
-        </div>
+        <?php if(!$obj) //La configuracion avanzada solo se crea
 
-        <div class="col s12 m4 input-field">
-            <label for="user">Usuario</label>
-            <input  type="text" id="user" name="user">
-        </div>
+        {
+            ?>
+            <div class="col s12 m4 input-field">
+                <label for="server">Direccion FTP</label>
+                <input  type="text" id="server" name="server">
+            </div>
 
-        <div class="col s12 m4 input-field">
-            <label for="pass">Contraseña</label>
-            <input id="pass" name="pass" type="password">
-        </div>
+            <div class="col s12 m4 input-field">
+                <label for="user">Usuario</label>
+                <input  type="text" id="user" name="user">
+            </div>
 
-        <div class="col s12 m4 input-field">
-            <label for="dns">DNS</label>
-            <input   type="text" id="dns" name="dns">
-        </div>
-         <div class="col s12 m4 input-field">
-            <label for="dir">Carpeta de guardado</label>
-            <input   type="text" id="dir" name="dir">
-        </div>
-        <div class="col s12 m4 input-field">
-            <label for="root_dir">Carpeta raiz</label>
-            <input type="text" id="root_dir" value="/httpdocs" name="root_dir">
-        </div>
+            <div class="col s12 m4 input-field">
+                <label for="pass">Contraseña</label>
+                <input id="pass" name="pass" type="password">
+            </div>
+
+            <div class="col s12 m4 input-field">
+                <label for="dns">DNS</label>
+                <input   type="text" id="dns" name="dns">
+            </div>
 
 
+            <div class="col s12 m4 input-field">
+                <label for="dir">Carpeta de guardado</label>
+                <input   type="text" id="dir" name="dir">
+            </div>
+            <div class="col s12 m4 input-field">
+                <label for="root_dir">Carpeta raiz</label>
+                <input type="text" id="root_dir" value="/httpdocs" name="root_dir">
+            </div>
 
-        <div class="col s12 input-field" style="margin-top: 15px">
-            <button  class="btn waves-effect right waves-light col s12 m3 l2" type="submit" >Aceptar
-                <i class="material-icons right">send</i>
-            </button>
-        </div>
+
+
+            <div class="col s12 input-field" style="margin-top: 15px">
+                <button  class="btn waves-effect right waves-light col s12 m3 l2" type="submit" >Aceptar
+                    <i class="material-icons right">send</i>
+                </button>
+            </div>
+            <?php
+        }
+        else
+        {
+            ?>
+
+            <div class="col s12 m6 input-field">
+                <label for="dir">Carpeta de guardado</label>
+                <input   type="text" id="dir" name="dir">
+            </div>
+            <div class="col s12 m6 input-field">
+                <label for="root_dir">Carpeta raiz</label>
+                <input type="text" id="root_dir" value="/httpdocs" name="root_dir">
+            </div>
+
+
+
+            <div class="col s12 input-field" style="margin-top: 15px">
+                <button  class="btn waves-effect right waves-light col s12 m3 l2" type="submit" >Aceptar
+                    <i class="material-icons right">send</i>
+                </button>
+            </div>
+            <?Php
+        }
+        ?>
+
+
     </div>
 
 

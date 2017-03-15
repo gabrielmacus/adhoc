@@ -93,6 +93,7 @@ class ArchivoDAO extends CoreDAO
     function delete($object)
     {
 
+
      $data=$this->read($object);
 
         foreach($data as $k=>$v)
@@ -134,8 +135,13 @@ class ArchivoDAO extends CoreDAO
     {
 
 
+        $data=json_decode($item["archivo_data"],true);
+        switch ($data)
+        {
+
+        }
         $result[$item["archivo_repositorio"]][$item["archivo_id"]]["archivo_id"]=$item["archivo_id"];
-        $result[$item["archivo_repositorio"]][$item["archivo_id"]]["archivo_data"]=json_decode($item["archivo_data"],true);
+        $result[$item["archivo_repositorio"]][$item["archivo_id"]]["archivo_data"]=$data;
         $result[$item["archivo_repositorio"]][$item["archivo_id"]]["archivo_repositorio"]=$item["archivo_repositorio"];
         $result[$item["archivo_repositorio"]][$item["archivo_id"]]["archivo_descripcion"]=$item["archivo_descripcion"];
 

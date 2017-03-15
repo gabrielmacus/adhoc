@@ -390,41 +390,91 @@ class CoreDAO
     {
 
 
-
-        $keys= implode(",",$this->getKeys($object));
-
-        $sql ="INSERT INTO {$this->table}  ({$keys}) values ";
-
-        $query="";
-
-
-
-        foreach ($object as $k=>$v)
+        if(!$object["array"])
         {
-            if(!is_array($v))
+            $keys= implode(",",$this->getKeys($object));
+
+            $sql ="INSERT INTO {$this->table}  ({$keys}) values ";
+
+            $query="";
+
+            foreach ($object as $k=>$v)
             {
+                if(!is_array($v))
+                {
 
-                     if($v=='')
-                     {
-                         $v="NULL";
+                    if($v=='')
+                    {
+                        $v="NULL";
 
-                     }
-                     else
-                     {
-                         $v="'{$v}'";
-                     }
-                     $query.="{$v},";
+                    }
+                    else
+                    {
+                        $v="'{$v}'";
+                    }
+                    $query.="{$v},";
+
+
+                }
 
 
             }
-
+            $query= rtrim($query,",");
+            $sql.="({$query})";
 
         }
+        else
+        {
 
 
-        $query= rtrim($query,",");
-        $sql.="({$query})";
+            $object = $object["array"];
 
+            $keys= implode(",",$this->getKeys($object[0]));
+
+            $sql ="INSERT INTO {$this->table}  ({$keys}) values ";
+
+
+
+
+            $inserts="";
+            foreach ($object as $item)
+            {
+                $query="";
+                foreach ($item as $k=>$v)
+                {
+                    if(!is_array($v))
+                    {
+
+                        if($v=='')
+                        {
+                            $v="NULL";
+
+                        }
+                        else
+                        {
+                            $v="'{$v}'";
+                        }
+                        $query.="{$v},";
+
+
+                    }
+
+
+                }
+                $query= rtrim($query,",");
+                $inserts.="({$query}),";
+            }
+
+         $inserts = rtrim($inserts,",");
+
+
+            $sql.="{$inserts}";
+            
+        }
+        
+
+
+   
 
 
        if( $this->db->query($sql))
