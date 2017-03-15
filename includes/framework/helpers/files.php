@@ -131,8 +131,10 @@ function uploadFiles($files,$dir,$config)
 
         if(count($files)>0)
         {
-            $dir=$config["root_dir"].$dir;
-            $dirs=explode("/",$dir);
+            $completeDir=$config["root_dir"].$dir;
+
+
+            $dirs=explode("/",$completeDir);
             $dirToMake="";
             for($i=0;$i<count($dirs);$i++)
             {
@@ -170,10 +172,10 @@ function uploadFiles($files,$dir,$config)
 
                     $name=time().".{$type}";
                     $originalName=$file["name"];
-                    @ftp_mkdir($conn_id,$dir."/".$name);
+                    @ftp_mkdir($conn_id,$completeDir."/".$name);
 
 
-                    $folder=$dir."/".$name;
+                    $folder=$completeDir."/".$name;
 
                     $completeName= $folder."/o_".$name;//Se indica el prefijo o para los archivos originales
 
@@ -190,6 +192,8 @@ function uploadFiles($files,$dir,$config)
 
 
                         $file["sizes"]["o"]["completeUrl"]=$config["dns"].str_replace($config["root_dir"],"",$completeName);
+
+
 
 
 
