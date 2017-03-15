@@ -191,8 +191,7 @@ function uploadFiles($files,$dir,$config)
                     if (ftp_put($conn_id,$completeName, $tmpFile, FTP_BINARY)) {
 
 
-                        $file["sizes"]["o"]["completeUrl"]=$config["dns"].$dir.$completeName;/*str_replace($config["root_dir"],"",$completeName);/*/
-
+                        $file["sizes"]["o"]["completeUrl"]=$config["dns"].str_replace($config["root_dir"],"",$completeName);
 
 
 
