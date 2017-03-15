@@ -1,3 +1,5 @@
+
+
 <?php
 if(count($dataToSkin)==1)
 {
@@ -24,6 +26,10 @@ if(count($dataToSkin)==1)
             <?php
         }
 
+?>
+
+
+        <?php
 
         foreach ($archivos as $archivo)
         {
@@ -34,20 +40,26 @@ if(count($dataToSkin)==1)
             $type= $type[count($type)-1];
 
 
+
             switch ($type)
             {
                 case "jpg":
                 case "png":
                 case "gif":
-
-
+                case "svg":
                     ?>
-                    <a data-fancybox="image" data-src="<?php echo $archivo["sizes"]["o"]["completeUrl"]?>" class="col s12 m6 l4">
+
+
+
+                    <a data-fancybox="image" data-src="<?php echo $archivo["sizes"]["o"]["completeUrl"]?>" class="col s12 m3" style=";height: 100%">
                         <figure style="padding: 0px;margin: 0px;">
 
-                            <img style="width: 100%;height:200px;object-fit: cover" src="<?php echo $archivo["sizes"]["p"]["completeUrl"]?>">
+                            <img class="responsive-h" style="width: 100%;object-fit: cover" src="<?php echo $archivo["sizes"]["p"]["completeUrl"]?>">
                         </figure>
                     </a>
+
+
+
 
 
                     <?php
@@ -63,7 +75,6 @@ if(count($dataToSkin)==1)
         }
 
         ?>
-
 
 
         <?Php

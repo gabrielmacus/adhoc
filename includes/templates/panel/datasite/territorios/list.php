@@ -141,9 +141,11 @@
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCxqL3eG6quOKEbnY7d00DUPX0h5yoqS5Q&callback=initMap"></script>
 
+<div class="row " >
+    <?php
+    include ("objetos/files-loader.php")?>
 
-   <?php
-   include ("objetos/files-loader.php")?>
+</div>
 
 
 </div>
