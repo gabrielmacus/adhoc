@@ -48,6 +48,8 @@
 
 
 
+
+
             <?php foreach ($dataToSkin as $data)
             {
 
@@ -147,7 +149,23 @@ $maxDate=null;
                     + "<span style='color:black;display:block'>" +
                     "<?php echo $data["territorio_notas"];?>" +
                     "</span>" +
-                    "<h4><?php echo gmdate("d H:i:s",(time()-$maxDate)); ?></h4>" +
+                    "<h5 style='color:teal'><?php  if($maxDate){
+
+                        $dias=(time()-$maxDate) / (60 * 60 * 24);
+
+                       $dias = floor($dias);
+                        if($dias!=1)
+                        {
+                            echo "Predicado hace {$dias} dias";
+                        }
+                        else
+                        {
+                            echo "Predicado hace {$dias} dia";
+                        }
+
+
+
+                    }else{echo "No predicado";}?></h5>" +
                     "<a class='btn'  style='width:100%!important;color:white!important;margin-top:10px!important;' href='territorios-add.php?id=<?php echo $data["territorio_id"];?>'>Editar</a><br>"+
                     "<a class='btn'  style='width:100%!important;color:white!important;margin-top:10px!important;' href='territorios-data.php?id=<?php echo $data["territorio_id"];?>&act=delete'>Eliminar</a><br>"+
                     "</a>";

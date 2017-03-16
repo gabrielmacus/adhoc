@@ -29,7 +29,7 @@
                     console.log(res);
                     if(res)
                     {
-
+                        location.reload();
                     }
                     else
                     {
