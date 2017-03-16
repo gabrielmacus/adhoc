@@ -62,9 +62,26 @@
 
             var polygon;
             <?php
+
+
+$maxDate=null;
+
+
              foreach($data["manzanas"] as $manzana)
              {
+
+             if(!$maxDate)
+             {
+
+               $maxDate=$manzana["manzana_reporte_fecha"];
+
+             }
+
              ?>
+
+
+
+
 
 
 
@@ -118,6 +135,11 @@
                 icon:"https://raw.githubusercontent.com/Concept211/Google-Maps-Markers/master/images/marker_red<?php echo $data["territorio_numero"];?>.png"
             });
 
+            <?php
+
+
+
+             ?>
 
             marker.addListener("click",function () {
 
@@ -125,6 +147,7 @@
                     + "<span style='color:black;display:block'>" +
                     "<?php echo $data["territorio_notas"];?>" +
                     "</span>" +
+                    "<h4><?php echo gmdate("d H:i:s",(time()-$maxDate)); ?></h4>" +
                     "<a class='btn'  style='width:100%!important;color:white!important;margin-top:10px!important;' href='territorios-add.php?id=<?php echo $data["territorio_id"];?>'>Editar</a><br>"+
                     "<a class='btn'  style='width:100%!important;color:white!important;margin-top:10px!important;' href='territorios-data.php?id=<?php echo $data["territorio_id"];?>&act=delete'>Eliminar</a><br>"+
                     "</a>";
@@ -179,7 +202,7 @@
 <div class="col s12">
     <ul class="collapsible" data-collapsible="accordion">
         <li>
-            <div class="collapsible-header"><i class="material-icons">filter_drama</i>Informar</div>
+            <div class="collapsible-header"><i class="material-icons">timer</i>Informar</div>
             <div class="collapsible-body center">
 
                 <?php

@@ -60,6 +60,18 @@
         "add":{"texto":"Nuevo publicador","href":"publicador-add.php"},
         "list":{"texto":"Ver publicadores","href":"publicadores.php"}
       }
+    },
+    "estadisticas":
+    {
+      "texto":"Estad&iacute;sticas",
+      "items":
+      {
+        "territorios":
+        {
+          "texto":"Territorios",
+          "href":"territorios-stats.php"
+        }
+      }
     }
 },
   "yes":"SI",

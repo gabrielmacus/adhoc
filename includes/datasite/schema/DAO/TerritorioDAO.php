@@ -48,12 +48,20 @@ class TerritorioDAO extends \DAO\CoreDAO
                         $manzana["manzana_polygon"]=$item["manzana_polygon"];
                         $manzana["manzana_territorio"]=$item["manzana_territorio"];
 
+                        if($item["reporte_id"])//si hay reporte
+                        {
+                            $manzana["manzana_tiempo"]=$item["manzana_tiempo"];
+                            $manzana["manzana_reporte_fecha"]=$item["manzana_reporte_fecha"];
+                            $manzana["manzana_reporte"]=$item["reporte_manzana"];
+
+                        }
                         $result[$item[$this->idField]]["manzanas"][$item["manzana_id"]]=$manzana;
 
 
                     }
 
                     break;
+
             }
         }
     }
