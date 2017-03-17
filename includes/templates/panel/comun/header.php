@@ -189,3 +189,4 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
 <script src="js/swiper.jquery.min.js"></script>
 <link rel="stylesheet"  href="css/swiper.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>

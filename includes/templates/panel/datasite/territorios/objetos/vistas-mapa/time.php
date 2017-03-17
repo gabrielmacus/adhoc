@@ -1,3 +1,4 @@
+
 <?php
 /**
  * Created by PhpStorm.
@@ -20,14 +21,14 @@ if(is_numeric($manzana["manzana_reporte_fecha"]))
     if($diasManzana>=0 && $diasManzana<=15)
     {
 
-        $manzanaColor="#79dd46";
+        $manzanaColor="#4CAF50";
 
     }
 
     if($diasManzana>15 && $diasManzana<=30)
     {
 
-        $manzanaColor="#f2ff63";
+        $manzanaColor="#ffeb3b";
 
     }
 
@@ -35,7 +36,7 @@ if(is_numeric($manzana["manzana_reporte_fecha"]))
     if($diasManzana>30 && $diasManzana<=45)
     {
 
-        $manzanaColor="#ffaa00";
+        $manzanaColor="#ff9800";
 
     }
 
@@ -44,7 +45,7 @@ if(is_numeric($manzana["manzana_reporte_fecha"]))
     if($diasManzana>45)
     {
 
-        $manzanaColor="#d63d17";
+        $manzanaColor="#F44336";
 
     }
 
@@ -56,7 +57,7 @@ if(is_numeric($manzana["manzana_reporte_fecha"]))
 }
 else
 {
-    $manzanaColor='black';
+    $manzanaColor='#393c42';
 }
 
 

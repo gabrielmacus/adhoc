@@ -6,14 +6,20 @@
  * Time: 13:14
  */
 
+
+
+define("ROOT_DIR", str_replace("includes","",__DIR__));
+
+
+
 error_reporting(E_ALL & ~E_NOTICE );
 
 /*** helpers**/
 
-include("includes/framework/helpers/files.php");
-include("includes/framework/helpers/arrays.php");
-include("includes/framework/helpers/strings.php");
-include("includes/framework/helpers/users.php");
+include_once("includes/framework/helpers/files.php");
+include_once("includes/framework/helpers/arrays.php");
+include_once("includes/framework/helpers/strings.php");
+include_once("includes/framework/helpers/users.php");
 
 /** configuraciones e idioma **/
 $configPath='includes/datasite/config.json';
@@ -50,18 +56,18 @@ switch (getSubdomain($_SERVER['HTTP_HOST']))
 
 /** Base de datos **/
 
-include("includes/framework/db/conector.php");
+include_once("includes/framework/db/conector.php");
 
 
 /** Clases **/
 
-include("includes/datasite/schema/DAO/CoreDAO.php");
-include("includes/datasite/schema/DAO/ArchivoDAO.php");
-include("includes/datasite/schema/DAO/RepositorioDAO.php");
-include("includes/datasite/schema/DAO/UsuarioDAO.php");
-include("includes/framework/classes/ImageResize.php");
-include("includes/framework/Mustache/Autoloader.php");
-include("includes/framework/classes/JWT/JWT.php");
+include_once("includes/datasite/schema/DAO/CoreDAO.php");
+include_once("includes/datasite/schema/DAO/ArchivoDAO.php");
+include_once("includes/datasite/schema/DAO/RepositorioDAO.php");
+include_once("includes/datasite/schema/DAO/UsuarioDAO.php");
+include_once("includes/framework/classes/ImageResize.php");
+include_once("includes/framework/Mustache/Autoloader.php");
+include_once("includes/framework/classes/JWT/JWT.php");
 
 
 Mustache_Autoloader::register();
@@ -90,5 +96,5 @@ else
 
 
 /** Preload del sitio **/
-include("includes/datasite/preload.php");
+include_once("includes/datasite/preload.php");
 

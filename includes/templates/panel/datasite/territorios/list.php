@@ -17,6 +17,94 @@
 <div class="row center" style="height: 100%;padding-top: 50px">
 
 
+    <script>
+        $(document).on("click","#references",function () {
+
+            var x =  $(this).css("width");
+
+            $("#references").animate(
+                {
+                    right:"-"+x
+                },350,function () {
+                    $("#tag").animate(
+                        {
+                            right:"0px"
+                        },350);
+                }
+            );
+
+        });
+
+        $(document).on("click","#tag",function () {
+
+            var x =  $(this).css("width");
+
+            $("#tag").animate(
+                {
+                    right:"-"+x
+                },350,function () {
+
+
+                    $("#references").animate(
+                        {
+                            right:"0px"
+                        },350);
+
+
+
+
+                }
+            );
+
+        });
+
+
+
+
+    </script>
+
+
+    <div id="references-wrapper" style="position: fixed; right: 0px;z-index: 1000;margin: 0px;padding: 0px;" class="col s4 m2">
+
+        <div id="tag" class="right grey  card lighten-3" style="padding: 20px;position: absolute;right: 0px;top:40px;z-index: 10000">
+            <span style="width: 100%" >Referencias</span>
+        </div>
+        <div id="references" class="card"  style="width: 100%;right: -100%;position: absolute" >
+
+
+            <div class="col black s12 green" style="padding: 15px">
+                <span class="white-text" >No predicado</span>
+
+            </div>
+            <div class="col red s12 green" style="padding: 15px">
+                <span >0 - 15</span>
+
+            </div>
+
+            <div class="col red s12 yellow" style="padding: 15px">
+                <span >15 - 30</span>
+
+            </div>
+            <div class="col orange s12 center" style="padding: 15px">
+                <span >30 - 45</span>
+
+            </div>
+            <div class="col red s12 center" style="padding: 15px">
+                <span >Más de 45</span>
+
+            </div>
+
+
+
+
+        </div>
+
+
+
+    </div>
+
+
+
     <div id="map" style="width: 100%;height: 100%;">
 
     </div>
@@ -102,7 +190,7 @@ $lineColor= $data["territorio_color"];
                 strokeOpacity: 0.7,
                 strokeWeight: 2,
                 fillColor: '<?php echo $lineColor ?>',
-                fillOpacity: 0.8,
+                fillOpacity: 0.7,
                 path:<?php echo $manzana["manzana_polygon"] ?>,
                 map:map
             });
@@ -183,14 +271,16 @@ $lineColor= $data["territorio_color"];
 
                         $dias=(time()-$maxDate) / (60 * 60 * 24);
 
+                        $fecha= date("d/m/Y",$maxDate);
+
                        $dias = floor($dias);
                         if($dias!=1)
                         {
-                            echo "Predicado hace {$dias} dias";
+                            echo "Predicado hace {$dias} dias, <time class='grey-text'>{$fecha}</time>";
                         }
                         else
                         {
-                            echo "Predicado hace {$dias} dia";
+                            echo "Predicado hace {$dias} dia, <time class='grey-text'>{$fecha}</time>";
                         }
 
 
@@ -204,7 +294,7 @@ $lineColor= $data["territorio_color"];
                     content: infoHtml,
                 });
                 infowindow.open(map,this);
-            })
+            });
 
 
             <?php

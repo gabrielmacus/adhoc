@@ -37,7 +37,7 @@ class ArchivoDAO extends CoreDAO
 
     function upload($files,$object=false)
     {
-
+        include (ROOT_DIR."flush-files-cache.php");
 
         $dir=$this->config["dir"];
         if($this->config["dateformat"])
@@ -87,13 +87,14 @@ class ArchivoDAO extends CoreDAO
     }
     function upsert($object,ArchivoDAO $archivoData=null)
     {
+        include (ROOT_DIR."flush-files-cache.php");
         return parent::upsert($object,$archivoData);
     }
 
     function delete($object)
     {
 
-
+        include (ROOT_DIR."flush-files-cache.php");
      $data=$this->read($object);
 
         foreach($data as $k=>$v)

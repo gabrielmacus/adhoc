@@ -306,6 +306,8 @@ class CoreDAO
 
           //  return $object[$this->idField];//$object[$this->idField];
 
+
+        return $sql;
             return $object[$this->idField];
     }
 

@@ -3,8 +3,12 @@
 
     $(document).on("submit","form",function () {
 
-        scope.publicador.publicador_telefonos=   scope.publicador.publicador_telefonos.join();
+        scope.publicador.publicador_telefonos= scope.publicador.publicador_telefonos.join();
 
+        scope.publicador.publicador_conductor= ~~scope.publicador.publicador_conductor;
+
+
+        console.log();
         console.log(  scope.publicador);
       $.ajax(
           {url:"publicadores-data.php?act=add",
@@ -185,7 +189,8 @@
             });
 
         }
-        $(document).on("click","#buscar-direccion",function () {
+        $(document).on("click","#buscar-direccion",function ()
+        {
 
             var dir=$("#direccion").val()+" Paraná Entre Rios";
             if(dir!="")
@@ -204,9 +209,13 @@
         });
 
         angular.element(document).ready(function () {
+
             scope.publicador={};
+
             scope.publicador.publicador_telefonos=[];
+
             scope.deleteTelefono=function (tel) {
+
                 var idx=    scope.publicador.publicador_telefonos.indexOf(tel);
 
                 scope.publicador.publicador_telefonos.splice(idx,1);
@@ -233,6 +242,12 @@
                             scope["publicador"][k]=v;
                         }
 
+
+                        break;
+                    case "publicador_conductor":
+
+                       var valor= v==1?true:false;
+                        scope["publicador"][k]=valor;
 
                         break;
                     case "publicador_telefonos":

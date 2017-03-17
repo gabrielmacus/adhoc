@@ -1,6 +1,42 @@
 <?php
 
 
+require("check-login.php");
+error_reporting(0);
+
+$idQuery=isset($_GET["rep"]) && is_numeric($_GET["rep"]);
+
+
+if(!is_dir("cache/files"))
+{
+    mkdir("cache/files");
+
+}
+
+
+if(!$_GET["p"])
+{
+    $_GET["p"]=1;
+}
+
+
+if(!$idQuery)
+{
+    $dirCache="cache/files/files.html";
+}
+else
+{
+
+    $dirCache = "cache/files/files-{$_GET["rep"]}-{$_GET["p"]}.html";
+}
+
+
+
+
+if(!file_exists($dirCache) || $_GET["cache"]=="false") {
+
+
+    ob_start();
 require("includes/autoload.php");
 
 
@@ -36,7 +72,7 @@ if(!$page)
     $page=1;
 }
 
-$limit=20;
+$limit=2;
 $padding=4;
 
 
@@ -59,6 +95,17 @@ $qs=http_build_query($_GET);
 $url=strtok($_SERVER["REQUEST_URI"],'?');
 
 require ("includes/templates/{$subdomain}/comun/estructura.php");
+file_put_contents($dirCache,ob_get_contents());
+
+
+
+ob_end_clean();
+}
+
+
+
+echo  file_get_contents($dirCache);
+
 
 
 ?>
