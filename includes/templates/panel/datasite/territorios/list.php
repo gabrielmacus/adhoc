@@ -72,12 +72,81 @@ $maxDate=null;
              foreach($data["manzanas"] as $manzana)
              {
 
-             if(!$maxDate)
+
+
+
+     if(!$maxDate || $manzana["manzana_reporte_fecha"]>$maxDate)
              {
 
                $maxDate=$manzana["manzana_reporte_fecha"];
 
              }
+
+
+
+              ?>
+
+            console.log("<?php echo $manzana["manzana_reporte_fecha"]; ?>");
+            <?php
+
+
+
+
+           if(is_numeric($manzana["manzana_reporte_fecha"]))
+           {
+
+                 if($manzana["manzana_reporte_fecha"])
+           {
+             $diasManzana=(time()-$manzana["manzana_reporte_fecha"]) / (60 * 60 * 24);
+              }
+
+
+
+
+             if($diasManzana>=0 && $diasManzana<=15)
+             {
+
+                 $manzanaColor="#79dd46";
+
+             }
+
+              if($diasManzana>15 && $diasManzana<=30)
+             {
+
+                 $manzanaColor="#f2ff63";
+
+             }
+
+
+              if($diasManzana>30 && $diasManzana<=45)
+             {
+
+                 $manzanaColor="#ffaa00";
+
+             }
+
+
+
+              if($diasManzana>45)
+             {
+
+                 $manzanaColor="#d63d17";
+
+             }
+
+
+
+
+
+
+           }
+           else
+           {
+             $manzanaColor='black';
+           }
+
+
+  $data["territorio_color"]=$manzanaColor;
 
              ?>
 
