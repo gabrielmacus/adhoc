@@ -62,7 +62,12 @@
 
 
 
-            var polygon;
+            var polygon=false;
+            var marker= new google.maps.Marker({
+                map: map,
+                visible: true,
+                icon:"https://raw.githubusercontent.com/Concept211/Google-Maps-Markers/master/images/marker_red<?php echo $data["territorio_numero"];?>.png"
+            });
             <?php
 
 
@@ -74,98 +79,59 @@ $maxDate=null;
 
 
 
+$strokeColor= $data["territorio_color"];
+$lineColor= $data["territorio_color"];
 
-     if(!$maxDate || $manzana["manzana_reporte_fecha"]>$maxDate)
-             {
+           switch($_GET["view"])
+           {
 
-               $maxDate=$manzana["manzana_reporte_fecha"];
+           case "time":
 
-             }
+           include ("objetos/vistas-mapa/time.php");
+
+           break;
 
 
+           }
 
-              ?>
+?>
 
-            console.log("<?php echo $manzana["manzana_reporte_fecha"]; ?>");
+            polygon= new google.maps.Polygon({
+
+                strokeColor:'<?php echo $strokeColor?>',
+                strokeOpacity: 0.7,
+                strokeWeight: 2,
+                fillColor: '<?php echo $lineColor ?>',
+                fillOpacity: 0.8,
+                path:<?php echo $manzana["manzana_polygon"] ?>,
+                map:map
+            });
             <?php
 
 
 
 
-           if(is_numeric($manzana["manzana_reporte_fecha"]))
-           {
-
-                 if($manzana["manzana_reporte_fecha"])
-           {
-             $diasManzana=(time()-$manzana["manzana_reporte_fecha"]) / (60 * 60 * 24);
-              }
 
 
 
-
-             if($diasManzana>=0 && $diasManzana<=15)
+                  if(!$maxDate || $manzana["manzana_reporte_fecha"]>$maxDate)
              {
 
-                 $manzanaColor="#79dd46";
-
-             }
-
-              if($diasManzana>15 && $diasManzana<=30)
-             {
-
-                 $manzanaColor="#f2ff63";
-
-             }
-
-
-              if($diasManzana>30 && $diasManzana<=45)
-             {
-
-                 $manzanaColor="#ffaa00";
-
-             }
 
 
 
-              if($diasManzana>45)
-             {
+               $maxDate=$manzana["manzana_reporte_fecha"];?>
 
-                 $manzanaColor="#d63d17";
-
-             }
+            marker.setPosition(polygonCenter(polygon));
 
 
 
 
+                <?php
 
+                 }
+                 ?>
 
-           }
-           else
-           {
-             $manzanaColor='black';
-           }
-
-
-  $data["territorio_color"]=$manzanaColor;
-
-             ?>
-
-
-
-
-
-
-
-                polygon= new google.maps.Polygon({
-
-                    strokeColor:'<?php echo $data["territorio_color"]?>',
-                    strokeOpacity: 0.8,
-                    strokeWeight: 2,
-                    fillColor: '<?php echo $data["territorio_color"]?>',
-                    fillOpacity: 0.35,
-                    path:<?php echo $manzana["manzana_polygon"] ?>,
-                    map:map
-                });
             polygon.addListener("click",
             function () {
 
@@ -199,12 +165,7 @@ $maxDate=null;
 
 
 
-            var marker = new google.maps.Marker({
-                position: polygonCenter(polygon),
-                map: map,
-                visible: true,
-                icon:"https://raw.githubusercontent.com/Concept211/Google-Maps-Markers/master/images/marker_red<?php echo $data["territorio_numero"];?>.png"
-            });
+
 
             <?php
 
