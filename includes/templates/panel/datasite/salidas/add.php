@@ -1,31 +1,30 @@
 
 <script>
 
-    $(document).on("submit","form",function () {
 
+$(document).on("submit","form", function () {
 
+    var data =$(this).serialize();
+    if(puntoEncuentro)
+    {
+        data+="&salida_encuentro="+JSON.stringify(puntoEncuentro);
+    }
 
-        console.log(  scope.salida);
-        $.ajax(
-            {url:"salidas-data.php?act=add",
-                dataType:"json",
-                method:"post",
-                data:scope.salida,
-                error:function (err) {
+    console.log(data);
+    $.ajax(
+        {
+            method:"post",
+            url:"salidas-data.php?act=add",
+            data:data,
+            success:function(res)
+            {
+                console.log(res);
+            },
+            error:error
+        }
+    );
 
-                    console.log(err);
-                    error(err);
-                }  ,
-                success:function (res) {
-
-                    console.log(res);
-                }
-            }
-        )
-    });
-
-
-
+});;
 
     /*$(document).on("click","#add-telefono",function () {
 
@@ -51,8 +50,9 @@
         <div class="row">
             <div class="input-field col s12">
 
-                <select name="conductor " class="browser-default" data-ng-model="salida.salida_conductor">
-                    <option  selected disabled>Conductor...</option>
+                <input hidden name="salida_id">
+                <select name="salida_conductor">
+                    <option   disabled selected>Conductor...</option>
                 <?php
 
                 foreach ($conductores as $k=>$conductor)
@@ -64,11 +64,11 @@
                     <?php
                 }?>
                 </select>
-                
-                
+
+
             </div>
             <div class="input-field col s12 m4">
-                <select class="browser-default" data-ng-model="salida.salida_mes">
+                <select name="salida_mes">
                     <option disabled selected>Mes...</option>
                     <?php
                     foreach ($lang["meses"] as $k=>$v)
@@ -81,7 +81,7 @@
 
             </div>
             <div class="input-field col s12 m4">
-                <select  class="browser-default" data-ng-model="salida.salida_dia">
+                <select  name="salida_dia">
                     <option disabled selected>Dia...</option>
                     <?php
                     foreach ($lang["dias"] as $k=>$v)
@@ -96,11 +96,11 @@
 
 
             <div class="input-field col s12 m4">
-               <label for="hora">Hora</label>
 
 
-                <input  style="display: inline-block" type="text" data-ng-model="salida.salida_hora" id="hora" name="hora">
-         
+
+                <input type="time"  placeholder="Hora" style="display: inline-block"   id="hora" name="salida_hora">
+
             </div>
 
 
@@ -109,16 +109,12 @@
         <div class="row">
             <div class="input-field col s12 ">
 
-                <h5>Direccion</h5>
+                <h5>Punto de encuentro</h5>
                 <div style="position: relative">
-                    <input data-ng-model="salida.salida_encuentro_string" id="direccion" class="col s12 m10" placeholder="Buscar por calle y numero..." >
-                    <div class=" col s12 m2 right" style="padding: 10px;    padding-right: 0px!important">
-                        <button type="button" id="buscar-direccion"  style="width: 100%" class="btn " ><i class="material-icons">search</i></button>
-                    </div>
-
+                    <input name="salida_encuentro_string" id="direccion" class="col s12 " placeholder="Punto de encuentro..." >
                 </div>
 
-
+                <h5>Marcar en el mapa</h5>
                 <div id="map" style="height: 300px;width: 100%">
 
                 </div>
@@ -129,8 +125,8 @@
         <div class="row">
             <div class="input-field col s12 ">
 
-                <label for="notas">Notas</label>
-                <textarea name="notas" data-ng-model="salida.salida_observaciones" class="materialize-textarea"></textarea>
+                <label for="salida_observaciones">Notas</label>
+                <textarea name="salida_observaciones"  class="materialize-textarea"></textarea>
                 </div>
 
          </div>
@@ -141,8 +137,12 @@
         </div>
     </form>
 </div>
+
 <script>
+    var puntoEncuentro;
+
     function initMap() {
+
 
 
         var geocoder = new google.maps.Geocoder();
@@ -161,16 +161,20 @@
             map.setCenter(pos);
         });
 
-        var path = new google.maps.Polyline({
 
-            strokeColor: '#FF0000',
-            strokeOpacity: 1.0,
-            strokeWeight: 2,
-            map: map
-        });
         var  marker = new google.maps.Marker({
             map: map
         });
+
+
+        map.addListener("click",function(e){
+            markLocation(e.latLng);
+            puntoEncuentro = {lat: e.latLng.lat(),lng: e.latLng.lng()};
+
+
+        });
+
+
         function  markLocation(loc) {
             map.setCenter(loc);
             marker.setPosition(loc);
@@ -222,68 +226,37 @@
 
         });
 
-        angular.element(document).ready(function () {
 
-            Materialize.updateTextFields();
-            scope.salida={};
-/*            scope.publicador.publicador_telefonos=[];
-            scope.deleteTelefono=function (tel) {
-                var idx=    scope.publicador.publicador_telefonos.indexOf(tel);
+        <?php
+        if($obj)
+        {
+        ?>    var obj = <?php echo $obj ?>;
 
-                scope.publicador.publicador_telefonos.splice(idx,1);
+        $.each(obj,function(k,v)
+        {
 
-            }*/
-
-            <?php
-            if($obj)
+            switch (k)
             {
-            ?>
+                default:
+                    $("[name='"+k+"']").val(v);
+                    break;
 
-            var obj= <?php echo $obj;?>;
+                case 'salida_encuentro':
 
-            console.log(obj);
-            $.each(obj,function (k,v) {
-
-                switch (k)
-                {
-                    default:
-
-                        if(v)
-                        {
-                            console.log(k+" "+v);
-                            scope["salida"][k]=v;
-                        }
-
-
-                        break;
-
-                    case "salida_encuentro":
-                        var dir=JSON.parse(v);
-                        markLocation(dir);
-
-                        /*
-                         geocode(dir,true,function (results) {
-
-                         scope.dir= results[0].formatted_address;
-
-                         scope.$apply();
-                         });*/
-
-
-                        break;
-                }
-            })  ;
-
-
-
-            <?php
+                    markLocation(JSON.parse(v));
+                    break;
             }
-            ?>
 
-            scope.$apply();
-            console.log( scope.salida);
-        });
 
+
+        });<?php
+        }
+        ?>
+
+
+
+        $("select").material_select();
+        Materialize.updateTextFields();
 
     }
 </script>

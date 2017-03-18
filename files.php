@@ -6,6 +6,7 @@ error_reporting(0);
 
 $idQuery=isset($_GET["rep"]) && is_numeric($_GET["rep"]);
 
+$isModal = isset($_GET["modal"]);
 
 if(!is_dir("cache/files"))
 {
@@ -30,10 +31,15 @@ else
     $dirCache = "cache/files/files-{$_GET["rep"]}-{$_GET["p"]}.html";
 }
 
+if($isModal)
+{
+    $dirCache.=".modal";
+}
 
 
 
-if(!file_exists($dirCache) || $_GET["cache"]=="false") {
+
+if(!file_exists($dirCache) || $_GET["cache"]=="false" ) {
 
 
     ob_start();
@@ -72,7 +78,7 @@ if(!$page)
     $page=1;
 }
 
-$limit=2;
+$limit=20;
 $padding=4;
 
 

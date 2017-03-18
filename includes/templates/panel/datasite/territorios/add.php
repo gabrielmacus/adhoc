@@ -62,7 +62,7 @@
 
 
     <div class="input-field col s12 center">
-        <a  href="files.php?rep=<?php foreach ($repositorios as $k=>$v){echo $k; break;}?>&modal=true" data-lity  class="btn iframe">Adjuntar archivo</a>
+        <a  href="files.php?rep=<?php foreach ($repositorios as $k=>$v){echo $k; break;}?>&modal=true&cache=false" data-lity  class="btn iframe">Adjuntar archivo</a>
         &nbsp;
         <a id="marcar-territorio"  class="btn">Marcar</a>
         &nbsp; <button  type="submit" class="btn">Enviar</button>
@@ -304,6 +304,7 @@
                 if(event.origin==location.origin)
                 {
 
+                    console.log(event.data);
 
                     $.each(event.data,function(k,v)
                     {

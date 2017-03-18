@@ -37,12 +37,14 @@
       }
     }
   ,
-    "ministerio": {"texto":"Ministerio&nbsp;del&nbsp;campo","items":[
+    "ministerio": {"texto":"Ministerio&nbsp;del&nbsp;campo","items":{
 
-      {"href":"salidas-add.php","texto":"Nueva salida"},
-      {"href":"salidas.php","texto":"Ver salidas"}
+"add":{"href":"salidas-add.php","texto":"Nueva salida"},
+"list":{"href":"salidas.php","texto":"Ver salidas"}
 
-    ]},
+    }
+
+    },
     "grupos":
     {
       "texto":"Grupos de predicacion",

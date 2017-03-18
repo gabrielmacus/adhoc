@@ -19,7 +19,7 @@ else
 
 
 
-$sqlExtra =" ORDER BY publicador_apellido,publicador_nombre ASC";
+$sqlExtra =" ORDER BY salida_mes,salida_dia,salida_hora ASC";
 $id=$_GET["id"];
 
 if(!is_numeric($id) && !empty($id))
@@ -57,9 +57,9 @@ else
 
 $pager = $DAO->getPager($limit,$page,$padding);
 
-$lang["menu"]["salidas"]["active"]=true;
+$lang["menu"]["ministerio"]["active"]=true;
 
-$lang["menu"]["salidas"]["items"]["list"]["active"]=true;
+$lang["menu"]["ministerio"]["items"]["list"]["active"]=true;
 
 
 require ("includes/templates/{$subdomain}/comun/estructura.php");
