@@ -8,6 +8,9 @@
 
 
 ?>
+
+
+
 <style>
     .body
     {
@@ -31,7 +34,12 @@
 
     ?>
 
+    <div class="col s12" >
+        <a class="btn" href="territorios.php?view=time">Vista de tiempo</a>
 
+    </div>
+
+   
     <div id="map" style="width: 100%;height: 100%;">
 
     </div>
@@ -264,6 +272,7 @@ $lineColor= $data["territorio_color"];
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCxqL3eG6quOKEbnY7d00DUPX0h5yoqS5Q&callback=initMap"></script>
 
 <div class="row" >
+
 <div class="col s12">
     <ul class="collapsible" data-collapsible="accordion">
         <li>
