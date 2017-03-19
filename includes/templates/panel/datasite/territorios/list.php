@@ -138,16 +138,24 @@ $lineColor= $data["territorio_color"];
 
 
 
+foreach($manzana["reportes"] as $r)
+{
+$reporte=$r;
+break;
+}
 
 
+$reporteFecha=$reporte["manzana_reporte_fecha"];
 
-                  if(!$maxDate || $manzana["manzana_reporte_fecha"]>$maxDate)
+?>
+            <?php
+                  if(!$maxDate || $reporteFecha>$maxDate)
              {
 
 
 
 
-               $maxDate=$manzana["manzana_reporte_fecha"];?>
+               $maxDate=$reporteFecha;?>
 
             marker.setPosition(polygonCenter(polygon));
 

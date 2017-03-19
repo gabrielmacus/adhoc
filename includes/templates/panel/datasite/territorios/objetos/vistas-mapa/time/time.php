@@ -8,12 +8,12 @@
  */
 
 
-if(is_numeric($manzana["manzana_reporte_fecha"]))
+if(is_numeric($reporteFecha))
 {
 
-    if($manzana["manzana_reporte_fecha"])
+    if($reporteFecha)
     {
-        $diasManzana=(time()-$manzana["manzana_reporte_fecha"]) / (60 * 60 * 24);
+        $diasManzana=(time()-$reporteFecha) / (60 * 60 * 24);
     }
 
 
