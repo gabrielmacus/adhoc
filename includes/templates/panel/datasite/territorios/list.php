@@ -145,6 +145,8 @@ break;
 }
 
 
+
+
 $reporteFecha=$reporte["manzana_reporte_fecha"];
 
 ?>
