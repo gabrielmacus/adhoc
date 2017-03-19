@@ -17,6 +17,7 @@ class TerritorioDAO extends \DAO\CoreDAO
     {
 
 
+
         foreach ($item as $clave => $valor) {
             switch ($clave) {
 
@@ -48,18 +49,34 @@ class TerritorioDAO extends \DAO\CoreDAO
                         $manzana["manzana_polygon"]=$item["manzana_polygon"];
                         $manzana["manzana_territorio"]=$item["manzana_territorio"];
 
-                        if($item["reporte_id"])//si hay reporte
-                        {
-                            $manzana["manzana_tiempo"]=$item["manzana_tiempo"];
-                            $manzana["manzana_reporte_fecha"]=$item["manzana_reporte_fecha"];
-                            $manzana["manzana_reporte"]=$item["reporte_manzana"];
 
+
+                        if(!  $result[$item[$this->idField]]["manzanas"][$item["manzana_id"]])
+                        {
+                            $result[$item[$this->idField]]["manzanas"][$item["manzana_id"]]=$manzana;
                         }
-                        $result[$item[$this->idField]]["manzanas"][$item["manzana_id"]]=$manzana;
+
+
 
 
                     }
 
+                    break;
+                case 'reporte_id':
+                    if($item[$this->idField]) {
+                        $reporte["manzana_tiempo"]=$item["manzana_tiempo"];
+                        $reporte["manzana_reporte_fecha"]=$item["manzana_reporte_fecha"];
+                        $reporte["reporte_manzana"]=$item["reporte_manzana"];
+                        $reporte["reporte_id"]=$item["reporte_id"];
+
+
+
+
+                        $result[$item[$this->idField]]["manzanas"][$item["manzana_id"]]["reportes"][$item["reporte_id"]]= $reporte;
+
+
+
+                    }
                     break;
 
             }

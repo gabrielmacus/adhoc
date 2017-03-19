@@ -17,8 +17,7 @@
 
 
         console.log(array);
-
-        $.ajax(
+      $.ajax(
             {
                 url: "territorios-data.php?act=report",
                 method: "post",
@@ -29,7 +28,7 @@
                     console.log(res);
                     if(res)
                     {
-                        location.reload();
+                   //     location.reload();
                     }
                     else
                     {

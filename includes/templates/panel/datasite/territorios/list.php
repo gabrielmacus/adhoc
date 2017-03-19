@@ -33,9 +33,12 @@
     }
 
     ?>
+    <div style="margin-bottom: 20px;float: left;">
+        <a class="btn left <?php if(!$_GET["view"]){ echo "active";} ?>" href="territorios.php">Vista por territorios</a>
 
-    <div class="col s12" >
-        <a class="btn" href="territorios.php?view=time">Vista de tiempo</a>
+    </div>
+    <div style="margin-bottom: 20px;float: left;margin-left: 20px">
+        <a class="btn left  <?php if($_GET["view"]=="time"){ echo "active";} ?>" href="territorios.php?view=time">Vista por manzanas</a>
 
     </div>
 
@@ -118,6 +121,7 @@ $lineColor= $data["territorio_color"];
            }
 
 ?>
+            console.log(<?php echo json_encode($manzana); ?>);
 
             polygon= new google.maps.Polygon({
 

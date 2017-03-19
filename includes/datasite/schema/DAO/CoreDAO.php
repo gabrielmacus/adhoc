@@ -505,6 +505,8 @@ class CoreDAO
     function upsert($object ,ArchivoDAO $archivoData=null)
     {
 
+
+
         $files = $_FILES;
 
         if($object[$this->idField])

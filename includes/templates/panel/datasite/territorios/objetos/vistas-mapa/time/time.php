@@ -7,6 +7,7 @@
  * Time: 9:20
  */
 
+
 if(is_numeric($manzana["manzana_reporte_fecha"]))
 {
 
