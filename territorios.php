@@ -66,7 +66,9 @@ if(!file_exists($dirCache) || $_GET["cache"]=="false")
 
 //$joinSQL = " LEFT JOIN manzanas ON territorio_id=manzana_territorio LEFT JOIN (SELECT reporte_id,reporte_tiempo as 'manzana_tiempo',reporte_fecha as 'manzana_reporte_fecha' ,reporte_manzana  FROM `reportes` GROUP BY manzana_territorio) as reportes_group  ON manzana_id = reporte_manzana";
 
-    $joinSQL =" LEFT JOIN (SELECT *,reporte_tiempo as 'manzana_tiempo',reporte_fecha as 'manzana_reporte_fecha' FROM manzanas LEFT JOIN reportes  ON  reporte_manzana = manzana_id ORDER BY reporte_fecha DESC LIMIT 5 OFFSET 0) as manzanas_reportes ON territorio_id = manzana_territorio WHERE reporte_manzana=38";
+    $joinSQL =" LEFT JOIN (SELECT *,reporte_tiempo as 'manzana_tiempo',MAX(reporte_fecha) as 'manzana_reporte_fecha' FROM manzanas LEFT JOIN reportes ON reporte_manzana = manzana_id GROUP BY manzana_id ORDER BY reporte_fecha ) as manzanas_reportes ON territorio_id = manzana_territorio";
+//Solo traigo la fecha mas cercana al dia presente
+
     if(isset($id))
     {
         $dataToSkin=  $territorios->read(array(
@@ -88,6 +90,8 @@ if(!file_exists($dirCache) || $_GET["cache"]=="false")
     $lang["menu"]["territorios"]["active"]=true;
 
     $lang["menu"]["territorios"]["items"]["list"]["active"]=true;
+
+
 
 
     require ("includes/templates/{$subdomain}/comun/estructura.php");

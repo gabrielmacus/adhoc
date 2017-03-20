@@ -12,11 +12,18 @@
 
 
 <style>
+
     .body
     {
         height: 100%;
     }
+    .btn.active
+    {
+        background-color: white!important;
+        color: teal!important;
+    }
 </style>
+
 <div class="row center" style="height: 100%;padding-top: 50px">
 
 
@@ -33,12 +40,15 @@
     }
 
     ?>
-    <div style="margin-bottom: 20px;float: left;">
-        <a class="btn left <?php if(!$_GET["view"]){ echo "active";} ?>" href="territorios.php">Vista por territorios</a>
+    <div class="row">
 
-    </div>
-    <div style="margin-bottom: 20px;float: left;margin-left: 20px">
-        <a class="btn left  <?php if($_GET["view"]=="time"){ echo "active";} ?>" href="territorios.php?view=time">Vista por manzanas</a>
+        <h2>Territorios</h2>
+        <div class="col s12">
+            <a class="btn left <?php if(!$_GET["view"]){ echo "active";} ?>" href="territorios.php">Vista por territorios</a>
+            <a class="btn left  <?php if($_GET["view"]=="time"){ echo "active";} ?>" href="territorios.php?view=time">Vista por manzanas</a>
+
+        </div>
+
 
     </div>
 
@@ -103,6 +113,15 @@ $maxDate=null;
              foreach($data["manzanas"] as $manzana)
              {
 
+foreach($manzana["reportes"] as $r)//Obtengo el ultimo reporte de la manzana
+{
+$reporte=$r;
+break;
+}
+
+$reporteFecha=$reporte["manzana_reporte_fecha"];
+
+
 
 
 $strokeColor= $data["territorio_color"];
@@ -121,7 +140,7 @@ $lineColor= $data["territorio_color"];
            }
 
 ?>
-            console.log(<?php echo json_encode($manzana); ?>);
+
 
             polygon= new google.maps.Polygon({
 
@@ -138,19 +157,8 @@ $lineColor= $data["territorio_color"];
 
 
 
-foreach($manzana["reportes"] as $r)
-{
-$reporte=$r;
-break;
-}
 
 
-
-
-$reporteFecha=$reporte["manzana_reporte_fecha"];
-
-?>
-            <?php
                   if(!$maxDate || $reporteFecha>$maxDate)
              {
 
@@ -199,18 +207,15 @@ $reporteFecha=$reporte["manzana_reporte_fecha"];
             <?php
              }?>
 
+            polygon.addListener("mouseover",function(){
 
+                alert("<?php echo $diasManzana ?>");
 
-
-
-
-            <?php
-
-
-
-             ?>
+            });
+            var infowindow = new google.maps.InfoWindow();
 
             marker.addListener("click",function () {
+
 
                 var infoHtml= "<a href='territorios.php?id=<?php echo $data["territorio_id"];?>'><h5 style='color:black!important' class='center'><b><?php echo $data["territorio_numero"];?></b></h5>"
                     + "<span style='color:black;display:block'>" +
@@ -220,7 +225,8 @@ $reporteFecha=$reporte["manzana_reporte_fecha"];
 
                         $dias=(time()-$maxDate) / (60 * 60 * 24);
 
-                        $fecha= date("d/m/Y",$maxDate);
+                        date_default_timezone_set($lang["php_timezone"]);
+                        $fecha=date("d/m/Y",$maxDate);
 
                        $dias = floor($dias);
                         if($dias!=1)
@@ -239,10 +245,11 @@ $reporteFecha=$reporte["manzana_reporte_fecha"];
                     "<a class='btn'  style='width:100%!important;color:white!important;margin-top:10px!important;' href='territorios-data.php?id=<?php echo $data["territorio_id"];?>&act=delete'>Eliminar</a><br>"+
                     "</a>";
 
-                var infowindow = new google.maps.InfoWindow({
-                    content: infoHtml,
-                });
-                infowindow.open(map,this);
+
+                infowindow.setContent(infoHtml);
+                    infowindow.open(map,this);
+
+
             });
 
 

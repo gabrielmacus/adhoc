@@ -45,15 +45,6 @@
     }
 
     },
-    "grupos":
-    {
-      "texto":"Grupos de predicacion",
-      "items":
-      {
-        "add":{"texto":"Nuevo grupo","href":"grupos-add.php"},
-        "list":{"texto":"Ver grupos","href":"grupos.php"}
-        }
-    },
     "publicadores":
     {
       "texto":"Publicadores",
@@ -106,5 +97,6 @@
     "9":"Septiembre","10":"Octubre",
     "11":"Noviembre","12":"Diciembre"
   }
+  ,"php_timezone":"America/Argentina/Buenos_Aires"
 
 }
