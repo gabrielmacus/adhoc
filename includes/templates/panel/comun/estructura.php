@@ -7,6 +7,9 @@
   
 </style>
 <body data-ng-app="app" data-ng-controller="ctrl" >
+<div style="position: absolute;display:none;z-index: 10000000;padding: 10px" class="white card" id="tt">
+   
+</div>
 
 
 <script>

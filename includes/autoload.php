@@ -42,6 +42,9 @@ switch ($cookieIdioma)
 $lang =   json_decode(file_get_contents($langPath),true);
 
 
+/*
+
+
 switch (getSubdomain($_SERVER['HTTP_HOST']))
 {
     default:
@@ -50,9 +53,9 @@ switch (getSubdomain($_SERVER['HTTP_HOST']))
         $subdomain="panel";
         break;
 
-}
+}*/
 
-
+$subdomain="panel";
 
 /** Base de datos **/
 
@@ -94,7 +97,7 @@ else
     unset(  $lang["menu"]["repositorios"]);
 }
 
-
+date_default_timezone_set($lang["php_timezone"]);
 /** Preload del sitio **/
 include_once("includes/datasite/preload.php");
 

@@ -26,7 +26,7 @@
             <li class="<?php if($item["active"]){ echo "active";} ?>"><a class="waves-effect waves-light  " style="    padding: 0 32px;" href="<?php echo $item["href"]; ?>"><?php echo $item["texto"]; ?>
                     <?php if($item["icono"])
                     {
-                        ?>       <i style="font-size: 1.6rem;margin-right: 29px" class="fa <?php echo $item["icono"]?> right" aria-hidden="true"></i><?Php
+                        ?>       <i style="font-size: 1.6rem;margin-right:  31px" class="fa <?php echo $item["icono"]?> right" aria-hidden="true"></i><?Php
                     }?>
                 </a>
 
@@ -47,7 +47,7 @@
                 <a style="    padding: 0 32px;" class="waves-effect waves-light collapsible-header"><?php echo $item["texto"]; ?>
                     <?php if($item["icono"])
                     {
-                        ?>       <i style="font-size: 1.6rem;margin-right: 29px" class="fa <?php echo $item["icono"]?> right" aria-hidden="true"></i><?Php
+                        ?>       <i style="font-size: 1.6rem;margin-right:  31px" class="fa <?php echo $item["icono"]?> right" aria-hidden="true"></i><?Php
                     }
                     else
                     {
@@ -66,7 +66,7 @@
                            <li class="<?php if($subitem["active"]){ echo "active";} ?>"><a   href="<?php echo  $subitem["href"];?>"><?php echo  $subitem["texto"];?>
                                    <?php if($item["icono"])
                                    {
-                                       ?>       <i style="font-size: 1.6rem;margin-right: 29px" class="fa <?php echo $item["icono"]?> right" aria-hidden="true"></i><?Php
+                                       ?>       <i style="font-size: 1.6rem;margin-right: 31px" class="fa <?php echo $item["icono"]?> right" aria-hidden="true"></i><?Php
                                    }?>
                                </a></li>
                            <?php

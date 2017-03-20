@@ -10,6 +10,46 @@
 ?>
 
 
+<script>
+
+    var tooltipTimer;
+    function hideTooltip() {
+        var tt=$("#tt");
+
+
+        tooltipTimer = setTimeout(function(){
+
+           tt.fadeOut();
+        },500);
+
+    }
+    function showTooltip(data,e) {
+        clearTimeout(tooltipTimer);
+        var tt=$("#tt");
+        tt.stop();
+        tt.html(data);
+
+
+
+        var keys = Object.keys(e);
+        var x, y;
+        for (var i = 0; i < keys.length; i++) {
+            if (MouseEvent.prototype.isPrototypeOf(e[keys[i]])) {
+                x = e[keys[i]].clientX;
+                y = e[keys[i]].clientY;
+            }
+        }
+
+
+        y=parseInt($(window).scrollTop())+parseInt(y);
+
+            tt.css("left",x);
+            tt.css("top",y+"px");
+        tt.fadeIn();
+
+
+    }
+</script>
 
 <style>
 
@@ -24,9 +64,9 @@
     }
 </style>
 
-<div class="row center" style="height: 100%;padding-top: 50px">
+<div class="row center" style="height: 100%">
 
-
+    <h2>Territorios</h2>
 
 
     <?php
@@ -42,10 +82,10 @@
     ?>
     <div class="row">
 
-        <h2>Territorios</h2>
+
         <div class="col s12">
-            <a class="btn left <?php if(!$_GET["view"]){ echo "active";} ?>" href="territorios.php">Vista por territorios</a>
-            <a class="btn left  <?php if($_GET["view"]=="time"){ echo "active";} ?>" href="territorios.php?view=time">Vista por manzanas</a>
+            <a class="btn col s12 m6 <?php if(!$_GET["view"]){ echo "active";} ?>" href="territorios.php">Vista por territorios</a>
+            <a class="btn col s12 m6  <?php if($_GET["view"]=="time"){ echo "active";} ?>" href="territorios.php?view=time">Vista por manzanas</a>
 
         </div>
 
@@ -86,32 +126,28 @@
 
 
 
+
             <?php foreach ($dataToSkin as $data)
             {
 
 
+
+            $maxDate=null;
+
+
             //$polygons =json_decode($data["territorio_polygons"],true);
-            ?>
 
-
-
-
-
-
-            var polygon=false;
-            var marker= new google.maps.Marker({
+?>
+            var marker<?php echo $data["territorio_numero"];?>= new google.maps.Marker({
                 map: map,
                 visible: true,
                 icon:"https://raw.githubusercontent.com/Concept211/Google-Maps-Markers/master/images/marker_red<?php echo $data["territorio_numero"];?>.png"
             });
-            <?php
 
-
-$maxDate=null;
-
-
-             foreach($data["manzanas"] as $manzana)
+        <?Php
+             foreach($data["manzanas"] as $k=>$manzana)
              {
+
 
 foreach($manzana["reportes"] as $r)//Obtengo el ultimo reporte de la manzana
 {
@@ -142,7 +178,8 @@ $lineColor= $data["territorio_color"];
 ?>
 
 
-            polygon= new google.maps.Polygon({
+
+            var   polygon<?php echo $k?>= new google.maps.Polygon({
 
                 strokeColor:'<?php echo $strokeColor?>',
                 strokeOpacity: 0.7,
@@ -152,7 +189,10 @@ $lineColor= $data["territorio_color"];
                 path:<?php echo $manzana["manzana_polygon"] ?>,
                 map:map
             });
-            <?php
+
+
+
+        <?php
 
 
 
@@ -162,22 +202,19 @@ $lineColor= $data["territorio_color"];
                   if(!$maxDate || $reporteFecha>$maxDate)
              {
 
+               $maxDate=$reporteFecha
 
+               ;?>
 
-
-               $maxDate=$reporteFecha;?>
-
-            marker.setPosition(polygonCenter(polygon));
-
-
-
+             marker<?php echo  $data["territorio_numero"];?>.setPosition(polygonCenter(  polygon<?php echo $k?>));
 
                 <?php
+
 
                  }
                  ?>
 
-            polygon.addListener("click",
+            polygon<?php echo $k?>.addListener("click",
             function () {
 
           
@@ -203,44 +240,83 @@ $lineColor= $data["territorio_color"];
                
 
             });
+            polygon<?php echo $k?>.addListener("mouseover",function(e){
+                var tooltipData="<?php
 
-            <?php
-             }?>
-
-            polygon.addListener("mouseover",function(){
-
-                alert("<?php echo $diasManzana ?>");
-
-            });
-            var infowindow = new google.maps.InfoWindow();
-
-            marker.addListener("click",function () {
-
-
-                var infoHtml= "<a href='territorios.php?id=<?php echo $data["territorio_id"];?>'><h5 style='color:black!important' class='center'><b><?php echo $data["territorio_numero"];?></b></h5>"
-                    + "<span style='color:black;display:block'>" +
-                    "<?php echo $data["territorio_notas"];?>" +
-                    "</span>" +
-                    "<h5 style='color:teal'><?php  if($maxDate){
-
-                        $dias=(time()-$maxDate) / (60 * 60 * 24);
-
-                        date_default_timezone_set($lang["php_timezone"]);
-                        $fecha=date("d/m/Y",$maxDate);
-
-                       $dias = floor($dias);
-                        if($dias!=1)
+                    $lastPreach=date("d/m/Y",$reporteFecha);
+                    $lastPreachDays=ceil( (time()-$reporteFecha) / (60 * 60 * 24));
+                    if(!$reporteFecha)
+                    {
+                        echo  "No predicado";
+                    }
+                    else
+                    {
+                        if($lastPreachDays==1)
                         {
-                            echo "Predicado hace {$dias} dias, <time class='grey-text'>{$fecha}</time>";
+                            echo "Ultima vez predicada el <time class='blue-text'>{$lastPreach}</time>, hace {$lastPreachDays} dia";
                         }
                         else
                         {
-                            echo "Predicado hace {$dias} dia, <time class='grey-text'>{$fecha}</time>";
+                            echo "Ultima vez predicada el <time class='blue-text'>{$lastPreach}</time>, hace {$lastPreachDays} dias";
+                        }
+
+                    }
+
+                    ?>";
+
+
+
+
+                showTooltip(tooltipData,e);
+
+
+            });
+
+            polygon<?php echo $k?>.addListener("mouseout",function(e){
+              hideTooltip();
+
+
+            });
+
+
+
+
+            
+            <?php
+             }?>
+
+
+            var infowindow = new google.maps.InfoWindow();
+
+            marker<?php echo $data["territorio_numero"];?>.addListener("click",function () {
+
+
+                var infoHtml= "<a href='territorios.php?id=<?php echo $data["territorio_id"];?>'><h5 style='color:black!important' class='center'>N°&nbsp;<b><?php echo $data["territorio_numero"];?></b></h5>"
+                    + "<span style='color:black;display:block'>" +
+                    "<?php echo $data["territorio_notas"];?>" +
+                    "</span>" +
+                    "<h6 style='color:teal'><?php  if($maxDate){
+
+                        $dias=(time()-$maxDate) / (60 * 60 * 24);
+
+
+                        $fecha=date("d/m/Y",$maxDate);
+
+                       $dias = ceil($dias);
+
+
+                        if($dias!=1)
+                        {
+                            echo "Territorio predicado hace {$dias} dias, <time class='grey-text'>{$fecha}</time>";
+                        }
+                        else
+                        {
+                            echo "Territorio predicado hace {$dias} dia, <time class='grey-text'>{$fecha}</time>";
                         }
 
 
 
-                    }else{echo "No predicado";}?></h5>" +
+                    }else{echo "Territorio no predicado";}?></h6>" +
                     "<a class='btn'  style='width:100%!important;color:white!important;margin-top:10px!important;' href='territorios-add.php?id=<?php echo $data["territorio_id"];?>'>Editar</a><br>"+
                     "<a class='btn'  style='width:100%!important;color:white!important;margin-top:10px!important;' href='territorios-data.php?id=<?php echo $data["territorio_id"];?>&act=delete'>Eliminar</a><br>"+
                     "</a>";

@@ -1,16 +1,28 @@
 
 <script>
+   var  picker;
+    $(document).ready(function () {
+         picker= $('.datepicker').pickadate({
+            selectMonths: true, // Creates a dropdown to control month
+            selectYears: 15 // Creates a dropdown of 15 years to control year
+        });
+        picker= picker.pickadate('picker');
+    });
+
     $(document).on("submit","#report",function () {
+
 
 
         var array= [];
 
         var time = $(this).find("[name='reporte_tiempo']").val();
 
+        var date=picker.get('select').obj.getTime()/1000;
+
         $.each(selectedManzanas,function (k,v) {
 
 
-            array.push({reporte_manzana:v,reporte_tiempo:time});
+            array.push({reporte_manzana:v,reporte_tiempo:time,reporte_fecha:date});
 
 
         });
@@ -28,7 +40,7 @@
                     console.log(res);
                     if(res)
                     {
-                   //     location.reload();
+                     location.reload();
                     }
                     else
                     {
@@ -45,11 +57,17 @@
     })
 </script>
 
-<div  class="row" >
+<div  class="row " >
 
-    <form id="report" class="input-field inline col s12" style="width: 100%">
+    <form id="report" class=" col s12  center" style="width: 100%">
 
-        <div class="col s12 m9 l10">
+        <div class="col s12 m5 l5 input-field  inline">
+
+            <input id="report-date" name="reporte_fecha" type="date" class="datepicker">
+            <label for="report-date" >Fecha</label>
+        </div>
+        <div class="col s12 m4 l5 input-field inline
+         ">
             <input name="reporte_tiempo" id="report" type="text" >
             <label for="report" >Minutos a informar</label>
         </div>

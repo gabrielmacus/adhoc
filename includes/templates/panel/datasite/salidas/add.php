@@ -18,8 +18,15 @@ $(document).on("submit","form", function () {
             data:data,
             success:function(res)
             {
-                console.log(res);
-            },
+                if(res)
+                {
+                    location.reload();
+                }
+                else {
+                    error();
+                }
+            }
+            ,
             error:error
         }
     );
@@ -110,8 +117,11 @@ $(document).on("submit","form", function () {
             <div class="input-field col s12 ">
 
                 <h5>Punto de encuentro</h5>
-                <div style="position: relative">
-                    <input name="salida_encuentro_string" id="direccion" class="col s12 " placeholder="Punto de encuentro..." >
+                <div  class="input-field" style="position: relative">
+
+                    <input name="salida_encuentro_string" id="direccion" class="col s12 autocomplete" placeholder="Punto de encuentro..." >
+
+                    <label for="direccion"></label>
                 </div>
 
                 <h5>Marcar en el mapa</h5>
@@ -143,7 +153,13 @@ $(document).on("submit","form", function () {
 
     function initMap() {
 
-
+        $('input.autocomplete').autocomplete({
+            data: {
+                "Apple": null,
+                "Microsoft": null,
+                "Google": 'http://placehold.it/250x250'
+            }
+        });
 
         var geocoder = new google.maps.Geocoder();
         var map = new google.maps.Map(document.getElementById('map'), {

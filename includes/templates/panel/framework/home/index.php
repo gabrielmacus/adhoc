@@ -2,10 +2,14 @@
 
     <div class="col s12 center">
 
-        <h1>Bienvenido, <span class="teal-text">{{user.usuario_nick}}</span></h1>
+        <style>
+            .welcome
+            {
+                font-size: calc(10px + 4.7vw);
+            }
 
+        </style>
 
-
-        <h2 class="grey-text">Estas son las estadisticas actualizadas...</h2>
+        <h1  class="welcome">Bienvenido, <span class="teal-text">{{user.usuario_nick}}</span></h1>
     </div>
 </div>
