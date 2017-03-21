@@ -24,4 +24,12 @@ $conductores = $publicadorDAO->read(array(
     "publicador_conductor"=>1
 ));
 
+$familias =$publicadorDAO->read(array()," GROUP BY publicador_apellido");
+
+foreach($familias as $k=>$v)
+{
+    $familias[$lang["family"]." ".$familias[$k]["publicador_apellido"]]=null;
+}
+
+
 require ("includes/templates/{$subdomain}/comun/estructura.php");

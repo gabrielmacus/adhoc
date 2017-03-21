@@ -85,6 +85,21 @@
     "9":"Septiembre","10":"Octubre",
     "11":"Noviembre","12":"Diciembre"
   }
-  ,"php_timezone":"America/Argentina/Buenos_Aires"
+  ,"php_timezone":"America/Argentina/Buenos_Aires",
+  "pickadate":
+  {
+    "monthsFull": [ "Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre" ],
+    "monthsShort": [ "Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"],
+    "weekdaysFull": ["Lunes","Martes","Miercoles","Jueves","Viernes"],
+    "weekdaysShort": ["Lun","Mar","Mie","Jue","Vie" ],
+    "selectMonths": true,
+    "selectYears": 15,
+    "today": "Hoy",
+    "clear": "Borrar",
+    "close": "Cerrar",
+  },
+  "family":"Familia"
+
+
 
 }

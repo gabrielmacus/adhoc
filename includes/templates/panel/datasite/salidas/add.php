@@ -151,14 +151,12 @@ $(document).on("submit","form", function () {
 <script>
     var puntoEncuentro;
 
+
+
     function initMap() {
 
         $('input.autocomplete').autocomplete({
-            data: {
-                "Apple": null,
-                "Microsoft": null,
-                "Google": 'http://placehold.it/250x250'
-            }
+            data: <?Php echo json_encode($familias); ?>
         });
 
         var geocoder = new google.maps.Geocoder();
