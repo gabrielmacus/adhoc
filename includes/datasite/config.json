@@ -14,8 +14,8 @@
   },
   "secret":"uiopasd"
   ,
-  "address":"http://localhost/ad-hoc",
-  "panelAddress":"http://panel.localhost:8080/adhoc",
+  "address":"http://localhost/adhoc",
+  "panelAddress":"http://localhost:8080/adhoc",
   "name":"??",
   "version":0.1
 

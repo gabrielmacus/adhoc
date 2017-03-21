@@ -1,4 +1,15 @@
 
+
+<?php
+
+foreach($dataToSkin as $item)
+{
+
+}
+?>
+
+
+
 <div class="row">
     <ul class="collection">
         <?php
