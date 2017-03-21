@@ -11,8 +11,33 @@ switch ($_GET["act"])
     case 'edit':
 
 
-        echo json_encode($DAO->upsert($_POST));
 
+        $territoriosDAO = new \DAO\CoreDAO($db,"salidas_territorios");
+
+        $territorios=$_POST["salida_territorios"];
+
+        unset($_POST["salida_territorios"]);
+
+
+        $res=$DAO->upsert($_POST);
+
+        if($res)
+        {
+            $salidasTerritorio=array();
+            foreach ($territorios as $k=>$v)
+            {
+                $salidasTerritorio[]= array(
+                "territorio"=>$v,
+                "salida"=>$res
+            );
+           }
+            $territoriosDAO->upsert(array("array"=>$salidasTerritorio));
+
+
+        }
+
+
+    echo json_encode($res);
         break;
 
     case 'delete':

@@ -17,8 +17,6 @@ else
     $site="datasite/salidas/modal";
 }
 
-
-
 $sqlExtra =" ORDER BY salida_mes,salida_dia,salida_hora ASC";
 $id=$_GET["id"];
 
@@ -42,7 +40,7 @@ $padding=4;
 
 $DAO =new \DAO\SalidaDAO($db,"salidas");
 
-$joinSQL = "";
+$joinSQL = " LEFT JOIN salidas_territorios ON salida=salida_id LEFT JOIN territorios ON territorio = territorio_id";
 if(isset($id))
 {
     $dataToSkin=  $DAO->read(array(
@@ -60,6 +58,7 @@ $pager = $DAO->getPager($limit,$page,$padding);
 $lang["menu"]["ministerio"]["active"]=true;
 
 $lang["menu"]["ministerio"]["items"]["list"]["active"]=true;
+
 
 
 require ("includes/templates/{$subdomain}/comun/estructura.php");

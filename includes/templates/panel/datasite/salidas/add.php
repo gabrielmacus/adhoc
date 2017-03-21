@@ -16,11 +16,13 @@ $(document).on("submit","form", function () {
             method:"post",
             url:"salidas-data.php?act=add",
             data:data,
+            dataType:"json",
             success:function(res)
             {
+                console.log(res);
                 if(res)
                 {
-                    location.reload();
+                    ///location.reload();
                 }
                 else {
                     error();
@@ -55,7 +57,7 @@ $(document).on("submit","form", function () {
 <div class="row">
     <form class="col s12">
         <div class="row">
-            <div class="input-field col s12">
+            <div class="input-field col s12 m6">
 
                 <input hidden name="salida_id">
                 <select name="salida_conductor">
@@ -70,6 +72,26 @@ $(document).on("submit","form", function () {
                     <option value="<?php echo $k?>"><?php echo $conductor["publicador_apellido"]." ,".$conductor["publicador_nombre"]?></option>
                     <?php
                 }?>
+                </select>
+
+
+            </div>
+
+            <div class="input-field col s12 m6">
+
+                <input hidden name="salida_id">
+                <select multiple name="salida_territorios[]">
+                    <option   disabled selected>Territorios...</option>
+                    <?php
+
+                    foreach ($territorios as $k=>$territorio)
+                    {
+
+                        ?>
+
+                        <option value="<?php echo $k?>"><?php echo $territorio["territorio_numero"];?></option>
+                        <?php
+                    }?>
                 </select>
 
 
@@ -244,8 +266,28 @@ $(document).on("submit","form", function () {
         <?php
         if($obj)
         {
-        ?>    var obj = <?php echo $obj ?>;
 
+        foreach ($obj as $i)
+        {
+            foreach ($i as $j)
+            {
+                foreach ($j as $x)
+                {
+                    foreach ($x as $z){
+                        $obj = $z;
+
+                    }
+
+                    break;
+                }
+
+
+
+            }
+        }
+        ?>    var obj = <?php echo json_encode($obj,JSON_NUMERIC_CHECK) ?>;
+
+        console.log(obj);
         $.each(obj,function(k,v)
         {
 
@@ -257,7 +299,21 @@ $(document).on("submit","form", function () {
 
                 case 'salida_encuentro':
 
-                    markLocation(JSON.parse(v));
+                    var loc =JSON.parse(v);
+                    console.log(loc);
+                    markLocation(loc);
+                    break;
+                case 'territorios':
+
+                    $.each(v,function (k,v) {
+
+
+                        $("[name='salida_territorios[]'] option[value='"+v["territorio_id"]+"']").attr("selected",true);
+
+
+                    });
+
+
                     break;
             }
 
