@@ -7,7 +7,7 @@
   },
   "_db":
   {
-    "name":"football",
+    "name":"cm",
     "host":"localhost",
     "user":"root",
     "password":""

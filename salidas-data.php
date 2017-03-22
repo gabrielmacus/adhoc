@@ -23,6 +23,9 @@ switch ($_GET["act"])
 
         if($res)
         {
+
+    
+
             $salidasTerritorio=array();
             foreach ($territorios as $k=>$v)
             {
@@ -31,13 +34,30 @@ switch ($_GET["act"])
                     "salida"=>$res
                 );
 
+
                 if($v["id"])
                 {
-                    $t["salidas_territorio_id"]=$v["id"];
+                    $t["salidas_territorios_id"]=$v["id"];
                 }
-                $salidasTerritorio[]= $t;
+
+                if(!$v["delete"])
+                {
+                    $t= $territoriosDAO->upsert($t);
+                }
+                else
+                {
+                    $t= $territoriosDAO->delete(
+                        array(
+                            "salidas_territorios_id"=>$v["id"]
+                        )
+                    );
+
+                }
+
+
+               // $salidasTerritorio[]= $t;
            }
-          $res=  $territoriosDAO->upsert(array("array"=>$salidasTerritorio));
+        //    $t =$territoriosDAO->upsert(array("array"=>$salidasTerritorio));
 
 
         }

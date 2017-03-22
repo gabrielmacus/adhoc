@@ -36,11 +36,11 @@
 
 
                         <li style="padding-left: 35px" class="header collection-item row  hide-on-small-only">
-                            <div class="col s12 m3">
+                            <div class="col s12 m2">
                                 <b>Dia</b>
                             </div>
 
-                            <div class="col s12 m3">
+                            <div class="col s12 m2">
                                 <b>Hora</b>
                             </div>
                             <div class="col s12 m3">
@@ -49,6 +49,10 @@
 
                             <div class="col s12 m3">
                                 <b>Punto de encuentro</b>
+                            </div>
+
+                            <div class="col s12 m2">
+                                <b>Notas</b>
                             </div>
                         </li>
 
@@ -65,11 +69,11 @@
                             <li class="collection-item row " style="position: relative">
 
 
-                                <div class="col s6 m3 data" >
+                                <div class="col s6 m2 data" >
                                     <?php echo  $lang["dias"][$item["salida_dia"]];?>
                                 </div>
 
-                                <div class="col s6 m3 data">
+                                <div class="col s6 m2 data">
                                     <time><?php echo  $item["salida_hora"];?></time>
                                 </div>
 
@@ -94,11 +98,17 @@
 
                                     ?>
                                 </div>
-                                <div class="col s6 m3 data">
+                                <div class="col s6 m2 data">
                                     <?php
                                     $loc = json_decode($item["salida_encuentro"],true);
                                     ?>
                                     <a data-fancybox="iframe" class="truncate tooltipped" data-tooltip="<?php echo  $item["salida_encuentro_string"];?>" href="map.php?lat=<?php echo $loc["lat"] ?>&lng=<?php echo $loc["lng"]?>"><?php echo  $item["salida_encuentro_string"];?></a>
+                                </div>
+
+                                <div  class="col s6 m2 data">
+                                    <p>
+                                        <?php echo $item["salida_notas"];?>
+                                    </p>
                                 </div>
 
 

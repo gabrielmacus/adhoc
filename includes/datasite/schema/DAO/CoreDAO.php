@@ -276,7 +276,58 @@ class CoreDAO
 
    protected function update($object)
     {
-        $sql = "UPDATE {$this->table} SET ";
+
+
+        if(!$object["array"])
+        { $sql = "UPDATE {$this->table} SET ";
+
+
+            foreach ($object as $k=>$v)
+            { if(!is_array($v))
+            {
+                $sql.="{$k}='{$v}',";
+            }
+
+            }
+            $sql = rtrim($sql,",");
+            $sql.=" WHERE {$this->idField}={$object[$this->idField]}";
+
+        }
+        else
+        {
+
+
+            $object = $object["array"];
+
+            $keys= implode(",",$this->getKeys($object[0]));
+
+            $sql ="UPDATE {$this->table}  ";
+
+            $query="";
+            foreach ($keys as $key)
+            {
+                $query.="SET {$key} = CASE ";
+
+                foreach ($object as $item)
+                {
+
+                    $query.=" WHEN {$this->idField}={$item[$this->idField]} THEN {$item[$key]};";
+
+                }
+
+                $query.=" ELSE {$key},";
+            }
+
+            $query=rtrim($query,",");
+
+            $sql.=" {$query} END";
+
+
+
+        }
+
+
+  /*      $sql = "UPDATE {$this->table} SET ";
 
 
         foreach ($object as $k=>$v)
@@ -288,7 +339,7 @@ class CoreDAO
         }
         $sql = rtrim($sql,",");
         $sql.=" WHERE {$this->idField}={$object[$this->idField]}";
-
+*/
         if(!$this->db->query($sql))
         {
             return false;
@@ -308,7 +359,7 @@ class CoreDAO
 
 
 
-            return $sql;//$object[$this->idField];
+            return $object[$this->idField];
     }
 
 
@@ -498,7 +549,7 @@ class CoreDAO
             return $this->db->insert_id;
         }
 
-        return $sql;
+        return false;
 
     }
 
@@ -515,6 +566,7 @@ class CoreDAO
         }
         else
         {
+
             $res=  $this->insert($object);
         }
 
@@ -603,7 +655,7 @@ class CoreDAO
         {
             $res=true;
         }
-        return $res;
+        return $sql;
 
 
     }

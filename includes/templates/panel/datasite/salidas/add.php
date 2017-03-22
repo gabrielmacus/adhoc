@@ -13,6 +13,12 @@ $(document).on("submit","form", function () {
     $("#salida_territorios :selected").each(function () {
      data.salida_territorios.push({numero:$(this).val(),id:$(this).data("id")});
     });
+    $("#salida_territorios :not(:selected)").each(function () {
+        if($(this).data("id"))
+        {
+            data.salida_territorios.push({delete:$(this).val(),delete:true,id:$(this).data("id")});
+        }
+    });
 
     console.log(data);
 
