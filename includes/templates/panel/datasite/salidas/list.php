@@ -98,7 +98,7 @@
 
                                     ?>
                                 </div>
-                                <div class="col s6 m2 data">
+                                <div class="col s6 m3 data">
                                     <?php
                                     $loc = json_decode($item["salida_encuentro"],true);
                                     ?>
