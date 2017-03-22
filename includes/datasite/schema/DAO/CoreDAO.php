@@ -308,7 +308,7 @@ class CoreDAO
 
 
 
-            return $object[$this->idField];
+            return $sql;//$object[$this->idField];
     }
 
 
@@ -498,7 +498,7 @@ class CoreDAO
             return $this->db->insert_id;
         }
 
-        return false;
+        return $sql;
 
     }
 

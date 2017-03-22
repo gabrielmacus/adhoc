@@ -35,4 +35,8 @@ foreach($familias as $k=>$v)
 $territoriosDAO =new TerritorioDAO($db,"territorios");
 $territorios = $territoriosDAO->read(array()," GROUP BY territorio_numero");
 
+
+
+
+
 require ("includes/templates/{$subdomain}/comun/estructura.php");

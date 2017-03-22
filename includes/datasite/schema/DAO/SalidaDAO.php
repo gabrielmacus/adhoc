@@ -24,7 +24,7 @@ class SalidaDAO extends CoreDAO
             {
 
                 default:
-                    $result[$item["salida_anio"]][$item["salida_mes"]][$item["salida_dia"]][$item[$this->idField]][$clave]=$valor;
+                    $result[$item["salida_anio"]][$item["salida_mes"]][$item[$this->idField]][$clave]=$valor;
 
 
                 break;
@@ -37,8 +37,9 @@ class SalidaDAO extends CoreDAO
                             $territorio["territorio_numero"]=$item["territorio_numero"];
                             $territorio["territorio_notas"]=$item["territorio_notas"];
                             $territorio["territorio_color"]=$item["territorio_color"];
+                            $territorio["salidas_territorios_id"]=$item["salidas_territorios_id"];
 
-                            $result[$item["salida_anio"]][$item["salida_mes"]][$item["salida_dia"]][$item[$this->idField]]["territorios"][$item["territorio_id"]]=$territorio;
+                            $result[$item["salida_anio"]][$item["salida_mes"]][$item[$this->idField]]["territorios"][$item["territorio_id"]]=$territorio;
 
                         }
                         else
@@ -48,6 +49,7 @@ class SalidaDAO extends CoreDAO
                             unset($item["territorio_numero"]);
                             unset($item["territorio_notas"]);
                             unset($item["territorio_color"]);
+                            unset($item["salidas_territorios_id"]);
 
                         }
 
@@ -65,7 +67,7 @@ class SalidaDAO extends CoreDAO
                             $archivo["archivo_data"]=json_decode($item["archivo_data"],true);
                             $archivo["archivo_repositorio"]=$item["archivo_repositorio"];
                             $archivo["archivos_objetos_id"]=$item["archivos_objetos_id"];
-                            $result[$item["salida_anio"]][$item["salida_mes"]][$item["salida_dia"]][$item[$this->idField]]["archivos"][$item["archivo_id"]]=$archivo;
+                            $result[$item["salida_anio"]][$item["salida_mes"]][$item[$this->idField]]["archivos"][$item["archivo_id"]]=$archivo;
 
                         }
                         else

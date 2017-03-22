@@ -4,13 +4,18 @@
 
 $(document).on("submit","form", function () {
 
-    var data =$(this).serialize();
-    if(puntoEncuentro)
-    {
-        data+="&salida_encuentro="+JSON.stringify(puntoEncuentro);
-    }
+    var data =$(this).serializeFormJSON();
+
+    data.salida_encuentro=JSON.stringify(puntoEncuentro);
+
+    data.salida_territorios=[];
+
+    $("#salida_territorios :selected").each(function () {
+     data.salida_territorios.push({numero:$(this).val(),id:$(this).data("id")});
+    });
 
     console.log(data);
+
     $.ajax(
         {
             method:"post",
@@ -79,8 +84,8 @@ $(document).on("submit","form", function () {
 
             <div class="input-field col s12 m6">
 
-                <input hidden name="salida_id">
-                <select multiple name="salida_territorios[]">
+
+                <select multiple  id="salida_territorios">
                     <option   disabled selected>Territorios...</option>
                     <?php
 
@@ -188,14 +193,6 @@ $(document).on("submit","form", function () {
             gestureHandling: 'cooperative'
         });
 
-        navigator.geolocation.getCurrentPosition(function(position) {
-            var pos = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-            };
-
-            map.setCenter(pos);
-        });
 
 
         var  marker = new google.maps.Marker({
@@ -273,10 +270,7 @@ $(document).on("submit","form", function () {
             {
                 foreach ($j as $x)
                 {
-                    foreach ($x as $z){
-                        $obj = $z;
-
-                    }
+                    $obj = $x;
 
                     break;
                 }
@@ -308,8 +302,9 @@ $(document).on("submit","form", function () {
                     $.each(v,function (k,v) {
 
 
-                        $("[name='salida_territorios[]'] option[value='"+v["territorio_id"]+"']").attr("selected",true);
-
+                        var opt=    $("#salida_territorios option[value='"+v["territorio_id"]+"']");
+                        opt.attr("selected",true);
+                        opt.attr("data-id",v["salidas_territorios_id"]);
 
                     });
 

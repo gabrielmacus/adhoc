@@ -26,12 +26,18 @@ switch ($_GET["act"])
             $salidasTerritorio=array();
             foreach ($territorios as $k=>$v)
             {
-                $salidasTerritorio[]= array(
-                "territorio"=>$v,
-                "salida"=>$res
-            );
+                $t=array(
+                    "territorio"=>$v["numero"],
+                    "salida"=>$res
+                );
+
+                if($v["id"])
+                {
+                    $t["salidas_territorio_id"]=$v["id"];
+                }
+                $salidasTerritorio[]= $t;
            }
-            $territoriosDAO->upsert(array("array"=>$salidasTerritorio));
+          $res=  $territoriosDAO->upsert(array("array"=>$salidasTerritorio));
 
 
         }
