@@ -13,23 +13,23 @@
 ?>
 
             <ul class="collection with-header" style="width: 100%">
-                <li class="collection-header"><h4><?PHP  var_dump($k)?></h4></li>
-                <li class="collection-item row">
-                    <div class="col s12 m6">
-                        <strong class="chip">7:30 p.m</strong>
-                    </div>
-                </li>
-                <li class="collection-item">Alvin</li>
-                <li class="collection-item">Alvin</li>
-                <li class="collection-item">Alvin</li>
+                <li class="collection-header"><h4><?php  echo  $lang["meses"][$k]?></h4></li>
+
+                <?php
+                foreach ($v as $item)
+                {
+                    var_dump($v);
+                    ?>
+                    <li class="collection-item row">
+                        <div class="col s12 m6">
+                            <?php echo  $item["salida_hora"];?>
+                        </div>
+                    </li>
+                    <?php
+                }
+                ?>
             </ul>
             <?php
-
-            foreach ($v as $item)
-            {
-
-            }
-
 
         }
     }
