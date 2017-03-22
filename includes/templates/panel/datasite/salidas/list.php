@@ -107,7 +107,7 @@
 
                                 <div  class="col s6 m2 data">
                                     <p>
-                                        <?php echo $item["salida_notas"];?>
+                                        <?php echo $item["salida_observaciones"];?>
                                     </p>
                                 </div>
 
