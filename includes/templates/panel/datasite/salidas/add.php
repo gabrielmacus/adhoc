@@ -13,6 +13,7 @@ $(document).on("submit","form", function () {
     $("#salida_territorios :selected").each(function () {
      data.salida_territorios.push({numero:$(this).val(),id:$(this).data("id")});
     });
+
     $("#salida_territorios :not(:selected)").each(function () {
         if($(this).data("id"))
         {
@@ -33,7 +34,7 @@ $(document).on("submit","form", function () {
                 console.log(res);
                 if(res)
                 {
-                    ///location.reload();
+                    location.reload();
                 }
                 else {
                     error();
@@ -299,9 +300,13 @@ $(document).on("submit","form", function () {
 
                 case 'salida_encuentro':
 
-                    var loc =JSON.parse(v);
-                    console.log(loc);
-                    markLocation(loc);
+                    if(v)
+                    {    var loc =JSON.parse(v);
+                        console.log(loc);
+                        markLocation(loc);
+
+                    }
+
                     break;
                 case 'territorios':
 

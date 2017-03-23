@@ -55,6 +55,8 @@
                     <a data-fancybox="image" href="{{a.archivo_data.sizes.o.completeUrl}}" class="title valign">{{a.archivo_data.originalName}}</a>
                     <img style="object-fit: cover" data-ng-src="{{a.archivo_data.sizes.p.completeUrl}}" alt="" class="circle">
 
+
+
                 <a href="#!" class="secondary-content"><i class="fa fa-times" aria-hidden="true"></i></a>
             </li>
         </ul>
@@ -65,7 +67,7 @@
         <a  href="files.php?rep=<?php foreach ($repositorios as $k=>$v){echo $k; break;}?>&modal=true&cache=false" data-lity  class="btn iframe">Adjuntar archivo</a>
         &nbsp;
         <a id="marcar-territorio"  class="btn">Marcar</a>
-        &nbsp; <button  type="submit" class="btn">Enviar</button>
+        &nbsp; <button  type="submit" class="btn">Guardar</button>
     </div>
 
 

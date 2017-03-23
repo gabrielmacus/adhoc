@@ -7,6 +7,5 @@
  */
 
 
-
 $db=mysqli_connect($config["db"]["host"],$config["db"]["user"],$config["db"]["password"],$config["db"]["name"]);
 //$db->autocommit(false);

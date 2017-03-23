@@ -72,6 +72,8 @@ include_once("includes/framework/classes/ImageResize.php");
 include_once("includes/framework/Mustache/Autoloader.php");
 include_once("includes/framework/classes/JWT/JWT.php");
 
+/** Testeando un poco **/
+include_once("includes/framework/classes/DAO/Persona/PersonaDAO.php");
 
 Mustache_Autoloader::register();
 $mustache = new Mustache_Engine();

@@ -562,6 +562,8 @@ class CoreDAO
 
         if($object[$this->idField])
         {
+            
+
            $res= $this->update($object);
         }
         else
@@ -655,7 +657,7 @@ class CoreDAO
         {
             $res=true;
         }
-        return $sql;
+        return $res;
 
 
     }
