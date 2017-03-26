@@ -13,6 +13,7 @@ class Persona
     protected $age;
     protected $id;
 
+
     /**
      * Persona constructor.
      * @param $name
@@ -20,12 +21,16 @@ class Persona
      * @param $age
      * @param $id
      */
-    public function __construct($name, $surname, $age, $id)
+    public function __construct($name, $surname, $age, $id=false)
     {
         $this->name = $name;
         $this->surname = $surname;
         $this->age = $age;
-        $this->id = $id;
+        if($id)
+        {
+            $this->id = $id;
+        }
+
     }
 
 

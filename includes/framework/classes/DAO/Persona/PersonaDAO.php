@@ -7,31 +7,34 @@
  * Time: 01:13 PM
  */
 
-require_once ($_SERVER["DOCUMENT_ROOT"]."/ad-hoc/includes/framework/classes/DAO/Persona/IPersona.php");
-require_once ($_SERVER["DOCUMENT_ROOT"]."/ad-hoc/includes/framework/classes/DAO/Persona/Persona.php");
-require_once ($_SERVER["DOCUMENT_ROOT"]."/ad-hoc/includes/framework/classes/DAO/DataSource.php");
+require_once ($_SERVER["DOCUMENT_ROOT"]."/adhoc/includes/framework/classes/DAO/Persona/IPersona.php");
+require_once ($_SERVER["DOCUMENT_ROOT"]."/adhoc/includes/framework/classes/DAO/Persona/Persona.php");
+require_once ($_SERVER["DOCUMENT_ROOT"]."/adhoc/includes/framework/classes/DAO/DataSource.php");
 class PersonaDAO implements IPersona
 {
     
     protected $dataSource;
+    protected $tableName;
 
     protected $personas= array();
 
-    function __construct(DataSource $dataSource)
+    function __construct(DataSource $dataSource,$tableName="personas")
     {
         $this->dataSource=$dataSource;
+        $this->tableName=$tableName;
 
     }
 
     public function insertPersona(Persona $p)
     {
-        $sql = "INSERT INTO personas (persona_name,persona_surname,persona_age) VALUES (:persona_name,:persona_surname,:persona_age)";
+        $sql = "INSERT INTO personas (persona_id,persona_name,persona_surname,persona_age) VALUES (:persona_id,:persona_name,:persona_surname,:persona_age)";
         
         $res= $this->dataSource->runUpdate($sql,
             array(
                ":persona_name"=>$p->getName(),
                 ":persona_surname"=>$p->getSurname(),
-                ":persona_age"=>$p->getAge()
+                ":persona_age"=>$p->getAge(),
+                ":persona_id"=>$p->getId()
             ));
         return $res;
     }

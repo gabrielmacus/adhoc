@@ -74,6 +74,8 @@ include_once("includes/framework/classes/JWT/JWT.php");
 
 /** Testeando un poco **/
 include_once("includes/framework/classes/DAO/Persona/PersonaDAO.php");
+include_once("includes/framework/classes/DAO/Usuario/UserDAO.php");
+
 
 Mustache_Autoloader::register();
 $mustache = new Mustache_Engine();
