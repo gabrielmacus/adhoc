@@ -8,4 +8,4 @@ $usuarioDAO = new UserDAO($ds);
 
 $usuario= new User(null,null,null,"gabrielmacus@gmail.com","sercan02","gabi2012");
 
-var_dump($usuarioDAO->insertUsuario($usuario));
+var_dump($usuarioDAO->selectUsuarios());
