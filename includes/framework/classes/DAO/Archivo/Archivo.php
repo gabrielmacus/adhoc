@@ -14,23 +14,122 @@ class Archivo
     protected $extension;
     protected $mime;
     protected $path;
+    protected $creation;
+    protected $tmpPath;
+    protected $modification;
+    protected $id;
+    protected $config;
 
     /**
      * Archivo constructor.
      * @param $size
      * @param $name
-     * @param $extension
      * @param $mime
-     * @param $path
+     * @param $tmpPath
+     * @param $creation
+     * @param $modification
+     * @param $id
      */
-    public function __construct($size, $name, $extension, $mime, $path)
+    public function __construct($size, $name, $mime, $tmpPath,$creation=false, $modification=false,$id=false)
     {
+
         $this->size = $size;
         $this->name = $name;
-        $this->extension = $extension;
+        $ext = explode(".",$name);
+        $this->extension  = $ext[count($ext)-1];
         $this->mime = $mime;
-        $this->path = $path;
+        $this->tmpPath=$tmpPath;
+        $this->creation = $creation;
+        $this->modification = $modification;
+        $this->id = $id;
     }
+
+
+    /**
+     * @return mixed
+     */
+    public function getTmpPath()
+    {
+        return $this->tmpPath;
+    }
+
+    /**
+     * @param mixed $tmpPath
+     */
+    public function setTmpPath($tmpPath)
+    {
+        $this->tmpPath = $tmpPath;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getConfig()
+    {
+        return $this->config;
+    }
+
+    /**
+     * @param mixed $config
+     */
+    public function setConfig($config)
+    {
+        $this->config = $config;
+    }
+
+
+
+
+    /**
+     * @return bool
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param bool $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+
+
+    /**
+     * @return mixed
+     */
+    public function getCreation()
+    {
+        return $this->creation;
+    }
+
+    /**
+     * @param mixed $creation
+     */
+    public function setCreation($creation)
+    {
+        $this->creation = $creation;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getModification()
+    {
+        return $this->modification;
+    }
+
+    /**
+     * @param mixed $modification
+     */
+    public function setModification($modification)
+    {
+        $this->modification = $modification;
+    }
+
 
     /**
      * @return mixed

@@ -25,7 +25,7 @@ class UserDAO implements IUser
      * @param $dataSource
      * @param $tableName
      */
-    public function __construct($dataSource, $tableName="usuarios")
+    public function __construct(DataSource $dataSource, $tableName="usuarios")
     {
         $this->dataSource = $dataSource;
         $this->tableName = $tableName;
