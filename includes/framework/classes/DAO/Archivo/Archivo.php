@@ -13,12 +13,14 @@ class Archivo
     protected $name;
     protected $extension;
     protected $mime;
-    protected $path;
+    protected $versions=array();
     protected $creation;
     protected $tmpPath;
     protected $modification;
     protected $id;
     protected $config;
+    protected $repositorio;
+    protected  $path;
 
     /**
      * Archivo constructor.
@@ -28,9 +30,11 @@ class Archivo
      * @param $tmpPath
      * @param $creation
      * @param $modification
+     * @param $repositorio
      * @param $id
      */
-    public function __construct($size, $name, $mime, $tmpPath,$creation=false, $modification=false,$id=false)
+    
+    public function __construct($size, $name, $mime, $tmpPath,Repositorio $repositorio,$path=false,$creation=false, $modification=false,$id=false)
     {
 
         $this->size = $size;
@@ -42,9 +46,46 @@ class Archivo
         $this->creation = $creation;
         $this->modification = $modification;
         $this->id = $id;
+        $this->repositorio=$repositorio;
+        $this->path=$path;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
+     * @param mixed $path
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
     }
 
 
+
+    /**
+     * @return Repositorio
+     */
+    public function getRepositorio()
+    {
+        return $this->repositorio;
+    }
+
+    /**
+     * @param Repositorio $repositorio
+     */
+    public function setRepositorio($repositorio)
+    {
+        $this->repositorio = $repositorio;
+    }
+
+
+    
     /**
      * @return mixed
      */
@@ -95,7 +136,6 @@ class Archivo
     {
         $this->id = $id;
     }
-
 
 
     /**
@@ -196,21 +236,21 @@ class Archivo
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getPath()
+    public function getVersions()
     {
-        return $this->path;
+        return json_encode($this->versions);
     }
 
     /**
-     * @param mixed $path
+     * @param array $versions
      */
-    public function setPath($path)
+    public function setVersions($versions)
     {
-        $this->path = $path;
+        $this->versions = $versions;
     }
 
-
+   
     
 }

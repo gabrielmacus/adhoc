@@ -69,7 +69,7 @@ class UserDAO implements IUser
 
     public function selectUsuarios()
     {
-        $sql = "SELECT * FROM usuarios";
+        $sql = "SELECT * FROM {$this->tableName}";
 
 
         $res= $this->dataSource->runQuery($sql,array(),function($data){

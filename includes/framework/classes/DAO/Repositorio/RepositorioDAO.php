@@ -21,7 +21,7 @@ class RepositorioDAO implements IRepositorio
      * @param $dataSource
      * @param $tableName
      */
-    public function __construct(DataSource $dataSource, $tableName)
+    public function __construct(DataSource $dataSource, $tableName="repositorios")
     {
         $this->dataSource = $dataSource;
         $this->tableName = $tableName;
@@ -32,17 +32,82 @@ class RepositorioDAO implements IRepositorio
 
     public function insertRepositorio(Repositorio $r)
     {
-        // TODO: Implement insertRepositorio() method.
+        $sql = "INSERT INTO  {$this->tableName} 
+ (repositorio_id,repositorio_name,repositorio_path,repositorio_host,repositorio_user,repositorio_pass,repositorio_port,repositorio_creation,repositorio_modification)
+ VALUES (:repositorio_id,:repositorio_name,:repositorio_path,:repositorio_host,:repositorio_user,:repositorio_pass,:repositorio_port,:repositorio_creation,:repositorio_modification)";
+
+        if(!$r->getCreation())
+        {
+            $r->setCreation(time());
+        }
+        if(!$r->getModification())
+        {
+            $r->setModification(time());
+        }
+
+        $res= $this->dataSource->runUpdate($sql,
+            array(
+                ":repositorio_id"=>$r->getId(),
+                ":repositorio_name"=>$r->getName(),
+                ":repositorio_path"=>$r->getPath(),
+                ":repositorio_host"=>$r->getHost(),
+                ":repositorio_user"=>$r->getUser(),
+                ":repositorio_pass"=>$r->getPass(),
+                ":repositorio_port"=>$r->getPort(),
+                ":repositorio_creation"=>$r->getCreation(),
+                ":repositorio_modification"=>$r->getModification()
+            )
+        );
+        return $res;
     }
 
     public function selectRepositorios()
     {
-        // TODO: Implement selectRepositorios() method.
+
+        $sql = "SELECT * FROM {$this->tableName}";
+
+
+        $res= $this->dataSource->runQuery($sql,array(),function($data){
+
+         $r =new Repositorio($data["repositorio_host"],$data["repositorio_user"],
+             $data["repositorio_pass"],$data["repositorio_name"], $data["repositorio_path"],
+             $data["repositorio_port"],$data["repositorio_creation"],$data["repositorio_creation"],
+             $data["repositorio_modification"],$data["repositoro_id"]);
+            array_push($this->repositorios, $r);
+
+
+        });
+
+        if($res)
+        {
+            return $this->repositorios;
+        }
+        return $res;
     }
 
     public function selectRepositorioById($id)
     {
-        // TODO: Implement selectRepositorioById() method.
+
+        $sql = "SELECT * FROM {$this->tableName} WHERE repositorio_id=:repositorio_id";
+
+
+        $res= $this->dataSource->runQuery($sql,array(":repositorio_id"=>$id),function($data){
+
+            $r =new Repositorio($data["repositorio_host"],$data["repositorio_user"],
+                $data["repositorio_pass"],$data["repositorio_name"], $data["repositorio_path"],
+                $data["repositorio_port"],$data["repositorio_creation"],$data["repositorio_creation"],
+                $data["repositorio_modification"],$data["repositoro_id"]);
+            array_push($this->repositorios, $r);
+
+
+        });
+
+        if($res)
+        {
+            return $this->repositorios;
+        }
+        return $res;
+
     }
 
     public function updateRepositorio(Repositorio $r)
