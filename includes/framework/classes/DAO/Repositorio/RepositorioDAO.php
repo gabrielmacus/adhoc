@@ -78,11 +78,7 @@ class RepositorioDAO implements IRepositorio
 
         });
 
-        if($res)
-        {
-            return $this->repositorios;
-        }
-        return $res;
+    return $this->repositorios;
     }
 
     public function selectRepositorioById($id)
@@ -91,22 +87,19 @@ class RepositorioDAO implements IRepositorio
         $sql = "SELECT * FROM {$this->tableName} WHERE repositorio_id=:repositorio_id";
 
 
-        $res= $this->dataSource->runQuery($sql,array(":repositorio_id"=>$id),function($data){
+       $this->dataSource->runQuery($sql,array(":repositorio_id"=>$id),function($data){
 
             $r =new Repositorio($data["repositorio_host"],$data["repositorio_user"],
                 $data["repositorio_pass"],$data["repositorio_name"], $data["repositorio_path"],
-                $data["repositorio_port"],$data["repositorio_creation"],$data["repositorio_creation"],
-                $data["repositorio_modification"],$data["repositoro_id"]);
+                $data["repositorio_port"],$data["repositorio_creation"],
+                $data["repositorio_modification"],$data["repositorio_id"]);
             array_push($this->repositorios, $r);
 
 
         });
 
-        if($res)
-        {
-            return $this->repositorios;
-        }
-        return $res;
+
+        return $this->repositorios[0];
 
     }
 

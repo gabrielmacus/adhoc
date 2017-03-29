@@ -13,16 +13,10 @@ class DataSource
 
     public function __construct($user, $pass, $host,$db)
     {
-        try
-        {
 
             $this->conn = new PDO("mysql:host={$host};dbname={$db}",$user,$pass);
 
-        }
-        catch (Exception $e)
-        {
-            $err[]=$e->getCode();
-        }
+
 
 
     }
@@ -31,12 +25,10 @@ class DataSource
     {
         if(count($this->err)>0 || gettype($this->conn)!="object")
         {
-            return false;
+            throw new Exception("DataSource:0");
         }
 
 
-        $res["error"]=false;
-        $res["success"]=false;
         if($sql && $sql!="")
         {
             $q = $this->conn->prepare($sql);
@@ -64,14 +56,12 @@ class DataSource
 
 
             if($ecode!=="00000")
-            {$res["error"]=true;
-                $res["info"]=$ecode;
-
+            {
+                throw new Exception("DataSource:{$ecode}");
             }
             else
             {
-                $res["success"]=true;
-                $res["info"]=$data;
+               return $data;
 
 
             }
@@ -80,10 +70,10 @@ class DataSource
         }
         else
         {
-            $res["error"]=true;
+            throw new Exception("DataSource:1");
         }
 
-        return $res;
+
 
     }
 
@@ -91,11 +81,10 @@ class DataSource
     {
         if(count($this->err)>0 || gettype($this->conn)!="object")
         {
-            return false;
+            throw new Exception("DataSource:0");
         }
 
-        $res["error"]=false;
-        $res["success"]=false;
+
         if($sql && $sql!="")
         {
             $q = $this->conn->prepare($sql);
@@ -107,26 +96,23 @@ class DataSource
 
             if($ecode!=="00000" )
             {
-                $res["error"]=true;
-                $res["info"]=$ecode;
+                throw new Exception("DataSource:{$ecode}");
 
             }
             else
             {
 
-                $res["success"]=true;
-                $res["info"]=$data;
+              return $data;
             }
 
         }
         else
         {
-            $res["error"]=true;
+            throw new Exception("DataSource:1");
         }
 
 
 
-        return $res;
     }
 
 

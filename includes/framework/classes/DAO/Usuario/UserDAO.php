@@ -71,8 +71,7 @@ class UserDAO implements IUser
     {
         $sql = "SELECT * FROM {$this->tableName}";
 
-
-        $res= $this->dataSource->runQuery($sql,array(),function($data){
+        $this->dataSource->runQuery($sql,array(),function($data){
 
            $u = new User($data["usuario_name"],$data["usuario_surname"],$data["usuario_age"],$data["usuario_email"],
                $data["usuario_password"],$data["usuario_nickname"]
@@ -82,11 +81,7 @@ class UserDAO implements IUser
 
         });
 
-        if($res)
-        {
-            return $this->users;
-        }
-        return $res;
+        return $this->users[0];
     }
 
     public function selectUsuarioById($id)

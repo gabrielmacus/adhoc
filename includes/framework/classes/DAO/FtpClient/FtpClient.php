@@ -386,6 +386,13 @@ class FtpClient implements Countable
         return $result;
     }
 
+
+    function rmmdir($directory)
+    {
+
+        //$this->ftp->
+    }
+
     /**
      * Remove a directory.
      * 

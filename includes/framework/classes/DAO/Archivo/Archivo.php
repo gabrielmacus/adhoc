@@ -13,7 +13,6 @@ class Archivo
     protected $name;
     protected $extension;
     protected $mime;
-    protected $versions=array();
     protected $creation;
     protected $tmpPath;
     protected $modification;
@@ -21,7 +20,9 @@ class Archivo
     protected $config;
     protected $repositorio;
     protected  $path;
-
+    protected $realName;
+    protected $version;
+    protected $versionName;
     /**
      * Archivo constructor.
      * @param $size
@@ -34,7 +35,7 @@ class Archivo
      * @param $id
      */
     
-    public function __construct($size, $name, $mime, $tmpPath,Repositorio $repositorio,$path=false,$creation=false, $modification=false,$id=false)
+    public function __construct($size, $name, $mime,$version=null,$realName=null, $tmpPath=null,Repositorio $repositorio,$path=null,$creation=null, $modification=null,$id=null,$versionName=null)
     {
 
         $this->size = $size;
@@ -48,7 +49,63 @@ class Archivo
         $this->id = $id;
         $this->repositorio=$repositorio;
         $this->path=$path;
+        $this->version=$version;
+        $this->realName=$realName;
+        $this->versionName=$versionName;
+
     }
+
+    /**
+     * @return null
+     */
+    public function getVersionName()
+    {
+        return $this->versionName;
+    }
+
+    /**
+     * @param null $versionName
+     */
+    public function setVersionName($versionName)
+    {
+        $this->versionName = $versionName;
+    }
+
+
+
+
+    /**
+     * @return bool
+     */
+    public function getRealName()
+    {
+        return $this->realName;
+    }
+
+    /**
+     * @param bool $realName
+     */
+    public function setRealName($realName)
+    {
+        $this->realName = $realName;
+    }
+
+    /**
+     * @return int
+     */
+    public function getVersion()
+    {
+        return $this->version;
+    }
+
+    /**
+     * @param int $version
+     */
+    public function setVersion($version)
+    {
+        $this->version = $version;
+    }
+
 
     /**
      * @return mixed
@@ -235,21 +292,6 @@ class Archivo
         $this->mime = $mime;
     }
 
-    /**
-     * @return string
-     */
-    public function getVersions()
-    {
-        return json_encode($this->versions);
-    }
-
-    /**
-     * @param array $versions
-     */
-    public function setVersions($versions)
-    {
-        $this->versions = $versions;
-    }
 
    
     
