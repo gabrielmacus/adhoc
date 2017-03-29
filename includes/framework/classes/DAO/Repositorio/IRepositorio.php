@@ -25,4 +25,9 @@ interface IRepositorio
     public function deleteRepositorioById($id);
     /** **/
 
+
+    /**Validate **/
+    public function validate(Repositorio $r);
+    /*** */
+
 }

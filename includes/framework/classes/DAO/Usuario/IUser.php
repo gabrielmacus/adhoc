@@ -25,4 +25,7 @@ interface IUser
     public function deleteUsuarioById($id);
     /** **/
 
+    /**Validate **/
+    public function validate(User $u);
+    /*** */
 }

@@ -77,6 +77,7 @@ include_once("includes/framework/classes/DAO/Persona/PersonaDAO.php");
 include_once("includes/framework/classes/DAO/Usuario/UserDAO.php");
 include_once("includes/framework/classes/DAO/Archivo/ArchivoDAO.php");
 include_once("includes/framework/classes/DAO/Repositorio/RepositorioDAO.php");
+include_once("includes/framework/classes/DAO/Imagen/ImagenDAO.php");
 
 include_once("includes/framework/classes/DAO/FtpClient/FtpClient.php");
 include_once("includes/framework/classes/DAO/FtpClient/FtpException.php");

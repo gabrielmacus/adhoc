@@ -16,6 +16,8 @@ class RepositorioDAO implements IRepositorio
     protected $tableName;
     protected $repositorios=array();
 
+    private $insertSql;
+    private $updateSql;
     /**
      * RepositorioDAO constructor.
      * @param $dataSource
@@ -25,6 +27,16 @@ class RepositorioDAO implements IRepositorio
     {
         $this->dataSource = $dataSource;
         $this->tableName = $tableName;
+        $this->insertSql="INSERT INTO  {$this->tableName} 
+ (repositorio_id,repositorio_name,repositorio_path,repositorio_host,repositorio_user,repositorio_pass,repositorio_port,repositorio_creation,repositorio_modification)
+ VALUES (:repositorio_id,:repositorio_name,:repositorio_path,:repositorio_host,:repositorio_user,:repositorio_pass,:repositorio_port,:repositorio_creation,:repositorio_modification)";
+
+        $this->updateSql="UPDATE {$this->tableName}  SET repositorio_id=:repositorio_id,repositorio_name=:repositorio_name,
+repositorio_path=:repositorio_path,repositorio_host=:repositorio_host,
+repositorio_user=:repositorio_user,repositorio_pass=:repositorio_pass,
+repositorio_port=:repositorio_port,repositorio_creation=:repositorio_creation,
+repositorio_modification=:repositorio_modification WHERE  repositorio_id=:repositorio_id";
+
     }
 
 
@@ -32,10 +44,10 @@ class RepositorioDAO implements IRepositorio
 
     public function insertRepositorio(Repositorio $r)
     {
-        $sql = "INSERT INTO  {$this->tableName} 
- (repositorio_id,repositorio_name,repositorio_path,repositorio_host,repositorio_user,repositorio_pass,repositorio_port,repositorio_creation,repositorio_modification)
- VALUES (:repositorio_id,:repositorio_name,:repositorio_path,:repositorio_host,:repositorio_user,:repositorio_pass,:repositorio_port,:repositorio_creation,:repositorio_modification)";
 
+        $this->validate($r);
+        
+        $sql = $this->insertSql;
         if(!$r->getCreation())
         {
             $r->setCreation(time());
@@ -46,21 +58,35 @@ class RepositorioDAO implements IRepositorio
         }
 
         $res= $this->dataSource->runUpdate($sql,
-            array(
-                ":repositorio_id"=>$r->getId(),
-                ":repositorio_name"=>$r->getName(),
-                ":repositorio_path"=>$r->getPath(),
-                ":repositorio_host"=>$r->getHost(),
-                ":repositorio_user"=>$r->getUser(),
-                ":repositorio_pass"=>$r->getPass(),
-                ":repositorio_port"=>$r->getPort(),
-                ":repositorio_creation"=>$r->getCreation(),
-                ":repositorio_modification"=>$r->getModification()
-            )
+          $this->getParamsArray($r)
         );
         return $res;
     }
 
+    protected function getParamsArray(Repositorio $r)
+    {
+        return   array(
+            ":repositorio_id"=>$r->getId(),
+            ":repositorio_name"=>$r->getName(),
+            ":repositorio_path"=>$r->getPath(),
+            ":repositorio_host"=>$r->getHost(),
+            ":repositorio_user"=>$r->getUser(),
+            ":repositorio_pass"=>$r->getPass(),
+            ":repositorio_port"=>$r->getPort(),
+            ":repositorio_creation"=>$r->getCreation(),
+            ":repositorio_modification"=>$r->getModification()
+        );
+    }
+    private function query($data)
+    {
+        $r =new Repositorio($data["repositorio_host"],$data["repositorio_user"],
+        $data["repositorio_pass"],$data["repositorio_name"], $data["repositorio_path"],
+        $data["repositorio_port"],$data["repositorio_creation"],$data["repositorio_creation"],
+        $data["repositorio_modification"],$data["repositoro_id"]);
+        array_push($this->repositorios, $r);
+
+
+    }
     public function selectRepositorios()
     {
 
@@ -68,13 +94,7 @@ class RepositorioDAO implements IRepositorio
 
 
         $res= $this->dataSource->runQuery($sql,array(),function($data){
-
-         $r =new Repositorio($data["repositorio_host"],$data["repositorio_user"],
-             $data["repositorio_pass"],$data["repositorio_name"], $data["repositorio_path"],
-             $data["repositorio_port"],$data["repositorio_creation"],$data["repositorio_creation"],
-             $data["repositorio_modification"],$data["repositoro_id"]);
-            array_push($this->repositorios, $r);
-
+            $this->query($data);
 
         });
 
@@ -88,13 +108,7 @@ class RepositorioDAO implements IRepositorio
 
 
        $this->dataSource->runQuery($sql,array(":repositorio_id"=>$id),function($data){
-
-            $r =new Repositorio($data["repositorio_host"],$data["repositorio_user"],
-                $data["repositorio_pass"],$data["repositorio_name"], $data["repositorio_path"],
-                $data["repositorio_port"],$data["repositorio_creation"],
-                $data["repositorio_modification"],$data["repositorio_id"]);
-            array_push($this->repositorios, $r);
-
+           $this->query($data);
 
         });
 
@@ -105,12 +119,31 @@ class RepositorioDAO implements IRepositorio
 
     public function updateRepositorio(Repositorio $r)
     {
-        // TODO: Implement updateRepositorio() method.
+        $this->validate($r);
+
+        $sql=$this->updateSql;
+
+
+        $res= $this->dataSource->runUpdate($sql,
+            $this->getParamsArray($r));
+        return $res;
+
     }
 
     public function deleteRepositorioById($id)
     {
-        // TODO: Implement deleteRepositorioById() method.
+        $sql = "DELETE FROM {$this->tableName} WHERE repositorio_id= :repositorio_id";
+
+        $res= $this->dataSource->runUpdate($sql,
+            array(
+                ":repositorio_id"=>$id
+            ));
+        return $res;
+        }
+
+    public function validate(Repositorio $r)
+    {
+        // TODO: Implement validate() method.
     }
 
 

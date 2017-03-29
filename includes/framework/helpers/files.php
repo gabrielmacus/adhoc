@@ -6,6 +6,11 @@
  * Time: 04:49 PM
  */
 
+function isImage($path)
+{
+    return getimagesize($path)?true:false;//Chequeo si es una imagen
+}
+
 function readTemplate($name)
 {
     return file_get_contents("includes/templates/".$name);

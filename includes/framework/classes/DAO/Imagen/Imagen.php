@@ -10,11 +10,11 @@ class Imagen extends Archivo
 {
     protected $ancho;
     protected $alto;
-    public function __construct($ancho,$alto,$size, $name, $mime, $version = null, $realName = null, $tmpPath = null, Repositorio $repositorio, $path = null, $creation = null, $modification = null, $id = null, $versionName = null)
+    public function __construct($size, $name, $mime, $version = null, $realName = null, $tmpPath = null, Repositorio $repositorio, $path = null, $creation = null, $modification = null, $id = null, $versionName = null,$ancho=null,$alto=null)
     {
         $this->ancho=$ancho;
         $this->alto=$alto;
-        parent::__construct($size, $name, $mime, $version, $realName, $tmpPath, $repositorio, $path, $creation, $modification, $id, $versionName);
+        parent::__construct($size, $name, $mime, $version, $realName, $tmpPath, $repositorio, $path, $creation, $modification, $id, $versionName,1);
     }
 
     /**

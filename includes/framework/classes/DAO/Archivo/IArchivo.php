@@ -9,7 +9,7 @@
 interface IArchivo
 {
     /** Create **/
-    public function insertArchivo(Archivo $a);
+    public function insertArchivo(IArchivo $a);
     /** **/
 
     /** Read **/
@@ -18,11 +18,15 @@ interface IArchivo
     /** **/
 
     /** Update**/
-    public function updateArchivos(Archivo $a);
+    public function updateArchivo(IArchivo $a);
     /** */
 
     /** Delete **/
     public function deleteArchivoById($id);
     /** **/
+    
+    /**Validate **/
+    public function validate(IArchivo $a);
+   /*** */
 
 }

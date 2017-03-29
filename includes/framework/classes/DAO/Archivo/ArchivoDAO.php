@@ -19,6 +19,9 @@ require_once ($_SERVER["DOCUMENT_ROOT"]."/adhoc/includes/framework/classes/DAO/F
 class ArchivoDAO implements IArchivo
 {
 
+    private $updateSql;
+    private $insertSql;
+    private $deleteSql;
     protected $dataSource;
     protected $tableName;
     protected $files=array();
@@ -33,11 +36,32 @@ class ArchivoDAO implements IArchivo
         $this->dataSource = $dataSource;
         $this->tableName = $tableName;
 
+        $this->updateSql="UPDATE {$this->tableName} SET
+archivo_id=:archivo_id, archivo_size=:archivo_size,archivo_mime=:archivo_mime, archivo_name=:archivo_name, 
+ archivo_extension=:archivo_extension, archivo_creation=:archivo_creation, 
+ archivo_modification=:archivo_modification,archivo_repositorio=:archivo_repositorio,archivo_path=:archivo_path
+ ,archivo_version=:archivo_version,archivo_real_name=:archivo_real_name,archivo_version_name=:archivo_version_name,
+ ,archivo_alto=:archivo_alto,archivo_ancho=:archivo_ancho,archivo_type=:archivo_type
+   WHERE archivo_id=:archivo_id OR archivo_version=:archivo_id ";
+
+        $this->insertSql="INSERT INTO  {$this->tableName} 
+ (archivo_id, archivo_size, archivo_mime,archivo_name, archivo_extension,
+   archivo_creation, archivo_modification,archivo_repositorio,archivo_path,archivo_version,
+   archivo_real_name,archivo_version_name,archivo_alto,archivo_ancho,archivo_type)
+ VALUES (:archivo_id, :archivo_size,:archivo_mime, :archivo_name, 
+ :archivo_extension, :archivo_creation, 
+ :archivo_modification,:archivo_repositorio,:archivo_path,:archivo_version,:archivo_real_name,:archivo_version_name,:archivo_ancho,:archivo_alto,:archivo_type)";
+
+        $this->deleteSql="DELETE FROM {$this->tableName} WHERE archivo_id= :archivo_id OR archivo_version= :archivo_id";
+
     }
 
 
-    public function insertArchivo(Archivo $a,$versionName="original",$versionId=0)
+    public function insertArchivo(IArchivo $a,$versionName="original",$versionId=0)
     {
+
+
+        $this->validate($a);
 
         $r =     $a->getRepositorio();
         $ftp  =$r->getFtp();
@@ -46,7 +70,11 @@ class ArchivoDAO implements IArchivo
 
         $dir=$r->getDatePath()."{$fileName}"; //Directorio donde estan todas las versiones
 
-        $ftp->mkdir($dir,true);
+        if(!$ftp->isDir($dir))//Chequeo si no existe el directorio, en tal caso lo creo
+        {
+            $ftp->mkdir($dir,true);   
+        }
+
 
         $fileNameVersion = time()."_{$versionName}.{$a->getExtension()}";//Nombre del archivo con su version
         $fullDir = $dir."/{$fileNameVersion}"; //Directorio completo, nombre del archivo includio
@@ -64,12 +92,7 @@ class ArchivoDAO implements IArchivo
         $a->setVersionName($versionName);
 
 
-        $sql = "INSERT INTO  {$this->tableName} 
- (archivo_id, archivo_size, archivo_mime,archivo_name, archivo_extension,
-   archivo_creation, archivo_modification,archivo_repositorio,archivo_path,archivo_version,archivo_real_name,archivo_version_name)
- VALUES (:archivo_id, :archivo_size,:archivo_mime, :archivo_name, 
- :archivo_extension, :archivo_creation, 
- :archivo_modification,:archivo_repositorio,:archivo_path,:archivo_version,:archivo_real_name,:archivo_version_name)";
+        $sql = $this->insertSql;
 
         if(!$a->getCreation())
         {
@@ -79,23 +102,11 @@ class ArchivoDAO implements IArchivo
         {
             $a->setModification(time());
         }
-
+        
+        $a->setPath($dir);
 
         $res= $this->dataSource->runUpdate($sql,
-            array(
-                ":archivo_id"=>$a->getId(),
-                ":archivo_size"=>$a->getSize(),
-                ":archivo_name"=>$a->getName(),
-                ":archivo_extension"=>$a->getExtension(),
-                ":archivo_mime"=>$a->getMime(),
-                ":archivo_creation"=>$a->getCreation(),
-                ":archivo_modification"=>$a->getModification(),
-                ":archivo_repositorio"=>$a->getRepositorio()->getId(),
-                ":archivo_path"=>$dir,
-                ":archivo_version"=>$a->getVersion(),
-                ":archivo_real_name"=>$a->getRealName(),
-                ":archivo_version_name"=>$a->getVersionName()
-            ));
+            $this->getParamsArray($a));
         return $res;
     }
 
@@ -103,8 +114,6 @@ class ArchivoDAO implements IArchivo
     {
 
         $sql = "SELECT * FROM {$this->tableName} LEFT JOIN repositorios ON repositorio_id=archivo_repositorio";
-
-
 
 
         $this->dataSource->runQuery($sql,array(),function($data){
@@ -118,7 +127,7 @@ class ArchivoDAO implements IArchivo
             $a = new Archivo($data["archivo_size"],$data["archivo_name"],$data["archivo_mime"],
                 $data["archivo_version"],$data["archivo_real_name"],null,$r,
                 $data["archivo_path"],$data["archivo_creation"],
-                $data["archivo_modification"],$data["archivo_id"],$data["archivo_version_name"]);
+                $data["archivo_modification"],$data["archivo_id"],$data["archivo_version_name"],$data["archivo_type"]);
             array_push($this->files, $a);
 
 
@@ -147,7 +156,7 @@ class ArchivoDAO implements IArchivo
      * @param $data
      * Funcion para indicarle como leer el objeto de la db
      */
-    function query($data){
+    private function query($data){
 
 
         $repositorioDAO = new RepositorioDAO($this->dataSource);
@@ -161,6 +170,38 @@ class ArchivoDAO implements IArchivo
         array_push($this->files, $a);
 
     }
+
+
+    protected function getParamsArray(Archivo $a)
+    {
+
+        $ancho =null;
+        $alto=null;
+
+        if(method_exists($a,"getAncho"))//si el objeto Archivo es una Imagen
+        {
+            $ancho = $a->getAncho();
+            $alto =$a->getAlto();
+        }
+        return array(
+            ":archivo_id"=>$a->getId(),
+            ":archivo_size"=>$a->getSize(),
+            ":archivo_name"=>$a->getName(),
+            ":archivo_extension"=>$a->getExtension(),
+            ":archivo_mime"=>$a->getMime(),
+            ":archivo_creation"=>$a->getCreation(),
+            ":archivo_modification"=>$a->getModification(),
+            ":archivo_repositorio"=>$a->getRepositorio()->getId(),
+            ":archivo_path"=>$a->getPath(),
+            ":archivo_version"=>$a->getVersion(),
+            ":archivo_real_name"=>$a->getRealName(),
+            ":archivo_version_name"=>$a->getVersionName(),
+            ":archivo_ancho"=>$ancho,
+            ":archivo_alto"=>$alto,
+            ":archivo_type"=>$a->getType()
+        );
+    }
+
 
     /**
      * @param $id
@@ -180,36 +221,20 @@ class ArchivoDAO implements IArchivo
 
     }
 
-    public function updateArchivos(Archivo $a)
+    public function updateArchivo(IArchivo $a)
     {
 
+        $this->validate($a);
 
-        $sql="UPDATE {$this->tableName} SET
-archivo_id=:archivo_id, archivo_size=:archivo_size,archivo_mime=:archivo_mime, archivo_name=:archivo_name, 
- archivo_extension=:archivo_extension, archivo_creation=:archivo_creation, 
- archivo_modification=:archivo_modification,archivo_repositorio=:archivo_repositorio,archivo_path=:archivo_path
- ,archivo_version=:archivo_version,archivo_real_name=:archivo_real_name,archivo_version_name=:archivo_version_name
-        ";
+        $sql=$this->updateSql;
 
 
         $res= $this->dataSource->runUpdate($sql,
-            array(
-                ":archivo_id"=>$a->getId(),
-                ":archivo_size"=>$a->getSize(),
-                ":archivo_name"=>$a->getName(),
-                ":archivo_extension"=>$a->getExtension(),
-                ":archivo_mime"=>$a->getMime(),
-                ":archivo_creation"=>$a->getCreation(),
-                ":archivo_modification"=>$a->getModification(),
-                ":archivo_repositorio"=>$a->getRepositorio()->getId(),
-                ":archivo_path"=>$a->getPath(),
-                ":archivo_version"=>$a->getVersion(),
-                ":archivo_real_name"=>$a->getRealName(),
-                ":archivo_version_name"=>$a->getVersionName()
-            ));
+            $this->getParamsArray($a));
         return $res;
 
     }
+
 
     public function deleteArchivoById($id)
     {
@@ -232,13 +257,18 @@ archivo_id=:archivo_id, archivo_size=:archivo_size,archivo_mime=:archivo_mime, a
 
         $ftp->close();
 
-        $sql = "DELETE FROM {$this->tableName} WHERE archivo_id= :archivo_id OR archivo_version= :archivo_id";
+        $sql = $this->deleteSql;
 
         $res= $this->dataSource->runUpdate($sql,
             array(
                 ":archivo_id"=>$id
             ));
         return $res;
+    }
+
+    public function validate(IArchivo $a)
+    {
+        // TODO: Implement validate() method.
     }
 
 

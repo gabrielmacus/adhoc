@@ -23,6 +23,7 @@ class Archivo
     protected $realName;
     protected $version;
     protected $versionName;
+    protected $type;
     /**
      * Archivo constructor.
      * @param $size
@@ -35,7 +36,7 @@ class Archivo
      * @param $id
      */
     
-    public function __construct($size, $name, $mime,$version=null,$realName=null, $tmpPath=null,Repositorio $repositorio,$path=null,$creation=null, $modification=null,$id=null,$versionName=null)
+    public function __construct($size, $name, $mime,$version=null,$realName=null, $tmpPath=null,Repositorio $repositorio,$path=null,$creation=null, $modification=null,$id=null,$versionName=null,$type=0)
     {
 
         $this->size = $size;
@@ -52,9 +53,26 @@ class Archivo
         $this->version=$version;
         $this->realName=$realName;
         $this->versionName=$versionName;
-
+        $this->type=$type;
     }
 
+    /**
+     * @return int
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param int $type
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+    }
+
+    
     /**
      * @return null
      */
